@@ -34,9 +34,6 @@
     <link rel="modulepreload" href="{{asset('backend/build/assets/custom-switcher-CDFJCGB8.js')}}" />
     <link rel="modulepreload" href="{{ asset('backend/build/assets/Toasts-DHQE7Pe5.js') }}">
 
-    <style>
-
-    </style>
     @stack('styles')
 
 </head>
