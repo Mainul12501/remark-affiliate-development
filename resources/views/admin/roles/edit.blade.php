@@ -61,7 +61,7 @@
                                             @foreach($actions as $act)
                                                 @php $id = $act['id'] ?? null; @endphp
                                                 <div class="form-check  d-flex align-items-center mb-2">
-                                                    <input type="checkbox" class="form-check-input border-primary"
+                                                    <input type="checkbox" class="form-check-input border-primary resource-checkbox"
                                                            name="resource[]"
                                                            id="chk{{ $id }}"
                                                            value="{{ $id }}"
