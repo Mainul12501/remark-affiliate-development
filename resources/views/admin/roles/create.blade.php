@@ -110,5 +110,4 @@
             document.querySelectorAll('.resource-checkbox').forEach(cb => cb.checked = checked);
         });
     </script>
-
 @endpush
