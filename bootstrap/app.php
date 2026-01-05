@@ -11,18 +11,19 @@ return Application::configure(basePath: dirname(__DIR__))
         api: __DIR__.'/../routes/api.php',
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
-		then: function (){
+        then: function (){
             Route::middleware('web')
-                ->group(base_path('routes/admin.php'));
+                ->group(base_path("routes/admin.php"));
         }
     )
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->alias([
             'auth.acl'          => \Uzzal\Acl\Middleware\AuthenticateWithAcl::class,
             'resource.maker'    => \Uzzal\Acl\Middleware\ResourceMaker::class,
+            'password.expiry'   => \App\Http\Middleware\PasswordExpiryCheck::class,
         ]);
     })
-	->withCommands([
+    ->withCommands([
         \Uzzal\Acl\Commands\AclResource::class,
     ])
     ->withExceptions(function (Exceptions $exceptions): void {

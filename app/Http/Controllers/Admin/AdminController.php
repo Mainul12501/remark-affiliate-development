@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public function dashboard(){
-
+        return view('admin.dashboard.home');
         if(Auth::check() && Auth::user()->account_type !='frontend'){
             return view('admin.dashboard.home');
         }else{
