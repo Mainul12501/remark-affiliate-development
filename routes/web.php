@@ -38,10 +38,16 @@ Route::middleware([
 
     Route::prefix('influencer')->name('influencer.')->group(function () {
         Route::get('/influencer-profile-verify', [InfluencerViewController::class,'profileVerify'])->name('profile-verify');
-        Route::get('/influencer-profile', [InfluencerViewController::class,'profile'])->name('profile');
-
         Route::post('/profile-image-update', [InfluencerProfileController::class,'profileImageUpdate'])->name('profile.upload-image');
         Route::post('/request-profile-review', [InfluencerProfileController::class,'requestProfileReview'])->name('request-profile-review');
+//        Route::middleware('userApproveStatusCheck')->group(function () {
+            Route::get('/dashboard', [InfluencerViewController::class,'dashboard'])->name('dashboard');
+            Route::get('/albums', [InfluencerViewController::class,'albums'])->name('albums');
+            Route::get('/bank-info', [InfluencerViewController::class,'bankInfo'])->name('bank-info');
+            Route::get('/sale-history', [InfluencerViewController::class,'saleHistory'])->name('sale-history');
+            Route::get('/profile', [InfluencerViewController::class,'profile'])->name('profile');
+            Route::get('/influencer-profile', [InfluencerViewController::class,'profileView'])->name('profile-view');
+//        });
     });
     Route::prefix('partner')->name('partner.')->group(function () {
         Route::get('partner-dashboard', [PartnerViewController::class,'dashboard'])->name('dashboard');

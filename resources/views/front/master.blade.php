@@ -31,7 +31,7 @@
     </div>
     <div class="mt-2 text-muted">© {{ date('Y') }} Herlan Affluencer</div>
 </footer>
-
+@yield('modal')
 @include('front.includes.assets.script')
 
 

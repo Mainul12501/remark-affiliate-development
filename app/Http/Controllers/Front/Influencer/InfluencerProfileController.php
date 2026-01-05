@@ -50,7 +50,9 @@ class InfluencerProfileController extends Controller
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'email' => 'email',
-            'mobile' => 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/',
+            'mobile' => [
+                $request->has('mobile') ? 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/' : '',
+            ],
         ], [
             'name.required' => 'Influencer Name is required.',
             'email.email' => 'Provide a valid email address.',
@@ -64,7 +66,7 @@ class InfluencerProfileController extends Controller
         try {
             DB::transaction(function () use ($request, $loggedUser) {
                 User::createOrUpdateUser($request, $loggedUser);
-                UserInfo::createOrUpdateUserInfo($request, $loggedUser, $loggedUser->userInfo());
+                UserInfo::createOrUpdateUserInfo($request, $loggedUser, $loggedUser->userInfo);
             });
             return CustomHelper::returnSuccessMessage('Profile updated successfully and placed for admin review. ');
         } catch (\Exception $exception)
