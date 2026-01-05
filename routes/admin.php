@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\Product\BrandController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/password-change',[UsersController::class,'pwChange']);
         Route::post('/update-password',[UsersController::class,'pwUpdate']);
 
+        Route::resources([
+            'brands'    => BrandController::class,
+        ]);
     });
 });
 
