@@ -2,7 +2,6 @@
 @section('title','Profile')
 @push('styles')
     <link rel="stylesheet" href="{{asset('backend/dropify/dist/css/dropify.min.css')}}"/>
-
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -34,7 +33,7 @@
                     <div class="card-body">
                         <form action="{{url('admin/update-profile')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                           <table class="table table-bordered">
+                           <table class="table table-bordered text-nowrap">
                                <thead>
                                <tr>
                                    <td colspan="2" class="text-center">
@@ -58,10 +57,10 @@
                                    </td>
                                </tr>
                                <tr>
-                                   <th> Mobile No. <span class="text-danger"> *</span></th>
+                                   <th> Mobile No.</th>
                                    <td>
-                                       <input type="text" name="mobile_no" class="form-control @error('mobile_no')is-invalid @enderror" value="{{old('mobile_no',$user->mobile_no??'')}}" placeholder="Enter mobile number" required/>
-                                       @error('mobile_no')
+                                       <input type="text" name="mobile" class="form-control @error('mobile')is-invalid @enderror" value="{{old('mobile',$user->mobile??'')}}" placeholder="Enter mobile number"/>
+                                       @error('mobile')
                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                          </span>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserRole;
+use App\Services\Backend\AdminUserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -176,11 +177,11 @@ class UsersController extends Controller
 
         if(!empty($user)){
             $this->validate($request,[
-                'mobile_no'     => 'required|regex:/^(01)[0-9]{9}$/|max:11|unique:users,mobile_no,' . $user->id,
+                'mobile'     => 'nullable|regex:/^(01)[0-9]{9}$/|max:11|unique:users,mobile,' . $user->id,
                 'profile_image' => 'nullable|image|mimes:jpeg,jpg,webp|max:1024',
             ]);
 
-            $update_data = User::profileInfoUpdate($request,$user);
+            $update_data = AdminUserService::profileInfoUpdate($request,$user);
 
             if($update_data){
                 return redirect()->back()->with(['message'=>'Profile info updated !!','alert-type'=>'primary']);
