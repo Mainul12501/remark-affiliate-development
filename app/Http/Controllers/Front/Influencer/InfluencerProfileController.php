@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Influencer;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class InfluencerProfileController extends Controller
@@ -37,6 +38,18 @@ class InfluencerProfileController extends Controller
                 'status' => 'error',
                 'message' => 'Failed to upload image: ' . $e->getMessage()
             ], 500);
+        }
+    }
+
+    public function requestProfileReview(Request $request)
+    {
+        $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+            'email' => 'email',
+            'mobile' => 'email',
+        ]);
+        if ($validator->fails()) {
+            return CustomHelper::returErrorMessage($validator->getMessageBag());
         }
     }
 }

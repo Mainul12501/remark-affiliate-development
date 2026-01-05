@@ -118,7 +118,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+{{--            </form>--}}
 
             <!-- Social Media Links Section -->
             <h2 class="social-media-title m-b-20">Social Media Links</h2>
@@ -132,9 +132,10 @@
                             <label class="social-label">Facebook</label>
                             <div class="social-input-wrapper">
                                 <input type="text"
+                                       name="fb_profile_link"
                                        class="social-input"
                                        placeholder="facebook.com/johndoe"
-                                       value="{{ old('fb_profile_link', $loggedUser->userInfo->fb_profile_link ?? '') }}">
+                                       value="{{ old('fb_profile_link', $loggedUser->userInfo->fb_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_fb_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_fb_verified == 1)
                                     <span class="social-input-check" aria-hidden="true">
                                         <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -158,9 +159,10 @@
                             <label class="social-label">Youtube</label>
                             <div class="social-input-wrapper">
                                 <input type="text"
+                                       name="youtube_profile_link"
                                        class="social-input"
                                        placeholder="Youtube.com/@johndoe"
-                                       value="{{ old('youtube_profile_link', $loggedUser->userInfo->youtube_profile_link ?? '') }}">
+                                       value="{{ old('youtube_profile_link', $loggedUser->userInfo->youtube_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_youtube_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_youtube_verified)
                                     <span class="social-input-check" aria-hidden="true">
                                         <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -195,9 +197,10 @@
                             <div class="social-input-wrapper">
                                 <span class="social-input-prefix">@</span>
                                 <input type="text"
+                                       name="insta_profile_link"
                                        class="social-input social-input-with-prefix"
                                        placeholder="johndoe"
-                                       value="{{ old('insta_profile_link', $loggedUser->userInfo->insta_profile_link ?? '') }}">
+                                       value="{{ old('insta_profile_link', $loggedUser->userInfo->insta_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_insta_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_insta_verified == 1)
                                     <span class="social-input-check" aria-hidden="true">
                                         <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -221,9 +224,10 @@
                             <div class="social-input-wrapper">
                                 <span class="social-input-prefix">@</span>
                                 <input type="text"
+                                       name="tiktalk_profile_link"
                                        class="social-input social-input-with-prefix"
                                        placeholder="johndoe"
-                                       value="{{ old('tiktalk_profile_link', $loggedUser->userInfo->tiktalk_profile_link ?? '') }}">
+                                       value="{{ old('tiktalk_profile_link', $loggedUser->userInfo->tiktalk_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_tiktalk_varified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_tiktalk_varified == 1)
                                     <span class="social-input-check" aria-hidden="true">
                                         <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
@@ -245,6 +249,12 @@
                     </div>
                 </div>
             </div>
+
+
+            </form>
+
+
+
         </div>
     </section>
 
@@ -507,7 +517,7 @@
                 },
                 success: function(response) {
                     if (response.status === 'success') {
-                        toastr.success(response.message || 'Image uploaded successfully');
+                        toastr.success(response.messa|| 'Image uploaded successfully');
 
                         // Update the image preview with the server URL if provided
                         if (response.image_url) {

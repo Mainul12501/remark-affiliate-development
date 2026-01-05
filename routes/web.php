@@ -41,6 +41,7 @@ Route::middleware([
         Route::get('/influencer-profile', [InfluencerViewController::class,'profile'])->name('profile');
 
         Route::post('/profile-image-update', [InfluencerProfileController::class,'profileImageUpdate'])->name('profile.upload-image');
+        Route::post('/request-profile-review', [InfluencerProfileController::class,'requestProfileReview'])->name('request-profile-review');
     });
     Route::prefix('partner')->name('partner.')->group(function () {
         Route::get('partner-dashboard', [PartnerViewController::class,'dashboard'])->name('dashboard');
