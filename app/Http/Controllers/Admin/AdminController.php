@@ -13,8 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view('admin.dashboard.home');
-        if(Auth::check() && Auth::user()->account_type !='frontend'){
+        if(Auth::check() && Auth::user()->user_type =='admin'){
             return view('admin.dashboard.home');
         }else{
             Auth::logout();
@@ -39,9 +38,9 @@ class AdminController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
-            if(Auth::user()->account_type != 'frontend'){
+            if(Auth::user()->user_type == 'admin'){
                     return redirect('/admin/dashboard')->with(['message'=>'Welcome to dashboard .','alert-type'=>'primary']);
-            }elseif(Auth::user()->account_type === 'frontend'){
+            }elseif(Auth::user()->user_type !== 'admin'){
                 Auth::logout();
                 return  redirect('/')->with(['message'=>'This action is Unauthorized','alert-type'=>'error']);
             }else{
@@ -93,7 +92,7 @@ class AdminController extends Controller
                 return back()->withErrors($validator)->withInput();
             }
             $user = User::where('email', strtolower($request->email))
-                ->whereNotIn('account_type', ['frontend'])
+                ->whereIn('user_type', ['admin'])
                 ->update([
                     'password'           => Hash::make($request->password),
                     'password_changed_at'=> now(),   // ⬅️ এখানে সেট করলেন
