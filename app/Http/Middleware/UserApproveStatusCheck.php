@@ -17,7 +17,7 @@ class UserApproveStatusCheck
     public function handle(Request $request, Closure $next): Response
     {
         $user = CustomHelper::loggedUser();
-        if ($user->approve_status == 1)
+        if ($user->approve_status == 1 || $user->is_super_dev)
         {
             return $next($request);
         }else {

@@ -10,11 +10,12 @@ use App\Models\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Validator;
 use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class AuthController extends Controller
 {
-    public function login()
+    public function loginPage()
     {
         return view('front.auth.login');
     }
@@ -63,7 +64,6 @@ class AuthController extends Controller
     }
     public function registerPartner(PartnerRegistraionRequest $request)
     {
-
         if ($request->password != $request->confirm_password) {
             return back()
                 ->withInput() // keeps all old form data
@@ -107,5 +107,38 @@ class AuthController extends Controller
         return response()->json([
             'available' => !$exists
         ]);
+    }
+
+    public function login(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email_phone'   => 'required',
+            'password'   => 'required',
+        ]);
+        if ($validator->fails()) {
+            Toastr::error(implode(' ', $validator->errors()->all()), 'error');
+            return back()->withInput()->withErrors($validator);
+        }
+        $existuser = User::where('email', $request->email_phone)->orWhere('mobile', $request->email_phone)->first();
+        if ($existuser) {
+            auth()->login($existuser);
+            Toastr::success('Login Successful', 'Success');
+            if ($existuser->user_type == 'partner') {
+                if ($existuser->approve_status == 1)
+                    return redirect()->route('partner.dashboard');
+                else
+                    return redirect()->route('partner.profile-verify');
+            } elseif ($existuser->user_type == 'influencer') {
+                if ($existuser->approve_status == 1)
+                    return redirect()->route('influencer.dashboard');
+                else
+                    return redirect()->route('influencer.profile-verify');
+            }
+            auth()->logout();
+            Toastr::error('You are not authorized to access this page.', 'error');
+            return redirect()->route('home');
+        }
+        Toastr::error('Login Failed. User not found', 'Error');
+        return back()->withInput();
     }
 }

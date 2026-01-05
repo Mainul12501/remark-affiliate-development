@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
                 </ul>
                 <div class="d-flex gap-2">
-                    <a href="{{ route('auth.login') }}" class="btn btn-outline-black border text-dark" style="border: 1px solid black!important;">Login</a>
+                    <a href="{{ route('auth.login-page') }}" class="btn btn-outline-black border text-dark" style="border: 1px solid black!important;">Login</a>
                     <div class="dropdown">
                         <a href="#" class="btn btn-outline-black bg-dark text-white dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Sign Up
