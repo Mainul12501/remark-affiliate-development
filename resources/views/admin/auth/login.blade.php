@@ -43,12 +43,13 @@
                         <img src="{{asset('backend/build/assets/images/login_logo.png')}}" alt="Logo" class="img-fluid mb-2" style="max-height: 120px; width: auto;">
                     </div>
 
-                    <form method="POST" action="{{ url('/admin/process-to-login') }}">
+{{--                    <form method="POST" action="{{ url('/admin/process-to-login') }}">--}}
+                    <form method="POST" action="{{ url('/login') }}">
                         @csrf
                         <div class="mb-4">
                             <div class="input-group ">
                                 <span class="input-group-text"><i class="ri-mail-line fs-5"></i></span>
-                                <input type="email" name="email" class="form-control py-2 @error('email') is-invalid @enderror" placeholder="Enter Email">
+                                <input type="email" name="email" value="muhammad.ali@remarkhb.com" class="form-control py-2 @error('email') is-invalid @enderror" placeholder="Enter Email">
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{$message}}</strong>
@@ -60,7 +61,7 @@
                         <div class="mb-4">
                             <div class="input-group">
                                 <span class="input-group-text"> <i class="ri-lock-line fs-5"></i> </span>
-                                <input type="password" name="password" class="form-control py-2 @error('password') is-invalid @enderror" placeholder="Enter Password">
+                                <input type="password" name="password" value="123" class="form-control py-2 @error('password') is-invalid @enderror" placeholder="Enter Password">
                                 @error('password')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{$message}}</strong>

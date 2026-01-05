@@ -22,9 +22,8 @@
 @endpush
 
 @section('content')
-    <div class="container-fluid">
-
-        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb mb-5">
+    <div class="container-fluid pt-3">
+        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb mb-3">
             <div class="my-auto">
                 <h4 class="mb-sm-0 text-uppercase" style="font-family: 'Bell MT';font-size: 16px"><i class="mdi mdi-checkbox-marked-outline me-2"></i>Users</h4>
             </div>
@@ -38,7 +37,6 @@
 
             </div>
         </div>
-
         <div class="row mb-4">
             <div class="col-xl-7 mx-auto">
                 <div class="card">
@@ -60,10 +58,10 @@
 
                                 <div class="col-md-3">
                                     <div class="btn-group" role="group" aria-label="Filter actions">
-                                        <button type="submit" class="btn btn-outline-primary rounded-0" id="filterBtn" title="Filter">
+                                        <button type="submit" class="btn btn-outline-primary " id="filterBtn" title="Filter">
                                             <i class="ri-search-line"></i> Filter
                                         </button>
-                                        <button type="button" class="btn btn-outline-secondary rounded-0  ajax_reload" id="resetBtn" title="Refresh">
+                                        <button type="button" class="btn btn-outline-secondary  ajax_reload" id="resetBtn" title="Refresh">
                                             <i class="ri-refresh-line"></i>
                                         </button>
                                     </div>

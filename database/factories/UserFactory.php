@@ -2,22 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Team;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Laravel\Jetstream\Features;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
- */
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The name of the factory's corresponding model.
+     *
+     * @var string
      */
-    protected static ?string $password;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -27,46 +23,60 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'user_slug' => Str::slug($this->faker->name()),
+            'email' => $this->faker->unique->email(),
             'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'two_factor_secret' => null,
-            'two_factor_recovery_codes' => null,
+            'password' => \Hash::make('password'),
             'remember_token' => Str::random(10),
-            'profile_photo_path' => null,
-            'current_team_id' => null,
+            'mobile' => $this->faker->unique->phoneNumber(),
+            'user_type' => $this->faker->text(255),
+            'profile_image' => $this->faker->text(),
+            'provider' => $this->faker->text(255),
+            'provider_token' => $this->faker->text(),
+            'provider_id' => $this->faker->text(),
+            'username' => $this->faker->unique->text(255),
+            'approve_status' => $this->faker->numberBetween(0, 127),
+            'block_status' => $this->faker->text(255),
+            'reffered_agent_url' => $this->faker->text(255),
+            'reffer_code' => $this->faker->unique->text(255),
+            'ref_influencer_count' => $this->faker->randomNumber(0),
+            'has_infl_partner_access' => $this->faker->numberBetween(0, 127),
+            'is_super_dev' => $this->faker->numberBetween(0, 127),
+            'user_id' => function () {
+                return \App\Models\User::factory()->create([
+                    'user_id' => null,
+                    'created_by' => null,
+                    'approved_by' => null,
+                ])->id;
+            },
+            'created_by' => function () {
+                return \App\Models\User::factory()->create([
+                    'user_id' => null,
+                    'created_by' => null,
+                    'approved_by' => null,
+                ])->id;
+            },
+            'affiliate_badge_id' => \App\Models\AffiliateBadge::factory(),
+            'approved_by' => function () {
+                return \App\Models\User::factory()->create([
+                    'user_id' => null,
+                    'created_by' => null,
+                    'approved_by' => null,
+                ])->id;
+            },
         ];
     }
 
     /**
      * Indicate that the model's email address should be unverified.
      */
-    public function unverified(): static
+    public function unverified(): Factory
     {
-        return $this->state(fn (array $attributes) => [
-            'email_verified_at' => null,
-        ]);
-    }
-
-    /**
-     * Indicate that the user should have a personal team.
-     */
-    public function withPersonalTeam(?callable $callback = null): static
-    {
-        if (! Features::hasTeamFeatures()) {
-            return $this->state([]);
-        }
-
-        return $this->has(
-            Team::factory()
-                ->state(fn (array $attributes, User $user) => [
-                    'name' => $user->name.'\'s Team',
-                    'user_id' => $user->id,
-                    'personal_team' => true,
-                ])
-                ->when(is_callable($callback), $callback),
-            'ownedTeams'
-        );
+        return $this->state(function (array $attributes) {
+            return [
+                'email_verified_at' => null,
+            ];
+        });
     }
 }

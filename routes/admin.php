@@ -16,8 +16,15 @@ Route::prefix('admin')->group(function () {
         Route::get('/password-reset',[AdminController::class,'resetPassword'])->name('reset.password');
         Route::post('/password-reset',[AdminController::class,'updateResetPw']);
     });
-    Route::middleware(['web','auth:web','resource.maker','auth.acl'])->group(function (){
-        Route::get('/dashboard',[AdminController::class,'dashboard']);
+    Route::middleware([
+        'auth:sanctum',
+        config('jetstream.auth_session'),
+        'verified',
+//        'password.expiry',
+        'resource.maker',
+        'auth.acl'
+    ])->group(function (){
+        Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
         Route::post('/logout',[AdminController::class,'logout']);
         Route::resource('/roles',RoleController::class);
         Route::resource('/users',UsersController::class);
