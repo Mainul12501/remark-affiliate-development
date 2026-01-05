@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Front\Influencer;
 
+use App\Helper\HelperClass;
 use App\Http\Controllers\Controller;
+use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
@@ -46,10 +50,28 @@ class InfluencerProfileController extends Controller
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'email' => 'email',
-            'mobile' => 'email',
+            'mobile' => 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/',
+        ], [
+            'name.required' => 'Influencer Name is required.',
+            'email.email' => 'Provide a valid email address.',
+            'mobile.regex' => 'Provide a valid mobile number.',
         ]);
         if ($validator->fails()) {
-            return CustomHelper::returErrorMessage($validator->getMessageBag());
+            return back()->withInput()->withErrors($validator);
+            return CustomHelper::returErrorMessage($validator->errors());
         }
+        $loggedUser = CustomHelper::loggedUser();
+        try {
+            DB::transaction(function () use ($request, $loggedUser) {
+                User::createOrUpdateUser($request, $loggedUser);
+                UserInfo::createOrUpdateUserInfo($request, $loggedUser, $loggedUser->userInfo());
+            });
+            return CustomHelper::returnSuccessMessage('Profile updated successfully and placed for admin review. ');
+        } catch (\Exception $exception)
+        {
+            return $exception->getMessage();
+            return CustomHelper::returErrorMessage('Failed to update profile review. ' );
+        }
+
     }
 }

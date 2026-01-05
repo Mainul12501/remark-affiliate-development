@@ -37,9 +37,10 @@
             </div>
 
             <!-- Profile Form -->
-            <form action="" method="post" enctype="multipart/form-data">
+            <form action="{{ route('influencer.request-profile-review') }}" method="post" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="profile_image_base64" id="profileImageBase64">
+                <input type="hidden" name="user_type" value="influencer">
 
                 <div class="row">
                     <div class="col-sm-9">

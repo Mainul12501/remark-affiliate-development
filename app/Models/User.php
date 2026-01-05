@@ -113,7 +113,7 @@ class User extends Authenticatable
         'user_type' => $request->user_type ?? $user?->user_type,
         'profile_image' => CustomHelper::fileUpload($request->file('profile_image'), 'user-image', 'user', $user?->profile_image ?? null) ,
         'username' => $request->username ?? $user?->username,
-        'approved_by' => $request->approved_by ?? $user?->approved_by,
+//        'approved_by' => $request->approved_by ?? $user?->approved_by,
 //        'approve_status' => $request->approve_status ?? $user?->approve_status,
         'block_status' => $request->block_status ?? $user?->block_status,
         'created_by' => $request->created_by ?? $user?->created_by,
