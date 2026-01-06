@@ -177,7 +177,7 @@ class UsersController extends Controller
 
         if(!empty($user)){
             $request->validate([
-                'mobile'     => 'nullable|regex:/^(01)[0-9]{9}$/|max:11|unique:users,mobile,' . $user->id,
+                'mobile'        => 'nullable|regex:/^(01)[0-9]{9}$/|max:11|unique:users,mobile,' . $user->id,
                 'profile_image' => 'nullable|image|mimes:jpeg,jpg,webp|max:1024',
             ]);
 
