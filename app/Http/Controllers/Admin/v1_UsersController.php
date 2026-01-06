@@ -19,11 +19,64 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         try {
-            $rows = User::all();
+            $query = User::with(['roles', 'getUserRoles']);
 
-            return view('admin.users.index', ['rows' => $rows]);
+            if (hasRole(['developer', 'super-admin'])) {
+                // Full access - no additional filters
+            } elseif (hasRole(['admin'])) {
+                $query->where('id', auth()->id());
+            } else {
+                $query->where('id', auth()->id());
+            }
+
+            $model = $query->whereNotIn('id', [1])->latest();
+
+            if (!empty($request->from_date) && !empty($request->to_date)) {
+                $fromDate = Carbon::parse($request->from_date)->startOfDay();
+                $toDate = Carbon::parse($request->to_date)->endOfDay();
+                $model->whereBetween('created_at', [$fromDate, $toDate]);
+            }
+
+            if ($request->ajax()) {
+                return DataTables::of($model)
+
+                    ->addColumn('profile_image', function ($user) {
+                        return !empty($user->profile_image)
+                            ? asset($user->profile_image)
+                            : asset('/backend/default_img/1.png');
+                    })
+                    ->editColumn('created_at', function ($model) {
+                        return $model->created_at->format('Y-m-d');
+                    })
+                    ->addColumn('roles', function ($user) {
+                        return $user->roles->pluck('name')->implode(', ');
+                    })
+
+                    ->filterColumn('created_at', function ($query, $keyword) {
+                        $query->whereDate('created_at', 'like', "%{$keyword}%");
+                    })
+
+                    ->filterColumn('is_active', function ($query, $keyword) {
+                        $keyword = strtolower(trim($keyword));
+
+                        if ($keyword === 'enabled' || $keyword === 'active') {
+                            $query->where('is_active', 1);
+                        } elseif (in_array($keyword, ['inactive', 'deactive', 'de-active', 'disabled'])) {
+                            $query->where('is_active', 0);
+                        }
+                    })
+                    ->smart(false)
+                    ->toJson();
+            }
+            return view('admin.users.index');
         } catch (Exception $e) {
-            echo 'Caught exception: ',  $e->getMessage(), "\n";
+            if ($request->ajax()) {
+                return response()->json([
+                    'error' => 'Failed to load users',
+                    'message' => $e->getMessage()
+                ], 500);
+            }
+            return back()->with(['message' => 'Failed to load users. Please try again.', 'alert-type' => 'error']);
         }
     }
     public function create()

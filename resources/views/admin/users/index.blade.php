@@ -5,18 +5,26 @@
     <link rel="modulepreload" href="{{asset('backend/build/assets/date_time_pickers-CfSDcSmz.js')}}" />
     <link rel="stylesheet" href="{{asset('backend/css/custom.css')}}"/>
     <style>
-        div.dataTables_length label{
-            margin-left: 15px !important;
+        /* Bottom info + pagination same line */
+        .dt-container .dt-info,
+        .dt-container .dt-paging {
+            display: inline-flex;
+            align-items: center;
         }
-        .dataTables_processing {
-            display: none !important;
+
+        /* Wrap both in one row */
+        .dt-container {
+            position: relative;
         }
-        #userDataTable_wrapper .dataTables_info{
-            float: left !important;
-            padding-top: 15px !important;
+
+        /* Info (Showing...) left */
+        .dt-container .dt-info {
+            float: left;
         }
-        #userDataTable_wrapper .dataTables_paginate{
-            padding-top: 12px !important;
+
+        /* Pagination right */
+        .dt-container .dt-paging {
+            float: right;
         }
     </style>
 @endpush
@@ -87,7 +95,58 @@
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table  class="table table-bordered text-nowrap w-100" id="userDataTable"></table>
+                            <table  class="table table-bordered mb-3 w-100" id="userDataTable">
+                                <thead>
+                                    <tr>
+                                        <td>Image</td>
+                                        <td>Name</td>
+                                        <td>Email</td>
+                                        <td>Mobile</td>
+                                        <td>Approved_by</td>
+                                        <td>Status</td>
+                                        <td>Created_at</td>
+                                        <td>Action</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($rows as $key=>$row)
+                                        <tr>
+                                            <td>
+                                                <img src="{{ asset($row->profile_image) }}" alt="User Image" class="rounded-circle" style="width: 50px; height: 50px;">
+                                            </td>
+                                            <td>{{ $row->name }}</td>
+                                            <td>{{ $row->email }}</td>
+                                            <td>{{ $row->mobile}}</td>
+                                            <td>{{ $row->approved_by }}</td>
+                                            <td>
+                                                @if($row->approve_status === 1)
+                                                    <span class="badge bg-outline-success px-2">Active</span>
+                                                @elseif($row->approve_status === 0)
+                                                    <span class="badge bg-outline-danger px-2">Inactive</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-outline-secondary px-2">{{ $row->created_at }}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('users.show', $row->id) }}" class="btn btn-sm btn-outline-secondary me-1" title="View">
+                                                    <i class="ri-eye-line"></i>
+                                                </a>
+                                                <a href="{{ route('users.edit', $row->id) }}" class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                                                    <i class="ri-pencil-line"></i>
+                                                </a>
+                                                <form action="{{ route('users.destroy', $row->id) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-outline-danger" title="Delete" onclick="return confirm('Are you sure you want to delete this user?')">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
@@ -99,5 +158,26 @@
 @push('scripts')
     <script src="{{asset('backend/build/assets/libs/flatpickr/flatpickr.min.js')}}"></script>
     @include('admin.datatables.datatable-script')
-    @include('admin.partials.user.user-index-script')
+    <script>
+        $(document).ready(function () {
+            $('#userDataTable').DataTable({
+                dom: 'QBfrtip',
+                searchBuilder: true,
+                responsive: true,
+                buttons: ['copy', 'csv','excel'],
+
+                language: {
+                    searchBuilder: {
+                        title: { 0: 'Condition search filter', _: 'Custom Search Conditions (%d)' },
+                        value: 'Option',
+                        valueJoiner: 'et'
+                    }
+                },
+            });
+
+            $('.dt-buttons .btn').addClass('mb-3 rounded-0 btn-sm');
+            $('.dt-buttons').addClass('gap-2');
+        });
+    </script>
+
 @endpush
