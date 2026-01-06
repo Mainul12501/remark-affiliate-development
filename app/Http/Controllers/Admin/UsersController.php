@@ -199,7 +199,7 @@ class UsersController extends Controller
     }
     public function pwUpdate(Request $request){
 
-        $this->validate($request,[
+        $request->validate([
             'old_password'          =>  'required',
             'password' => [
                 'required',
@@ -218,7 +218,7 @@ class UsersController extends Controller
                 'password' => Hash::make($request->password),
                 'password_changed_at'=> now(),
             ]);
-            Auth::logout();
+            Auth::guard('web')->logout();
             return redirect('/admin/login')->with(['message'=>'Password change successfully !!','alert-type'=>'primary']);
         }
     }
