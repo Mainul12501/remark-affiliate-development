@@ -33,8 +33,8 @@ class AdminUserService
         }
 
         $user->update([
-            'mobile'         => $request->mobile_no ?? $user->mobile_no,
-            'profile_image'     => $imageUrl ?? $user->profile_image,
+            'mobile'         => $request->mobile?? $user->mobile,
+            'profile_image'  => $imageUrl ?? $user->profile_image,
         ]);
         return $user;
     }

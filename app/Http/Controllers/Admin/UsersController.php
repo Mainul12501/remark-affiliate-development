@@ -176,7 +176,7 @@ class UsersController extends Controller
         $user = Auth::user();
 
         if(!empty($user)){
-            $this->validate($request,[
+            $request->validate([
                 'mobile'     => 'nullable|regex:/^(01)[0-9]{9}$/|max:11|unique:users,mobile,' . $user->id,
                 'profile_image' => 'nullable|image|mimes:jpeg,jpg,webp|max:1024',
             ]);

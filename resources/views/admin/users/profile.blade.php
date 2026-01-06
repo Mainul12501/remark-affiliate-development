@@ -2,6 +2,11 @@
 @section('title','Profile')
 @push('styles')
     <link rel="stylesheet" href="{{asset('backend/dropify/dist/css/dropify.min.css')}}"/>
+    <style>
+        .table thead th, .table thead td{
+            text-transform: capitalize;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -68,7 +73,7 @@
                                    </td>
                                </tr>
                                <tr>
-                                   <th style="vertical-align: top"> Profile Image </th>
+                                   <th class="align-top"> Profile Image </th>
                                    <td>
                                        <input type="file" name="profile_image" class="form-control-file @error('profile_image') is-invalid @enderror upload_file" data-default-file="{{asset($user->profile_image??'')}}" accept=".jpg, .jpeg, .png" data-max-file-size="1M" data-height="100"/>
                                        @error('profile_image')
