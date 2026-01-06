@@ -3,19 +3,18 @@
 namespace App\Http\Controllers\Admin\Product;
 
 use App\Http\Controllers\Controller;
-use App\Models\Product\ProductBrand;
-use Brian2694\Toastr\Facades\Toastr;
+use App\Models\Product\ProductCategory;
 use Illuminate\Http\Request;
 
-class BrandController extends Controller
+class ProductCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('admin.cruds.product-management.brands', [
-            'brands'    => ProductBrand::latest()->get()
+        return view('admin.cruds.product-management.category', [
+            'categories' => ProductCategory::latest()->get(),
         ]);
     }
 
@@ -24,10 +23,8 @@ class BrandController extends Controller
      */
     public function create()
     {
-         $status = ProductBrand::syncBrands();
-//         $status ? Toastr::success('Brand List Synced Successfully') : Toastr::error('Error!!. Brand List Not Synced');
-         $status ? $msg = ['message' => 'Brand List Synced Successfully', 'alert-type' => 'success'] : $msg = ['message' => 'Error!!. Brand List Not Synced', 'alert-type' => 'error'];
-         return redirect(route('admin.brands.index'))->with($msg);
+        $response = ProductCategory::syncProductCategory();
+        return 'synced';
     }
 
     /**
@@ -35,7 +32,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
-
+        //
     }
 
     /**
@@ -67,8 +64,6 @@ class BrandController extends Controller
      */
     public function destroy(string $id)
     {
-        $status = ProductBrand::destroy($id);
-        $status ? $msg = ['message' => 'Brand deleted Successfully', 'alert-type' => 'success'] : $msg = ['message' => 'Error!!. Can Not delete the brand', 'alert-type' => 'error'];
-        return redirect(route('admin.brands.index'))->with($msg);
+        //
     }
 }

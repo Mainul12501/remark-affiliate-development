@@ -34,6 +34,9 @@
     <link rel="modulepreload" href="{{asset('backend/build/assets/custom-switcher-CDFJCGB8.js')}}" />
     <link rel="modulepreload" href="{{ asset('backend/build/assets/Toasts-DHQE7Pe5.js') }}">
 
+{{--    helper css--}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mainul12501/css-common-helper-classes/helper.min.css">
+
     @stack('styles')
 
 </head>
@@ -86,6 +89,32 @@
 {{--<script type="module" src="{{asset('backend/build/assets/app-ClKBXEo6.js')}}"></script>--}}
 <script type="module" src="{{ asset('backend/build/assets/Toasts-DHQE7Pe5.js') }}"></script>
 <!-- END SCRIPTS -->
+{{--sweet alert 2--}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).on('click', '.delete-data', function () {
+        event.preventDefault();
+        var formElement = $(this).closest('form');
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Swal.fire({
+                //     title: "Deleted!",
+                //     text: "Your file has been deleted.",
+                //     icon: "success"
+                // });
+                formElement.submit();
+            }
+        });
+    })
+</script>
 @stack('scripts')
 
 @include('admin.includes.toasts')

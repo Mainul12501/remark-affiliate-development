@@ -4,6 +4,8 @@ namespace App\Helper;
 
 use App\Models\User;
 use App\Models\UserInfo;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -91,6 +93,69 @@ class HelperClass
 //            }
 //        } catch (Exception $e) {
 //            Log::error("Exception occurred while sending SMS to {$phone}: " . $e->getMessage());
+//        }
+//    }
+
+
+    /**
+     * Make an HTTP request using Guzzle
+     *
+     * @param string $url
+     * @param string $method
+     * @param array $data
+     * @param array $headers
+     * @param int $timeout
+     * @return array
+     */
+//    public static function requestApi(
+//        string $url,
+//        string $method = 'GET',
+//        array $data = [],
+//        array $headers = [],
+//        int $timeout = 30
+//    ): array {
+//        $client = new Client([
+//            'timeout' => $timeout,
+//        ]);
+//
+//        $options = [
+//            'headers' => $headers,
+//        ];
+//
+//        $method = strtoupper($method);
+//
+//        // GET / DELETE → query params
+//        if (in_array($method, ['GET', 'DELETE'])) {
+//            $options['query'] = $data;
+//        }
+//
+//        // POST / PUT / PATCH → body
+//        if (in_array($method, ['POST', 'PUT', 'PATCH'])) {
+//            $options['json'] = $data;
+//        }
+//
+//        try {
+//            $response = $client->request($method, $url, $options);
+//
+//            return [
+//                'success' => true,
+//                'status' => $response->getStatusCode(),
+//                'data' => json_decode($response->getBody()->getContents(), true),
+////                'headers' => $response->getHeaders(),
+//            ];
+//
+//        } catch (RequestException $e) {
+//
+//            return [
+//                'success' => false,
+//                'status' => $e->hasResponse()
+//                    ? $e->getResponse()->getStatusCode()
+//                    : 500,
+//                'message' => $e->getMessage(),
+//                'error' => $e->hasResponse()
+//                    ? json_decode($e->getResponse()->getBody()->getContents(), true)
+//                    : null,
+//            ];
 //        }
 //    }
 
