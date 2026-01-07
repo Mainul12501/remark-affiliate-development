@@ -31,7 +31,7 @@
 
 @section('content')
     <div class="container-fluid pt-3">
-        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb mb-3">
+        <div class="d-md-flex d-block align-items-center justify-content-between page-header-breadcrumb mb-4">
             <div class="my-auto">
                 <h4 class="mb-sm-0 text-uppercase" style="font-family: 'Bell MT';font-size: 16px"><i class="mdi mdi-checkbox-marked-outline me-2"></i>Users</h4>
             </div>
@@ -45,43 +45,6 @@
 
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-xl-7 mx-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <form id="filter_form" class="form-inline justify-content-center">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text text-muted"><i class="ri-calendar-line"></i></span>
-                                        <input type="text" name="from_date"  max="{{date('Y-m-d H:i:s')}}"  class="form-control py-2" id="from_date" placeholder="From date">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="input-group">
-                                        <span class="input-group-text text-muted"><i class="ri-calendar-line"></i></span>
-                                        <input type="text" name="to_date"  max="{{date('Y-m-d H:i:s')}}"  class="form-control py-2" id="to_date" placeholder="To date">
-                                    </div>
-                                </div>
-
-                                <div class="col-md-3">
-                                    <div class="btn-group" role="group" aria-label="Filter actions">
-                                        <button type="submit" class="btn btn-outline-primary " id="filterBtn" title="Filter">
-                                            <i class="ri-search-line"></i> Filter
-                                        </button>
-                                        <button type="button" class="btn btn-outline-secondary  ajax_reload" id="resetBtn" title="Refresh">
-                                            <i class="ri-refresh-line"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -125,9 +88,7 @@
                                                     <span class="badge bg-outline-danger px-2">Inactive</span>
                                                 @endif
                                             </td>
-                                            <td>
-                                                <span class="badge bg-outline-secondary px-2">{{ $row->created_at }}</span>
-                                            </td>
+                                            <td>{{ $row->created_at->format('Y-m-d')??''}}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('users.show', $row->id) }}" class="btn btn-sm btn-outline-secondary me-1" title="View">
                                                     <i class="ri-eye-line"></i>
@@ -168,10 +129,16 @@
 
                 language: {
                     searchBuilder: {
-                        title: { 0: 'Condition search filter', _: 'Custom Search Conditions (%d)' },
+                        title: {
+                            0: 'Condition search filter',
+                            _: 'Custom Search Conditions (%d)'
+                        },
                         value: 'Option',
                         valueJoiner: 'et'
                     }
+                },
+                customSearchOptions: {
+                    title: 'Condition search filter'
                 },
             });
 
@@ -179,5 +146,4 @@
             $('.dt-buttons').addClass('gap-2');
         });
     </script>
-
 @endpush
