@@ -63,7 +63,7 @@
                             <a href="{{ route('admin.categories.index') }}" class="side-menu__item">Categories</a>
                         </li>
                         <li class="slide">
-                            <a href="" class="side-menu__item">Products</a>
+                            <a href="{{ route('admin.products.index') }}" class="side-menu__item">Products</a>
                         </li>
 
                     </ul>

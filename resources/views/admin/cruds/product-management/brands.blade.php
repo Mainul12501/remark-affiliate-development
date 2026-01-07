@@ -81,7 +81,7 @@
                         <h5 class="card-title mb-0">
                             <i class="mdi mdi-view-list me-1"></i> Brand List
                         </h5>
-                        <a href="{{ route('admin.brands.create') }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('admin.brands.create') }}" class="btn btn-sm btn-outline-primary call-ajax-reload">
                             <i class="mdi mdi-plus-circle me-1"></i> Sync Brand
                         </a>
                     </div>

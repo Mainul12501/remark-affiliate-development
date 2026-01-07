@@ -32,7 +32,7 @@ class ProductCategoryFactory extends Factory
             'herlan_cat_uri' => $this->faker->unique->text(),
             'herlan_cat_total_products' => $this->faker->randomNumber(0),
             'product_category_id' => function () {
-                return \App\Models\ProductCategory::factory()->create([
+                return \App\Models\Product\ProductCategory::factory()->create([
                     'product_category_id' => null,
                 ])->id;
             },

@@ -202,15 +202,14 @@
                 thisElement.attr('disabled', true);
             },
             success: function (response) {
-                console.log(response);
                 if (response.status == 'success')
                     showAjaxToast('success', response.message);
                 else if (response.status == 'error')
                     showAjaxToast('error', response.message);
 
                 setTimeout(function () {
-                    // window.location.reload();
-                }, 2000)
+                    window.location.reload();
+                }, 1500)
             },
             complete: function () {
                 thisElement.attr('disabled', false);

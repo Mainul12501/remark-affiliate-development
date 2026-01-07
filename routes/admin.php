@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Product\ProductCategoryController;
+use App\Http\Controllers\Admin\Product\ProductController;
 
 Route::get('login',[AdminController::class,'login'])->name('login');
 Route::get('admin',[AdminController::class,'login']);
@@ -43,8 +44,9 @@ Route::prefix('admin')->group(function () {
 
         Route::name('admin.')->group(function () {
             Route::resources([
-                'brands'    => BrandController::class,
+                'brands'        => BrandController::class,
                 'categories'    => ProductCategoryController::class,
+                'products'      => ProductController::class,
             ]);
         });
     });
