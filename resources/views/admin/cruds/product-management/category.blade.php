@@ -28,7 +28,7 @@
                         <h5 class="card-title mb-0">
                             <i class="mdi mdi-view-list me-1"></i> Category List
                         </h5>
-                        <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-outline-primary">
+                        <a href="{{ route('admin.categories.create') }}" class="btn btn-sm btn-outline-primary call-ajax-reload">
                             <i class="mdi mdi-plus-circle me-1"></i> Sync Category
                         </a>
                     </div>

@@ -33,18 +33,33 @@ class ProductBrand extends Model
 
     public static function getHerlanBrandList()
     {
-//        return HelperClass::requestApi('https://695cac7d79f2f34749d4f260.mockapi.io/api/sync-herlan-brands', 'get', [], []);
-//        return HelperClass::requestApi('http://127.0.0.1:800/api/sync-herlan-brands', 'get', [], []);
         return CustomHelper::requestApi('http://127.0.0.1:800/api/sync-herlan-brands', 'get', [], []);
     }
 
-    public static function syncBrands()
+    public static function syncBrands($existBrand = null, $request = null)
     {
+        if ($existBrand)
+        {
+            $existBrand->update([
+                'name'               => $request['name'],
+                'slug'               => $request['slug'] ?? Str::slug($request['name']),
+                'logo'               => $request['logo'] ?? null,
+                'status'             => $request['status'] ?? 1,
+                'herlan_brand_id'  => $request['id'] ?? null,
+                'herlan_brand_slug'  => $request['slug'] ?? null,
+                'herlan_brand_uri'  => $request['herlan_brand_uri'] ?? null,
+                'note'               => $request['note'] ?? 'Brand Updated',
+            ]);
+            return true;
+        }
+
         $response = self::getHerlanBrandList();
         // Ensure API call succeeded
         if (!isset($response['success']) || $response['success'] !== true) {
             return false;
         }
+
+
 
         foreach ($response['data'] as $herlanBrand) {
 
@@ -53,6 +68,7 @@ class ProductBrand extends Model
                     'slug'               => $herlanBrand['slug'] ?? Str::slug($herlanBrand['name']),
                     'logo'               => $herlanBrand['logo'] ?? null,
                     'status'             => $herlanBrand['status'] ?? 1,
+                    'herlan_brand_id'    => $herlanBrand['id'] ?? null,
                     'herlan_brand_slug'  => $herlanBrand['slug'] ?? null,
                     'herlan_brand_uri'  => $herlanBrand['herlan_brand_uri'] ?? null,
                     'note'               => $herlanBrand['note'] ?? 'Synced from Herlan API',

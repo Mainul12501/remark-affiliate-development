@@ -44,9 +44,10 @@ Route::get('/herlan-category-list', function (){
             "id" => 1,
             "name" => "Makeup",
             "slug" => "makeup",
+            "category_id" => null,
             "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
             "product_count" => 304,
-            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/1",
             "sub_categories" => [
                 [
                     "id" => 101,
@@ -55,7 +56,7 @@ Route::get('/herlan-category-list', function (){
                     "slug" => "makeup-face",
                     "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                     "product_count" => 50,
-                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/2",
                     "sub_categories" => [
                         [
                             "id" => 1011,
@@ -64,7 +65,7 @@ Route::get('/herlan-category-list', function (){
                             "slug" => "foundation",
                             "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                             "product_count" => 12,
-                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/3",
                             "sub_categories" => []
                         ],
                     ]
@@ -76,7 +77,7 @@ Route::get('/herlan-category-list', function (){
                     "slug" => "makeup-lips",
                     "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                     "product_count" => 110,
-                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/11",
                     "sub_categories" => []
                 ]
             ]
@@ -85,9 +86,10 @@ Route::get('/herlan-category-list', function (){
             "id" => 2,
             "name" => "Skin Care",
             "slug" => "skin-care",
+            "category_id" => null,
             "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
             "product_count" => 162,
-            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/122",
             "sub_categories" => [
                 [
                     "id" => 201,
@@ -96,7 +98,7 @@ Route::get('/herlan-category-list', function (){
                     "slug" => "cleanser",
                     "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                     "product_count" => 35,
-                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/33",
                     "sub_categories" => [
                         [
                             "id" => 2011,
@@ -105,7 +107,7 @@ Route::get('/herlan-category-list', function (){
                             "slug" => "face-wash",
                             "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                             "product_count" => 16,
-                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/231",
                             "sub_categories" => []
                         ],
                         [
@@ -115,7 +117,7 @@ Route::get('/herlan-category-list', function (){
                             "slug" => "micellar-water",
                             "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                             "product_count" => 4,
-                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                            "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/132",
                             "sub_categories" => []
                         ]
                     ]
@@ -127,7 +129,7 @@ Route::get('/herlan-category-list', function (){
                     "slug" => "moisturizers",
                     "image" => "https://www.herlan.com/wp-content/uploads/2024/12/Olin-Lip-Balm-Front-Lemon-800x800.webp",
                     "product_count" => 40,
-                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/",
+                    "uri" => "https://www.herlan.com/product-category/makeup/eyes/eyeliner/1232423",
                     "sub_categories" => []
                 ]
             ]

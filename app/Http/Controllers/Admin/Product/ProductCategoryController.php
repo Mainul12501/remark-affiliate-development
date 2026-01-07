@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Product\ProductCategory;
 use Illuminate\Http\Request;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class ProductCategoryController extends Controller
 {
@@ -24,7 +25,15 @@ class ProductCategoryController extends Controller
     public function create()
     {
         $response = ProductCategory::syncProductCategory();
-        return 'synced';
+        if ($response['success']) {
+            $type = 'success';
+            $msg = 'Category List Synced Successfully';
+        } else {
+            $type = 'error';
+            $msg = $response['message'];
+        }
+        return CustomHelper::returnRedirectWithMessage(route('admin.categories.index'), $type, $msg);
+        return redirect(route('admin.categories.index'))->with($msg);
     }
 
     /**
@@ -56,7 +65,14 @@ class ProductCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = ProductCategory::where('herlan_cat_id', $id)->first();
+        if ($category) {
+            $response = ProductCategory::updateProductCategory($request, $category);
+            if ($response) {
+                return response()->json(['status' => 'success', 'message' => 'Category Updated Successfully.']);
+            }
+        }
+        return response()->json(['status' => 'error', 'message' => 'Failed to update Category. Category not found.']);
     }
 
     /**
@@ -64,6 +80,7 @@ class ProductCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        ProductCategory::destroy($id);
+        return CustomHelper::returnRedirectWithMessage(route('admin.categories.index'),'success', 'Category Deleted Successfully.');
     }
 }

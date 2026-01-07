@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product\ProductBrand;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class BrandController extends Controller
 {
@@ -26,7 +27,15 @@ class BrandController extends Controller
     {
          $status = ProductBrand::syncBrands();
 //         $status ? Toastr::success('Brand List Synced Successfully') : Toastr::error('Error!!. Brand List Not Synced');
-         $status ? $msg = ['message' => 'Brand List Synced Successfully', 'alert-type' => 'success'] : $msg = ['message' => 'Error!!. Brand List Not Synced', 'alert-type' => 'error'];
+        if ($status)
+        {
+            $type = 'success';
+            $msg = 'Brand List Synced Successfully';
+        } else {
+            $type = 'error';
+            $msg = 'Error!!. Brand List Not Synced';
+        }
+         return CustomHelper::returnRedirectWithMessage(route('admin.brands.index'), $type, $msg);
          return redirect(route('admin.brands.index'))->with($msg);
     }
 
@@ -59,7 +68,17 @@ class BrandController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $existBrand = ProductBrand::where('herlan_brand_id', $id)->first();
+        if ($existBrand)
+        {
+            $response = ProductBrand::syncBrands($existBrand, $request);
+            if ($response)
+            {
+                return response()->json(['status' => 'success', 'message' => 'Brand List Synced Successfully.']);
+            }
+            return response()->json(['status' => 'error', 'message' => 'Something Went Wrong. Please try again.']);
+        }
+        return response()->json(['status' => 'error', 'message' => 'Failed to update Brand. Brand not found.']);
     }
 
     /**
