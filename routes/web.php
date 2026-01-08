@@ -11,6 +11,7 @@ use App\Http\Controllers\Front\PartnerViewController;
 use App\Http\Controllers\Front\Influencer\InfluencerProfileController;
 
 Route::get('/', [FrontViewController::class,'index'])->name('home');
+Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', [AuthController::class,'loginPage'])->name('login-page');
     Route::get('/partner-register', [AuthController::class,'partnerRegister'])->name('partner-register');
@@ -47,7 +48,7 @@ Route::middleware([
             Route::get('/dashboard', [InfluencerViewController::class,'dashboard'])->name('dashboard');
             Route::get('/albums', [InfluencerViewController::class,'albums'])->name('albums');
             Route::get('/bank-info', [InfluencerViewController::class,'bankInfo'])->name('bank-info');
-            Route::get('/sale-history', [InfluencerViewController::class,'saleHistory'])->name('sale-history');
+            Route::get('/sell-history', [InfluencerViewController::class,'saleHistory'])->name('sell-history');
             Route::get('/profile', [InfluencerViewController::class,'profile'])->name('profile');
             Route::get('/influencer-profile', [InfluencerViewController::class,'profileView'])->name('profile-view');
 //        });

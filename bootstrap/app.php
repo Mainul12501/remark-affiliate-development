@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'password.expiry'   => \App\Http\Middleware\PasswordExpiryCheck::class,
             'userApproveStatusCheck' => \App\Http\Middleware\UserApproveStatusCheck::class,
         ]);
+        $middleware->redirectGuestsTo('/');
     })
     ->withCommands([
         \Uzzal\Acl\Commands\AclResource::class,

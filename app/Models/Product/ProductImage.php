@@ -58,9 +58,9 @@ class ProductImage extends Model
         }
 
         /** Delete removed images */
-        $product->images()
-            ->whereNotIn('herlan_img_id', $imageIds)
-            ->delete();
+//        $product->images()
+//            ->whereNotIn('herlan_img_id', $imageIds)
+//            ->delete();
     }
 
     public function product()

@@ -53,18 +53,18 @@
 <!-- Tab Navigation -->
 <ul class="nav  influencer-nav-tabs mb-4 d-flex flex-nowrap overflow-auto" role="tablist">
     <li class="nav-item " role="presentation">
-        <a class="nav-link active" id="influencer-earnings-tab" href="{{ route('influencer.dashboard') }}"  >Your Earnings</a>
+        <a class="nav-link {{ request()->is('influencer/dashboard') ? 'active' : '' }}" id="influencer-earnings-tab" href="{{ route('influencer.dashboard') }}"  >Your Earnings</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link " id="influencer-albums-tab" href="{{ route('influencer.albums') }}"  >Albums</a>
+        <a class="nav-link  {{ request()->is('influencer/albums') ? 'active' : '' }}" id="influencer-albums-tab" href="{{ route('influencer.albums') }}"  >Albums</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="influencer-edit-profile-tab" href="{{ route('influencer.profile')}}" >Edit Profile</a>
+        <a class="nav-link {{ request()->is('influencer/profile') ? 'active' : '' }}" id="influencer-edit-profile-tab" href="{{ route('influencer.profile')}}" >Edit Profile</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="influencer-bank-details-tab" href="{{ route('influencer.bank-info')}}" >Bank Details</a>
+        <a class="nav-link {{ request()->is('influencer/bank-info') ? 'active' : '' }}" id="influencer-bank-details-tab" href="{{ route('influencer.bank-info')}}" >Bank Details</a>
     </li>
     <li class="nav-item" role="presentation">
-        <a class="nav-link" id="influencer-sales-history-tab" href="{{ route('influencer.sale-history')}}" >Sales History</a>
+        <a class="nav-link {{ request()->is('influencer/sell-history') ? 'active' : '' }}" id="influencer-sales-history-tab" href="{{ route('influencer.sell-history')}}" >Sales History</a>
     </li>
 </ul>

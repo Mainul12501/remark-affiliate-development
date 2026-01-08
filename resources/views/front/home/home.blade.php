@@ -264,7 +264,7 @@
                                 <tr><td>Accessories</td><td class="text-end">10%</td></tr>
                                 </tbody>
                             </table>
-                            <div class="text-center"><a href="benifits.html" class="btn btn-outline-black btn-outline-dark">View Details</a></div>
+                            <div class="text-center"><a href="{{ route('front.benefits', ['type' => 'influencer']) }}" class="btn btn-outline-black btn-outline-dark">View Details</a></div>
                         </div>
                     </div>
                     <div id="agentRates" class="d-none">
@@ -281,7 +281,7 @@
                                 <tr><td>Accessories</td><td class="text-end">10%</td></tr>
                                 </tbody>
                             </table>
-                            <div class="text-center"><a href="benifits.html" class="btn btn-outline-black btn-outline-dark">View Details</a></div>
+                            <div class="text-center"><a href="{{ route('front.benefits', ['type' => 'partner']) }}" class="btn btn-outline-black btn-outline-dark">View Details</a></div>
                         </div>
                     </div>
                 </div>

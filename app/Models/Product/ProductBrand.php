@@ -31,6 +31,25 @@ class ProductBrand extends Model
 
     protected $table = 'product_brands';
 
+    public static function createOrUpdateSingleBrand($request)
+    {
+        return static::withTrashed()->updateOrCreate(
+            [
+                'herlan_brand_id'    => $request['id']
+            ],
+            [
+                'name'               => $request['name'],
+                'slug'               => $request['slug'] ?? Str::slug($request['name']),
+                'logo'               => $request['logo'] ?? null,
+                'status'             => $request['status'] ?? 1,
+                'herlan_brand_id'    => $request['id'],
+                'herlan_brand_slug'  => $request['slug'] ?? null,
+                'herlan_brand_uri'   => $request['herlan_brand_uri'] ?? null,
+                'note'               => $request['note'] ?? 'Brand Updated',
+            ]
+        );
+    }
+
     public static function getHerlanBrandList()
     {
         return CustomHelper::requestApi('http://127.0.0.1:800/api/sync-herlan-brands', 'get', [], []);
@@ -45,9 +64,9 @@ class ProductBrand extends Model
                 'slug'               => $request['slug'] ?? Str::slug($request['name']),
                 'logo'               => $request['logo'] ?? null,
                 'status'             => $request['status'] ?? 1,
-                'herlan_brand_id'  => $request['id'] ?? null,
+                'herlan_brand_id'    => $request['id'] ?? null,
                 'herlan_brand_slug'  => $request['slug'] ?? null,
-                'herlan_brand_uri'  => $request['herlan_brand_uri'] ?? null,
+                'herlan_brand_uri'   => $request['herlan_brand_uri'] ?? null,
                 'note'               => $request['note'] ?? 'Brand Updated',
             ]);
             return true;

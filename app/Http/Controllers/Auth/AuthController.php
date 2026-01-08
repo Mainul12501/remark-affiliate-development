@@ -77,6 +77,7 @@ class AuthController extends Controller
         }
         try {
             $user = HelperClass::createAndLoginUser($request);
+            $user->
             Toastr::success('Registration Successful', 'Success');
             return redirect()->route('partner.profile-verify');
         } catch (\Exception $exception) {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Product;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class ProductController extends Controller
 {
@@ -23,7 +24,15 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        $response = Product::syncProductList();
+        if ($response){
+            $msg = 'Product list successfully created!';
+            $type = 'success';
+        } else {
+            $msg = 'Product list failed to created!';
+            $type = 'error';
+        }
+        return CustomHelper::returnRedirectWithMessage(route('admin.products.index'), $type, $msg);
     }
 
     /**
@@ -63,6 +72,7 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Product::destroy($id);
+        return CustomHelper::returnSuccessMessage('Product successfully deleted!');
     }
 }

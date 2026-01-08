@@ -110,7 +110,7 @@
                                                 <p>Slug: {{ $brand->herlan_brand_slug ?? '' }}</p>
                                             </td>
                                             <td>{{ $brand->note ?? '' }}</td>
-                                            <td>{{ $brand->status == 1 ? "Published" : 'Unpublished' }}</td>
+                                            <td><span class="badge text-bg-{{ $brand->status == 1 ? "success" : 'danger' }}">{{ $brand->status == 1 ? "Published" : 'Unpublished' }}</span></td>
                                             <td>
 {{--                                                <a href="{{ route('admin.brands.edit', $brand->id) }}" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>--}}
                                                 <form action="{{ route('admin.brands.destroy', $brand->id) }}" method="POST" class="d-inline">

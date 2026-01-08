@@ -58,7 +58,7 @@
                                                 <p>URI: {{ $category->herlan_cat_uri ?? '' }}</p>
                                             </td>
                                             <td>{{ $category->herlan_cat_total_products ?? 0 }}</td>
-                                            <td>{{ $category->status == 1 ? "Published" : 'Unpublished' }}</td>
+                                            <td><span class="badge text-bg-{{ $category->status == 1 ? "success" : 'danger' }}">{{ $category->status == 1 ? "Published" : 'Unpublished' }}</span></td>
                                             <td>
 {{--                                                <a href="{{ route('admin.brands.edit', $category->id) }}" class="btn btn-outline-primary btn-sm" title="Edit"><i class="fa fa-pencil-alt"></i></a>--}}
                                                 <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST" class="d-inline">

@@ -29,6 +29,36 @@ class ProductCategory extends Model
 
     protected $table = 'product_categories';
 
+    public static function assignCategoryToProduct($productCategories, $product)
+    {
+        $productCategoryIds = [];
+        foreach ($productCategories as $productCategory) {
+            $existCategory = ProductCategory::where('herlan_cat_id', $productCategory['id'])->first();
+            if ($existCategory) {
+                $productCategoryIds[] = $existCategory->id;
+
+            } else {
+                $newCategory = static::create([
+                    'name'                      => $productCategory['name'],
+                    'slug'                      => $productCategory['slug'],
+                    'thumb_img'                 => $productCategory['image'],
+                    'status'                    => $productCategory['status'] ?? 1,
+                    'herlan_cat_id'             => $productCategory['id'],
+                    'herlan_cat_slug'           => $productCategory['slug'],
+                    'herlan_cat_uri'            => $productCategory['uri'] ?? '',
+                    'herlan_cat_total_products' => $productCategory['product_count'] ?? 0,
+                    'product_category_id'       => $productCategory['category_id'],
+                ]);
+                $productCategoryIds[] = $newCategory->id;
+            }
+        }
+        $product->productCategories()->syncWithoutDetaching($productCategoryIds);
+        return true;
+    }
+    public static function createOrUpdateSingleCategory($category)
+    {
+
+    }
     public static function getHerlanCategoryList()
     {
         return CustomHelper::requestApi('http://127.0.0.1:800/api/herlan-category-list', 'get', [], []);
