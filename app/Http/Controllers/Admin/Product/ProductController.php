@@ -75,4 +75,19 @@ class ProductController extends Controller
         Product::destroy($id);
         return CustomHelper::returnSuccessMessage('Product successfully deleted!');
     }
+
+    public function getProductLists(Request $request)
+    {
+        $products = Product::latest()->select('id','thumb_img', 'title', 'slug', 'product_brand_id', 'price', 'regular_price')->with(['productBrand' => function ($brand) {
+            return $brand->select('id', 'name');
+        }])->paginate(20);
+        if ($request->render == 1)
+        {
+            return view('front.influencer.includes.albums.single-product-album', ['products' => $products]);
+        }
+        return response()->json([
+            'status' => 200,
+            'products' => $products
+        ]);
+    }
 }

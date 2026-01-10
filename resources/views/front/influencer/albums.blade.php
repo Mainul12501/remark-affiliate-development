@@ -28,7 +28,7 @@
                             <div class="influencer-album-add-wrapper dropdown">
                                 <button class="influencer-album-add-icon" type="button" id="albumAddDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">+</button>
                                 <div class="dropdown-menu influencer-album-add-dropdown" aria-labelledby="albumAddDropdown">
-                                    <a class="dropdown-item influencer-add-option" href="#" data-bs-toggle="modal" data-bs-target="#addProductModal">Upload Product</a>
+                                    <a class="dropdown-item influencer-add-option" href="#" id="showProductsModal" {{--data-bs-toggle="modal" data-bs-target="#addProductModal"--}}>Upload Product</a>
                                     <a class="dropdown-item influencer-add-option influencer-add-option-link" href="#" data-bs-toggle="modal" data-bs-target="#createAlbumModal">Create Album</a>
                                 </div>
                             </div>
@@ -162,14 +162,14 @@
 @section('modal')
 
     <!-- Add Product Modal -->
-    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addProductModal" {{--tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true"--}}>
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable product-modal-dialog">
             <div class="modal-content product-modal-content">
                 <div class="modal-header product-modal-header">
                     <h5 class="modal-title product-modal-title" id="addProductModalLabel">Add Product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body product-modal-body">
+                <div class="modal-body product-modal-body" >
                     <!-- Search & Filter Section -->
                     <div class="product-modal-filters">
                         <input type="text" class="form-control product-modal-search" placeholder="Search Product">
@@ -184,7 +184,7 @@
                     </div>
 
                     <!-- Products Grid -->
-                    <div class="product-modal-grid">
+                    <div class="product-modal-grid" >
                         <!-- Product Card 1 -->
                         <div class="product-modal-card">
                             <div class="product-modal-img-wrapper">
@@ -498,3 +498,14 @@
     </div>
 
 @endsection
+
+@push('script')
+    <script>
+        $(document).on('click', '#showProductsModal', function () {
+            sendAjaxRequest('get-product-lists', 'GET').then(function (response) {
+
+                $('#addProductModal').modal('show');
+            });
+        })
+    </script>
+@endpush

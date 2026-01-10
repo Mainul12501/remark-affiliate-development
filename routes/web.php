@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\SocialLoginController;
 use App\Http\Controllers\Front\InfluencerViewController;
 use App\Http\Controllers\Front\PartnerViewController;
 use App\Http\Controllers\Front\Influencer\InfluencerProfileController;
+use App\Http\Controllers\Admin\Product\ProductController;
 
 Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
@@ -30,6 +31,8 @@ Route::post('auth/register-partner', [AuthController::class,'registerPartner'])-
 
 Route::get('auth/{provider}/redirect', [SocialLoginController::class , 'redirect'])->name('auth.socialite.redirect');
 Route::get('auth/{provider}/callback', [SocialLoginController::class , 'callback'])->name('auth.socialite.callback');
+
+Route::get('/get-product-lists', [ProductController::class,'getProductLists'])->name('get-product-lists');
 
 
 Route::middleware([
