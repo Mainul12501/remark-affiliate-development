@@ -14,8 +14,8 @@ Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
 Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', [AuthController::class,'loginPage'])->name('login-page');
-    Route::get('/partner-register', [AuthController::class,'partnerRegister'])->name('partner-register');
-    Route::get('/influencer-register', [AuthController::class,'influencerRegister'])->name('influencer-register');
+    Route::get('/partner-register', [AuthController::class,'partnerRegister'])->middleware('noAuthCheck')->name('partner-register');
+    Route::get('/influencer-register', [AuthController::class,'influencerRegister'])->middleware('noAuthCheck')->name('influencer-register');
 
     Route::post('/send-otp-mail', [AuthController::class,'sendOtpMail'])->name('send-otp-mail');
     Route::post('/send-otp-sms', [AuthController::class,'sendOtpSms'])->name('send-otp-sms');

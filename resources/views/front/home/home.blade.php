@@ -18,16 +18,18 @@
 
             <div class="text-center mt-5">
                 <h1 class="fw-bold">Become an Affiliate</h1>
-                <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-                    <span class="m-t-11">Join as a</span>
-                    <select  class="form-select w-auto rounded-pill">
-                        <option>Influencer</option>
-                        <option>Partner</option>
-                    </select>
-                    <button class="btn btn-red " style=" max-height: 50px;">Join</button>
-                </div>
+                @if(!auth()->check())
+                    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
+                        <span class="m-t-11">Join as a</span>
+                        <select  class="form-select w-auto rounded-pill join-user-type" >
+                            <option value="influencer">Influencer</option>
+                            <option value="partner">Partner</option>
+                        </select>
+                        <button class="btn btn-red join-user-btn" style=" max-height: 50px;">Join</button>
+                    </div>
+                @endif
                 <div class="mt-3">
-                    <a href="#" class="btn btn-outline-black btn-outline-dark">View Benefits & Earnings</a>
+                    <a href="{{ route('front.benefits', ['type' => 'influencer']) }}" class="btn btn-outline-black btn-outline-dark">View Benefits & Earnings</a>
                 </div>
             </div>
         </div>
@@ -301,6 +303,16 @@
 
 @push('script')
     <script>
+        $(document).on('click', '.join-user-btn', function () {
+            let userType = $('.join-user-type').val();
+            if (userType == 'influencer')
+                window.location.href = "{{ route('auth.influencer-register') }}";
+            else if (userType == 'partner')
+                window.location.href = "{{ route('auth.partner-register') }}";
+            else
+                window.location.href = "{{ route('home') }}";
+        })
+
         function renderMiniChart(container, data) {
             Highcharts.chart(container, {
                 chart: {

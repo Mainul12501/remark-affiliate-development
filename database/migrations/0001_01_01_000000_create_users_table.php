@@ -63,6 +63,7 @@ return new class extends Migration
                 ->default(0)
                 ->nullable();
             $table->string('user_slug')->nullable();
+            $table->string('profile_title')->nullable();
 
             $table->index('user_id');
             $table->index('approved_by');

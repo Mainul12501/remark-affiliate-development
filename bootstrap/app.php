@@ -22,6 +22,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'resource.maker'    => \Uzzal\Acl\Middleware\ResourceMaker::class,
             'password.expiry'   => \App\Http\Middleware\PasswordExpiryCheck::class,
             'userApproveStatusCheck' => \App\Http\Middleware\UserApproveStatusCheck::class,
+            'noAuthCheck' => \App\Http\Middleware\NoAuthPagesMiddleware::class,
         ]);
         $middleware->redirectGuestsTo('/');
     })
