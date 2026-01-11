@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 use Xenon\LaravelBDSms\Facades\SMS;
 use Xenon\LaravelBDSms\Provider\Ssl;
 use Xenon\LaravelBDSms\Sender;
@@ -44,6 +45,11 @@ class HelperClass
         );
         $status = $sender->send();
         return $status;
+    }
+
+    public static function getUserWithUserInfo()
+    {
+        return CustomHelper::loggedUser()->load('userInfo');
     }
 
 //public $apiUrl = "https://smsplus.sslwireless.com/";

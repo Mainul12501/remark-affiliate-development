@@ -33,6 +33,22 @@
                         <input type="number" min="0" maxlength="6" name="user_otp" value="{{ old('user_otp') }}" required class="form-control" placeholder="Input OTP">
                         <small class="text-danger error-otp"></small>
                     </div>
+{{--                    resend timer--}}
+                    <div class="form-group otp-resend-wrapper d-none">
+                        <small class="text-muted">
+                            Resend OTP in <span id="otpTimer">02:00</span>
+                        </small>
+
+                        <button type="button"
+                                id="resendOtpBtn"
+                                class="btn btn-link p-0 ms-2 d-none">
+                            Resend OTP
+                        </button>
+
+                        <small class="text-danger d-block mt-1 d-none" id="otpLimitMsg">
+                            You have reached the maximum resend limit.
+                        </small>
+                    </div>
 
 {{--                    <div class="form-group show-hide-block d-none">--}}
 {{--                        <div class="position-relative">--}}
@@ -303,6 +319,53 @@
         });
 
         // ========================================
+        // OTP TIMER & RESEND CONFIG
+        // ========================================
+        let otpCountdown = 120; // seconds
+        let otpTimerInterval = null;
+        let resendAttempts = 0;
+        const MAX_RESEND_ATTEMPTS = 3;
+
+        // ========================================
+        // START OTP TIMER
+        // ========================================
+        function startOtpTimer() {
+            clearInterval(otpTimerInterval);
+            otpCountdown = 120;
+
+            $('#resendOtpBtn').addClass('d-none');
+            $('#otpLimitMsg').addClass('d-none');
+            $('.otp-resend-wrapper').removeClass('d-none');
+
+            updateOtpTimerText();
+
+            otpTimerInterval = setInterval(() => {
+                otpCountdown--;
+                updateOtpTimerText();
+
+                if (otpCountdown <= 0) {
+                    clearInterval(otpTimerInterval);
+
+                    if (resendAttempts < MAX_RESEND_ATTEMPTS) {
+                        $('#resendOtpBtn').removeClass('d-none');
+                    } else {
+                        $('#otpLimitMsg').removeClass('d-none');
+                    }
+                }
+            }, 1000);
+        }
+
+        function updateOtpTimerText() {
+            let minutes = Math.floor(otpCountdown / 60);
+            let seconds = otpCountdown % 60;
+
+            $('#otpTimer').text(
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0')
+            );
+        }
+
+        // ========================================
         // SEND OTP FUNCTIONALITY
         // ========================================
         $(document).on('click', '#nextBtn', function() {
@@ -319,9 +382,9 @@
             $('.show-hide-block').removeClass('d-none');
             $('#submitBtn').removeClass('d-none');
             $('#nextBtn').addClass('d-none');
-
-            $('input[name="mobile"]').attr('readonly', true);
-            $('input[name="email"]').attr('readonly', true);
+            // comment out these two if needed content editing
+            // $('input[name="mobile"]').attr('readonly', true );
+            // $('input[name="email"]').attr('readonly', true);
 
             // Send OTP based on active field
             let otpData = emailActive ?
@@ -335,6 +398,15 @@
                     toastr.error(response.message);
                 } else if (response.status == 'success') {
                     toastr.success(response.message);
+                    // resend timmer
+                    resendAttempts = 0; // reset attempts
+                    startOtpTimer();
+
+                    $('.otp-input, .show-hide-block').removeClass('d-none');
+                    $('#submitBtn').removeClass('d-none');
+                    $('#nextBtn').addClass('d-none');
+
+                    $('input[name="email"], input[name="mobile"]').prop('readonly', true);
                 }
                 $('#nextBtn').attr('disabled', false);
             }).catch(function(error) {
@@ -342,7 +414,42 @@
                 $('#nextBtn').attr('disabled', false);
             });
         });
+        // ========================================
+        // RESEND OTP
+        // ========================================
+        $(document).on('click', '#resendOtpBtn', function () {
 
+            if (resendAttempts >= MAX_RESEND_ATTEMPTS) {
+                $('#otpLimitMsg').removeClass('d-none');
+                $(this).addClass('d-none');
+                return;
+            }
+
+            resendAttempts++;
+
+            let emailActive = $('input[name="email"]').data('active-status') === 'active';
+
+            let otpData = emailActive
+                ? { email: $('input[name="email"]').val().trim(), purpose: 'register' }
+                : { mobile: '0' + $('input[name="mobile"]').val(), purpose: 'register', for: 'registration' };
+
+            let otpEndpoint = emailActive
+                ? 'auth/send-otp-mail'
+                : 'auth/send-otp-sms';
+
+            $(this).addClass('d-none');
+
+            sendAjaxRequest(otpEndpoint, 'POST', otpData)
+                .then(response => {
+                    if (response.status === 'success') {
+                        toastr.success('OTP resent successfully');
+                        startOtpTimer();
+                    } else {
+                        toastr.error(response.message);
+                    }
+                })
+                .catch(() => toastr.error('Failed to resend OTP'));
+        });
         // ========================================
         // FORM VALIDATION AND SUBMISSION
         // ========================================
@@ -402,7 +509,7 @@
             // OTP validation
             if (!userOtp) {
                 showError('.error-otp', 'OTP is required');
-            } else if (userOtp.length !== 4) {
+            } else if (userOtp.length !== 6) {
                 showError('.error-otp', 'OTP must be 6 digits');
             }
 
@@ -439,240 +546,3 @@
         });
     </script>
 @endpush
-
-
-{{--@push('script')--}}
-{{--    <script>--}}
-{{--        // password validation--}}
-{{--        // ========================================--}}
-{{--        // PASSWORD STRENGTH VALIDATOR--}}
-{{--        // ========================================--}}
-{{--        const passwordRules = {--}}
-{{--            length: (password) => password.length >= 8,--}}
-{{--            uppercase: (password) => /[A-Z]/.test(password),--}}
-{{--            lowercase: (password) => /[a-z]/.test(password),--}}
-{{--            number: (password) => /\d/.test(password),--}}
-{{--            special: (password) => /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)--}}
-{{--        };--}}
-
-{{--        function validatePasswordRules(password) {--}}
-{{--            const results = {};--}}
-{{--            for (const [rule, validator] of Object.entries(passwordRules)) {--}}
-{{--                results[rule] = validator(password);--}}
-{{--            }--}}
-{{--            return results;--}}
-{{--        }--}}
-
-{{--        function updatePasswordUI(validationResults) {--}}
-{{--            $('.rule-item').each(function() {--}}
-{{--                const rule = $(this).data('rule');--}}
-{{--                const isValid = validationResults[rule];--}}
-{{--                const icon = $(this).find('i');--}}
-
-{{--                if (isValid) {--}}
-{{--                    $(this).removeClass('invalid').addClass('valid');--}}
-{{--                    icon.removeClass('fa-circle-xmark text-danger')--}}
-{{--                        .addClass('fa-circle-check text-success');--}}
-{{--                } else {--}}
-{{--                    $(this).removeClass('valid').addClass('invalid');--}}
-{{--                    icon.removeClass('fa-circle-check text-success')--}}
-{{--                        .addClass('fa-circle-xmark text-danger');--}}
-{{--                }--}}
-{{--            });--}}
-{{--        }--}}
-
-{{--        // Show password rules on focus--}}
-{{--        $(document).on('focus', '.password-input', function() {--}}
-{{--            $('.password-rules').removeClass('d-none');--}}
-{{--        });--}}
-
-{{--        // Hide password rules on blur (optional - you can remove this if you want rules to stay visible)--}}
-{{--        // $(document).on('blur', '.password-input', function() {--}}
-{{--        //     if ($(this).val().trim() === '') {--}}
-{{--        //         $('.password-rules').addClass('d-none');--}}
-{{--        //     }--}}
-{{--        // });--}}
-
-{{--        // Real-time password validation--}}
-{{--        $(document).on('input', '.password-input', function() {--}}
-{{--            const password = $(this).val();--}}
-{{--            const validationResults = validatePasswordRules(password);--}}
-{{--            updatePasswordUI(validationResults);--}}
-{{--        });--}}
-
-{{--        // ========================================--}}
-{{--        // DYNAMIC ERROR CLEARING--}}
-{{--        // ========================================--}}
-{{--        $(document).on('input', 'input, textarea, select', function() {--}}
-{{--            // Clear error message for the current field--}}
-{{--            $(this).siblings('.text-danger').text('');--}}
-{{--            $(this).closest('.form-group').find('.text-danger').text('');--}}
-
-{{--            // Remove error styling if any--}}
-{{--            $(this).removeClass('is-invalid');--}}
-{{--        });--}}
-
-
-{{--        $(document).on('click', '.toggle-password', function () {--}}
-{{--            let input = $(this).siblings('input');--}}
-{{--            let type = input.attr('type') === 'password' ? 'text' : 'password';--}}
-
-{{--            input.attr('type', type);--}}
-{{--            $(this).toggleClass('fa-eye fa-eye-slash');--}}
-{{--        });--}}
-
-{{--        // Trigger on blur for all unique-check fields--}}
-{{--        $(document).on('blur', '.unique-check', function () {--}}
-{{--            checkUniqueField($(this));--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-{{--        $(document).on('click', '#loginWithEmail', function () {--}}
-{{--            $('input[name="mobile"]').attr('data-active-status', 'inactive');--}}
-{{--            $('input[name="email"]').attr('data-active-status', 'active');--}}
-{{--            $(this).addClass('d-none');--}}
-{{--            $('.mobile-div').addClass('d-none');--}}
-{{--            $('.email-div').removeClass('d-none');--}}
-{{--            $('#loginWithMobile').removeClass('d-none');--}}
-{{--        });--}}
-
-{{--        $(document).on('click', '#loginWithMobile', function () {--}}
-{{--            $('input[name="email"]').attr('data-active-status', 'inactive');--}}
-{{--            $('input[name="mobile"]').attr('data-active-status', 'active');--}}
-{{--            $(this).addClass('d-none');--}}
-{{--            $('.email-div').addClass('d-none');--}}
-{{--            $('.mobile-div').removeClass('d-none');--}}
-{{--            $('#loginWithEmail').removeClass('d-none');--}}
-{{--        });--}}
-{{--    </script>--}}
-{{--    <script>--}}
-
-
-
-{{--        $(document).on('click', '#nextBtn', function () {--}}
-{{--            $(this).attr('disabled', true);--}}
-
-{{--            let email = $('input[name="email"]').val().trim();--}}
-{{--            let mobile = $('input[name="mobile"]').val();--}}
-
-{{--            // Check which field is active--}}
-{{--            let emailActive = $('input[name="email"]').attr('data-active-status') === 'active';--}}
-{{--            let mobileActive = $('input[name="mobile"]').attr('data-active-status') === 'active';--}}
-
-
-{{--            $('.otp-input').removeClass('d-none');--}}
-{{--            $('.show-hide-block').removeClass('d-none');--}}
-{{--            $('#submitBtn').removeClass('d-none');--}}
-{{--            $('#nextBtn').addClass('d-none');--}}
-
-{{--            $('input[name="mobile"]').attr('disabled', 'disabled');--}}
-
-{{--            // Send OTP based on active field--}}
-{{--            let otpData = emailActive ?--}}
-{{--                { email: email, purpose: "register" } :--}}
-{{--                { mobile: "0"+mobile, purpose: "register", for: "registration" };--}}
-
-{{--            let otpEndpoint = emailActive ? "auth/send-otp-mail" : "auth/send-otp-sms";--}}
-
-{{--            sendAjaxRequest(otpEndpoint, 'POST', otpData).then(function (response) {--}}
-{{--                if (response.status == 'error')--}}
-{{--                    toastr.error(response.message);--}}
-{{--                else if (response.status == 'success')--}}
-{{--                    toastr.success(response.message);--}}
-{{--                // console.log(response);--}}
-{{--                $('#nextBtn').attr('disabled', false);--}}
-{{--            }).catch(function(error) {--}}
-{{--                toastr.error(error.message || 'Failed to send OTP');--}}
-{{--                $('#nextBtn').attr('disabled', false);--}}
-{{--            });--}}
-{{--        });--}}
-{{--        $('input').on('input', function () {--}}
-{{--            $(this).siblings('.text-danger').text('');--}}
-{{--        });--}}
-{{--        $(document).on('click', '#submitBtn', function () {--}}
-{{--            // Clear previous errors--}}
-{{--            $('.text-danger').text('');--}}
-
-{{--            let name = $('input[name="name"]').val().trim();--}}
-{{--            let email = $('input[name="email"]').val().trim();--}}
-{{--            let mobile = $('input[name="mobile"]').val();--}}
-{{--            let userOtp = $('input[name="user_otp"]').val().trim();--}}
-{{--            let password = $('input[name="password"]').val();--}}
-{{--            let confirmPassword = $('input[name="confirm_password"]').val();--}}
-
-{{--            // Check which field is active--}}
-{{--            let emailActive = $('input[name="email"]').attr('data-active-status') === 'active';--}}
-{{--            let mobileActive = $('input[name="mobile"]').attr('data-active-status') === 'active';--}}
-
-{{--            let hasError = false;--}}
-
-{{--            // Regex--}}
-{{--            let emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;--}}
-{{--            let mobileRegex = /^[0-9]{10}$/;--}}
-{{--            let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])[A-Za-z\d!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]{8,}$/;--}}
-
-{{--            // Name validation--}}
-{{--            if (!name) {--}}
-{{--                $('.error-name').text('Name is required');--}}
-{{--                hasError = true;--}}
-{{--            }--}}
-
-{{--            // Email validation (only if email is active)--}}
-{{--            if (emailActive) {--}}
-{{--                if (!email) {--}}
-{{--                    $('.error-email').text('Email is required');--}}
-{{--                    hasError = true;--}}
-{{--                } else if (!emailRegex.test(email)) {--}}
-{{--                    $('.error-email').text('Please enter a valid email address');--}}
-{{--                    hasError = true;--}}
-{{--                }--}}
-{{--            }--}}
-
-{{--            // Mobile validation (only if mobile is active)--}}
-{{--            if (mobileActive) {--}}
-{{--                if (!mobile) {--}}
-{{--                    $('.error-mobile').text('Mobile number is required');--}}
-{{--                    hasError = true;--}}
-{{--                } else if (!mobileRegex.test(mobile)) {--}}
-{{--                    $('.error-mobile').text('Please enter a valid 10-digit mobile number');--}}
-{{--                    hasError = true;--}}
-{{--                }--}}
-{{--            }--}}
-
-{{--            // OTP validation--}}
-{{--            if (!userOtp) {--}}
-{{--                $('.error-otp').text('OTP is required');--}}
-{{--                hasError = true;--}}
-{{--            }--}}
-
-{{--            // Password validation--}}
-{{--            if (!password) {--}}
-{{--                $('.error-password').text('Password is required');--}}
-{{--                hasError = true;--}}
-{{--            } else if (!passwordRegex.test(password)) {--}}
-{{--                $('.error-password').text(--}}
-{{--                    'Min 8 chars, include one uppercase, one lowercase, one number & one special character'--}}
-{{--                );--}}
-{{--                hasError = true;--}}
-{{--            }--}}
-
-{{--            // Confirm password validation--}}
-{{--            if (!confirmPassword) {--}}
-{{--                $('.error-confirm-password').text('Confirm password is required');--}}
-{{--                hasError = true;--}}
-{{--            } else if (password !== confirmPassword) {--}}
-{{--                $('.error-confirm-password').text('Passwords do not match');--}}
-{{--                hasError = true;--}}
-{{--            }--}}
-
-{{--            // Stop if any error--}}
-{{--            if (hasError) {--}}
-{{--                return;--}}
-{{--            }--}}
-
-{{--            // If no errors, submit the form--}}
-{{--            $(this).closest('form').submit();--}}
-{{--        });--}}
-{{--    </script>--}}
-
-{{--@endpush--}}

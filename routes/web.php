@@ -55,6 +55,9 @@ Route::middleware([
             Route::get('/sell-history', [InfluencerViewController::class,'saleHistory'])->name('sell-history');
             Route::get('/profile', [InfluencerViewController::class,'profile'])->name('profile');
             Route::get('/influencer-profile', [InfluencerViewController::class,'profileView'])->name('profile-view');
+
+
+            Route::post('/update-profile', [InfluencerViewController::class,'updateProfile'])->name('update-profile');
 //        });
     });
     Route::prefix('partner')->name('partner.')->group(function () {
