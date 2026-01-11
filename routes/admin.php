@@ -24,7 +24,7 @@ Route::prefix('admin')->group(function () {
         'auth:sanctum',
         config('jetstream.auth_session'),
         'verified',
-//        'password.expiry',
+        /*'password.expiry',*/
         'resource.maker',
         'auth.acl'
     ])->group(function (){

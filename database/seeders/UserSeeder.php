@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             'approved_by' => 1,
             'approve_status' => 1,
             'is_super_dev' => 1,
-            'user_type' => "developer",
+            'user_type' => "admin",
         ]);
 
         // Create personal team

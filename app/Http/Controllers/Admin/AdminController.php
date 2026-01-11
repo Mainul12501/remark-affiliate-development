@@ -17,11 +17,12 @@ use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 class AdminController extends Controller
 {
     public function dashboard(){
-        return view('admin.dashboard.home');
-    }
-
-    public function siteSettings(){
-        return view('admin.common-views.site-settings', ['siteSetting' => SiteSetting::first()]);
+        if(Auth::check() && Auth::user()->user_type =='admin'){
+            return view('admin.dashboard.home');
+        }else{
+            Auth::logout();
+            return  redirect('/')->with(['message'=>'This action is Unauthorized','alert-type'=>'error']);
+        }
     }
 
     public function settingsUpdate(SiteSettingRequest $request)
@@ -73,6 +74,7 @@ class AdminController extends Controller
     public function login(){
         return view('admin.auth.login');
     }
+
     public function processToLogin(Request $request)
     {
         $validation = Validator::make($request->all(),[
@@ -86,9 +88,9 @@ class AdminController extends Controller
 
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
-            if(Auth::user()->account_type != 'frontend'){
-                return redirect('/admin/dashboard')->with(['message'=>'Welcome to dashboard .','alert-type'=>'primary']);
-            }elseif(Auth::user()->account_type === 'frontend'){
+            if(Auth::user()->user_type == 'admin'){
+                    return redirect('/admin/dashboard')->with(['message'=>'Welcome to dashboard .','alert-type'=>'primary']);
+            }elseif(Auth::user()->user_type !== 'admin'){
                 Auth::logout();
                 return  redirect('/')->with(['message'=>'This action is Unauthorized','alert-type'=>'error']);
             }else{

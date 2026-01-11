@@ -2,7 +2,11 @@
 @section('title','Profile')
 @push('styles')
     <link rel="stylesheet" href="{{asset('backend/dropify/dist/css/dropify.min.css')}}"/>
-
+    <style>
+        .table thead th, .table thead td{
+            text-transform: capitalize;
+        }
+    </style>
 @endpush
 @section('content')
     <div class="container-fluid">
@@ -34,7 +38,7 @@
                     <div class="card-body">
                         <form action="{{url('admin/update-profile')}}" method="POST" enctype="multipart/form-data">
                             @csrf
-                           <table class="table table-bordered">
+                           <table class="table table-bordered text-nowrap">
                                <thead>
                                <tr>
                                    <td colspan="2" class="text-center">
@@ -58,10 +62,10 @@
                                    </td>
                                </tr>
                                <tr>
-                                   <th> Mobile No. <span class="text-danger"> *</span></th>
+                                   <th> Mobile No.</th>
                                    <td>
-                                       <input type="text" name="mobile_no" class="form-control @error('mobile_no')is-invalid @enderror" value="{{old('mobile_no',$user->mobile_no??'')}}" placeholder="Enter mobile number" required/>
-                                       @error('mobile_no')
+                                       <input type="text" name="mobile" class="form-control @error('mobile')is-invalid @enderror" value="{{old('mobile',$user->mobile??'')}}" placeholder="Enter mobile number"/>
+                                       @error('mobile')
                                        <span class="invalid-feedback" role="alert">
                                             <strong>{{$message}}</strong>
                                          </span>
@@ -69,7 +73,7 @@
                                    </td>
                                </tr>
                                <tr>
-                                   <th style="vertical-align: top"> Profile Image </th>
+                                   <th class="align-top"> Profile Image </th>
                                    <td>
                                        <input type="file" name="profile_image" class="form-control-file @error('profile_image') is-invalid @enderror upload_file" data-default-file="{{asset($user->profile_image??'')}}" accept=".jpg, .jpeg, .png" data-max-file-size="1M" data-height="100"/>
                                        @error('profile_image')
