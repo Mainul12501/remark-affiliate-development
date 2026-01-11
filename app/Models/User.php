@@ -51,6 +51,7 @@ class User extends Authenticatable
         'has_infl_partner_access',
         'is_super_dev',
         'user_slug',
+        'profile_title',
     ];
 
     protected $searchableFields = ['*'];
@@ -121,6 +122,7 @@ class User extends Authenticatable
         'reffer_code' => $request->reffer_code ?? $user?->reffer_code,
         'ref_influencer_count' => $request->ref_influencer_count ?? $user?->ref_influencer_count,
         'affiliate_badge_id' => $request->affiliate_badge_id ?? $user?->affiliate_badge_id,
+        'profile_title' => $request->profile_title ?? $user?->profile_title,
         'has_infl_partner_access' => $request->user_type == 'partner' || $user?->user_type == 'partner' ? 1 : 0,
         'user_slug' => Str::slug($request->name, '-'),
     ]);

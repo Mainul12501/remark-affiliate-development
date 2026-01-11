@@ -217,6 +217,13 @@
             $(this).toggleClass('fa-eye fa-eye-slash');
         });
 
+        // Hide password rules on blur (optional - you can remove this if you want rules to stay visible)
+        $(document).on('blur', '.password-input', function() {
+            // if ($(this).val().trim() === '') {
+            $('.password-rules').addClass('d-none');
+            // }
+        });
+
         // ========================================
         // SEND OTP (NEXT BUTTON)
         // ========================================

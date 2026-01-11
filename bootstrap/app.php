@@ -21,7 +21,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'auth.acl'          => \Uzzal\Acl\Middleware\AuthenticateWithAcl::class,
             'resource.maker'    => \Uzzal\Acl\Middleware\ResourceMaker::class,
             'password.expiry'   => \App\Http\Middleware\PasswordExpiryCheck::class,
+            'userApproveStatusCheck' => \App\Http\Middleware\UserApproveStatusCheck::class,
+            'noAuthCheck' => \App\Http\Middleware\NoAuthPagesMiddleware::class,
         ]);
+        $middleware->redirectGuestsTo('/');
     })
     ->withCommands([
         \Uzzal\Acl\Commands\AclResource::class,

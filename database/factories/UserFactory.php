@@ -40,6 +40,7 @@ class UserFactory extends Factory
             'block_status' => $this->faker->text(255),
             'reffered_agent_url' => $this->faker->text(255),
             'reffer_code' => $this->faker->unique->text(255),
+            'profile_title' => $this->faker->unique->text(255),
             'ref_influencer_count' => $this->faker->randomNumber(0),
             'has_infl_partner_access' => $this->faker->numberBetween(0, 127),
             'is_super_dev' => $this->faker->numberBetween(0, 127),

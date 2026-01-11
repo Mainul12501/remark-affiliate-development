@@ -49,28 +49,6 @@ class UserInfo extends Model
     }
     public static function createOrUpdateUserInfo($request, $newUser, $userInfo = null)
     {
-//        if (!$userInfo)
-//            $userInfo = new UserInfo();
-//        $userInfo->user_id = $newUser->id;
-//            $userInfo->bio = $request->bio ;
-//            $userInfo->current_balance = $request->current_balance ;
-//            $userInfo->total_conversion = $request->total_conversion ;
-//            $userInfo->total_earnings = $request->total_earnings ;
-//            $userInfo->tiktalk_profile_link = $request->tiktalk_profile_link ;
-//            $userInfo->is_tiktalk_varified = $request->is_tiktalk_varified ;
-//            $userInfo->fb_profile_link = $request->fb_profile_link ;
-//            $userInfo->is_fb_verified = $request->is_fb_verified ;
-//            $userInfo->youtube_profile_link = $request->youtube_profile_link ;
-//            $userInfo->is_youtube_verified = $request->is_youtube_verified ;
-//            $userInfo->tin_number = $request->tin_number ;
-//            $userInfo->bin_number = $request->bin_number ;
-//            $userInfo->tin_cert_img = $request->tin_cert_img ;
-//            $userInfo->nid = $request->nid ;
-//            $userInfo->insta_profile_link = $request->insta_profile_link ;
-//            $userInfo->is_insta_verified = $request->is_insta_verified ;
-//            $userInfo->save();
-//            return $userInfo;
-
 
         return static::updateOrCreate(['id' => $userInfo?->id],[
             'user_id' => $newUser->id,

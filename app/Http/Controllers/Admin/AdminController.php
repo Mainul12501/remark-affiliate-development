@@ -4,28 +4,75 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 
+use App\Http\Requests\Backend\CommonRequests\SiteSettingRequest;
+use App\Models\SiteSetting;
 use App\Models\User;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class AdminController extends Controller
 {
     public function dashboard(){
         return view('admin.dashboard.home');
-        if(Auth::check() && Auth::user()->account_type !='frontend'){
-            return view('admin.dashboard.home');
-        }else{
-            Auth::logout();
-            return  redirect('/')->with(['message'=>'This action is Unauthorized','alert-type'=>'error']);
+    }
+
+    public function siteSettings(){
+        return view('admin.common-views.site-settings', ['siteSetting' => SiteSetting::first()]);
+    }
+
+    public function settingsUpdate(SiteSettingRequest $request)
+    {
+
+        $validated = $request->validated();
+
+        try {
+            $siteSetting = SiteSetting::firstOrNew();
+
+            // Handle file uploads
+            $fileFields = ['favicon', 'menu_logo', 'logo', 'banner'];
+            foreach ($fileFields as $field) {
+                if ($request->hasFile($field)) {
+                    $filePath = CustomHelper::fileUpload(request()->file($field), 'site-settings', $siteSetting->$field, $siteSetting[$field]);
+                    // Delete old file
+//                    if ($siteSetting->$field && File::exists(public_path($siteSetting->$field))) {
+//                        File::delete(public_path($siteSetting->$field));
+//                    }
+//
+//                    // Upload new file
+//                    $file = $request->file($field);
+//                    $fileName = $field . '_' . time() . '.' . $file->getClientOriginalExtension();
+//                    $filePath = 'uploads/site-settings/' . $fileName;
+//
+//                    if (!File::exists(public_path('uploads/site-settings'))) {
+//                        File::makeDirectory(public_path('uploads/site-settings'), 0755, true);
+//                    }
+//
+//                    $file->move(public_path('uploads/site-settings'), $fileName);
+                    $siteSetting->$field = $filePath;
+                }
+            }
+
+            // Update other fields
+            $siteSetting->fill($request->except($fileFields));
+            $siteSetting->save();
+
+            return back()->with('success', 'Site settings updated successfully');
+
+        } catch (\Exception $e) {
+            \Log::error('Site settings update error: ' . $e->getMessage());
+            return back()->with('error', 'Failed to update site settings')->withInput();
         }
     }
 
+
+//    auth funcitons
     public function login(){
         return view('admin.auth.login');
     }
-
     public function processToLogin(Request $request)
     {
         $validation = Validator::make($request->all(),[
@@ -40,7 +87,7 @@ class AdminController extends Controller
         if(Auth::attempt(['email' => $request->email, 'password' => $request->password])){
 
             if(Auth::user()->account_type != 'frontend'){
-                    return redirect('/admin/dashboard')->with(['message'=>'Welcome to dashboard .','alert-type'=>'primary']);
+                return redirect('/admin/dashboard')->with(['message'=>'Welcome to dashboard .','alert-type'=>'primary']);
             }elseif(Auth::user()->account_type === 'frontend'){
                 Auth::logout();
                 return  redirect('/')->with(['message'=>'This action is Unauthorized','alert-type'=>'error']);
@@ -118,4 +165,5 @@ class AdminController extends Controller
         }
         return redirect('/admin/login');
     }
+
 }

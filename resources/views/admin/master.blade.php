@@ -34,6 +34,9 @@
     <link rel="modulepreload" href="{{asset('backend/build/assets/custom-switcher-CDFJCGB8.js')}}" />
     <link rel="modulepreload" href="{{ asset('backend/build/assets/Toasts-DHQE7Pe5.js') }}">
 
+{{--    helper css--}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Mainul12501/css-common-helper-classes/helper.min.css">
+
     @stack('styles')
 
 </head>
@@ -85,10 +88,139 @@
 <!-- APP JS-->
 {{--<script type="module" src="{{asset('backend/build/assets/app-ClKBXEo6.js')}}"></script>--}}
 <script type="module" src="{{ asset('backend/build/assets/Toasts-DHQE7Pe5.js') }}"></script>
+<!-- Toastr Scripts -->
+@include('admin.includes.toasts')
 <!-- END SCRIPTS -->
+{{--sweet alert 2--}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    let base_url = "{!! url('/') !!}/"
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    // ajax request common function
+    function sendAjaxRequest(url, method, data = {}, eventTriggerBtn = null) {
+        var btnText = '';
+        return $.ajax({ // Return the Promise from $.ajax
+            url: base_url + url,
+            method: method,
+            data: data,
+            processData: !(data instanceof FormData),
+            contentType: data instanceof FormData ? false : 'application/x-www-form-urlencoded; charset=UTF-8',
+            beforeSend: function () {
+                // You can show a loader here if needed
+                btnText = $(eventTriggerBtn).text();
+                $(eventTriggerBtn).attr('disabled', true).text('Please wait...');
+            },
+            complete: function () {
+                // Hide the loader here if needed
+                $(eventTriggerBtn).attr('disabled', false).text(btnText);
+            },
+        })
+            .done(function (data) { // .done() for success
+                // console.log('print from dno');
+                // No need to assign to 'response' here, it's passed to .then()
+            })
+            .fail(function (xhr, status, error) {
+                console.log('AJAX Error:', xhr.responseText);
+
+                // Handle different types of errors
+                if (xhr.status === 422) {
+                    // Laravel validation errors
+                    try {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.error) {
+                            // Handle your custom error format: {"error":{"mobile":["The mobile has already been taken."]},"status":"error"}
+                            $.each(response.error, function(field, messages) {
+                                if (Array.isArray(messages)) {
+                                    messages.forEach(function(message) {
+                                        // toastr.error(message);
+                                        showAjaxToast('error', message);
+                                    });
+                                } else {
+                                    // toastr.error(messages);
+                                    showAjaxToast('error', messages);
+                                }
+                            });
+                        } else if (response.errors) {
+                            // Handle standard Laravel validation format
+                            $.each(response.errors, function(field, messages) {
+                                messages.forEach(function(message) {
+                                    // toastr.error(message);
+                                    showAjaxToast('error', messages);
+                                });
+                            });
+                        }
+                    } catch (e) {
+                        // toastr.error('Validation failed. Please check your input.');
+                        showAjaxToast('error', 'Validation failed. Please check your input.');
+                    }
+                } else if (xhr.status === 500) {
+                    // toastr.error('Server error. Please try again later.');
+                    showAjaxToast('error', 'Server error. Please try again later.');
+                } else if (xhr.status === 403) {
+                    // toastr.error('Access denied.');
+                    showAjaxToast('error', 'Access denied.');
+                } else {
+                    // toastr.error('An error occurred. Please try again.');
+                    showAjaxToast('error', 'An error occurred. Please try again.');
+                }
+            });
+    }
+    $(document).on('click', '.delete-data', function () {
+        event.preventDefault();
+        var formElement = $(this).closest('form');
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Swal.fire({
+                //     title: "Deleted!",
+                //     text: "Your file has been deleted.",
+                //     icon: "success"
+                // });
+                formElement.submit();
+            }
+        });
+    })
+    $(document).on('click', '.call-ajax-reload', function () {
+        event.preventDefault();
+        var thisElement = $(this);
+        $.ajax({
+            url: $(this).attr('href'),
+            method: "GET",
+            beforeSend: function () {
+                thisElement.attr('disabled', true);
+            },
+            success: function (response) {
+                if (response.status == 'success')
+                    showAjaxToast('success', response.message);
+                else if (response.status == 'error')
+                    showAjaxToast('error', response.message);
+
+                setTimeout(function () {
+                    window.location.reload();
+                }, 1500)
+            },
+            complete: function () {
+                thisElement.attr('disabled', false);
+            }
+        })
+    });
+</script>
+
 @stack('scripts')
 
-@include('admin.includes.toasts')
+
 
 </body>
 
