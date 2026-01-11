@@ -11,7 +11,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 {!! Toastr::message() !!}
 
-
+<script>
+    let base_url = "{!! url('/') !!}/";
+</script>
 {{--common variables and functions--}}
 <script src="{{ asset('frontend/js/common.js') }}"></script>
 

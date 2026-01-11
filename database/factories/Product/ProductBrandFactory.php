@@ -1,8 +1,7 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Product;
 
-use Illuminate\Support\Str;
 use App\Models\Product\ProductBrand;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,10 +24,10 @@ class ProductBrandFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'slug' => $this->faker->slug(),
-            'logo' => $this->faker->text(),
+            'logo' => 'https://picsum.photos/640/480?random=' . fake()->uuid(),
             'status' => $this->faker->numberBetween(0, 127),
             'herlan_brand_id' => $this->faker->unique->randomNumber(),
-            'herlan_brand_slug' => $this->faker->unique->text(255),
+            'herlan_brand_slug' => $this->faker->unique->text(191),
             'note' => $this->faker->text(),
         ];
     }

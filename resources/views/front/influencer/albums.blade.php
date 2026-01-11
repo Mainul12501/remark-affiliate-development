@@ -28,7 +28,7 @@
                             <div class="influencer-album-add-wrapper dropdown">
                                 <button class="influencer-album-add-icon" type="button" id="albumAddDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">+</button>
                                 <div class="dropdown-menu influencer-album-add-dropdown" aria-labelledby="albumAddDropdown">
-                                    <a class="dropdown-item influencer-add-option" href="#" id="showProductsModal" {{--data-bs-toggle="modal" data-bs-target="#addProductModal"--}}>Upload Product</a>
+                                    <a class="dropdown-item influencer-add-option" href="javascript:void(0)" id="showProductsModal" {{--data-bs-toggle="modal" data-bs-target="#addProductModal"--}}>Upload Product</a>
                                     <a class="dropdown-item influencer-add-option influencer-add-option-link" href="#" data-bs-toggle="modal" data-bs-target="#createAlbumModal">Create Album</a>
                                 </div>
                             </div>
@@ -171,20 +171,29 @@
                 </div>
                 <div class="modal-body product-modal-body" >
                     <!-- Search & Filter Section -->
-                    <div class="product-modal-filters">
-                        <input type="text" class="form-control product-modal-search" placeholder="Search Product">
-                        <select class="form-select product-modal-select">
-                            <option selected>Select Category</option>
-                            <option value="skincare">Skincare</option>
-                            <option value="makeup">Makeup</option>
-                            <option value="haircare">Hair Care</option>
-                            <option value="bodycare">Body Care</option>
-                        </select>
-                        <button class="btn product-modal-filter-btn">Filter</button>
+                    <form action="" id="singleProductModalSearchForm">
+                        <div class="product-modal-filters">
+                            <input type="text" class="form-control product-modal-search" id="singleProductSearch" placeholder="Search Product">
+                            <select class="form-select product-modal-select" id="singleProductCategory">
+                                <option selected disabled>Select Category</option>
+                                @foreach($productCategories as $productCategory)
+                                    <option value="{{ $productCategory->slug }}">{{ $productCategory->name }}</option>
+                                @endforeach
+                                {{--                            <option value="makeup">Makeup</option>--}}
+                                {{--                            <option value="haircare">Hair Care</option>--}}
+                                {{--                            <option value="bodycare">Body Care</option>--}}
+                            </select>
+                            <button type="button" id="singleProductQueryBtn" class="btn product-modal-filter-btn text-white">Filter</button>
+                        </div>
+                    </form>
+
+                    <div id="productLoader" class="text-center py-3" style="display:none;">
+                        <div class="spinner-border text-dark"></div>
+                        <div class="small mt-2">Loading products...</div>
                     </div>
 
                     <!-- Products Grid -->
-                    <div class="product-modal-grid" >
+                    <div class="product-modal-grid" id="singleProductAlbumModalBody">
                         <!-- Product Card 1 -->
                         <div class="product-modal-card">
                             <div class="product-modal-img-wrapper">
@@ -376,7 +385,7 @@
                     <h5 class="modal-title product-modal-title" id="albumProductModalLabel">Add Product</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body product-modal-body">
+                <div class="modal-body product-modal-body" >
                     <!-- Search & Filter Section -->
                     <div class="product-modal-filters">
                         <input type="text" class="form-control product-modal-search" placeholder="Search Product">
@@ -390,7 +399,7 @@
                     </div>
 
                     <!-- Products Grid -->
-                    <div class="product-modal-grid">
+                    <div class="product-modal-grid" id="albumProductModalBody">
                         <div class="product-modal-card album-product-selectable" data-product-id="1" data-product-img="images/influencer/Rectangle-301.png">
                             <div class="product-modal-img-wrapper">
                                 <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Blaze O' Skin" class="product-modal-img">
@@ -500,12 +509,83 @@
 @endsection
 
 @push('script')
+{{--    single product modal scripts--}}
     <script>
+        let page = 1;
+        let loading = false;
+        let currentQuery = '';
+        let currentCategory = '';
+        let hasMore = true;
         $(document).on('click', '#showProductsModal', function () {
-            sendAjaxRequest('get-product-lists', 'GET').then(function (response) {
 
-                $('#addProductModal').modal('show');
+            page = 1;
+            loading = false;
+            hasMore = true;
+            currentQuery = '';
+            currentCategory = '';
+            $('#singleProductAlbumModalBody').html('');
+            loadProducts();
+            $('#addProductModal').modal('show');
+
+            // sendAjaxRequest('get-product-lists?render=1', 'GET').then(function (response) {
+                // $('#singleProductAlbumModalBody').append(response);
+            // });
+        })
+
+        function loadProducts(modalDiv = '#singleProductAlbumModalBody', forAlbum = 0) {
+            if (loading || !hasMore) return;
+            loading = true;
+            // $('#productLoader').show();   // 👈 show loader
+            sendAjaxRequest(
+                `get-product-lists?render=1&page=${page}&for_album=${forAlbum}&query=${currentQuery}&category=${currentCategory}`,
+                'GET'
+            ).then(function (html) {
+                if ($(modalDiv).find('.no-more-data').length) return;
+                if (!html || !html.trim()) {
+                    $('#productLoader').hide();
+                    loading = false;
+                    return;
+                }
+                loading = false;
+                $(modalDiv).append(html);
+                page++;
+                // $('#productLoader').hide(); // 👈 hide loader
+
+
             });
+        }
+
+        $('#addProductModal .modal-body').on('scroll', function () {
+            let el = this;
+            if (el.scrollTop + el.clientHeight >= el.scrollHeight - 50) {
+                loadProducts();
+            }
+        });
+
+        $('#singleProductQueryBtn').on('click', function () {
+            // event.preventDefault();
+            currentQuery = $('#singleProductSearch').val();
+            currentCategory = $('#singleProductCategory').val();
+            page = 1;
+            hasMore = true;
+            $('#singleProductAlbumModalBody').html('');
+            loadProducts();
+        });
+    </script>
+
+{{--    album scripts--}}
+    <script>
+
+        $(document).on('click', '#openAlbumProductModal', function () {
+
+            page = 1;
+            loading = false;
+            hasMore = true;
+            currentQuery = '';
+            currentCategory = '';
+            $('#albumProductModalBody').html('');
+            loadProducts('#albumProductModalBody', 1);
+            $('#albumProductModal').modal('show');
         })
     </script>
 @endpush

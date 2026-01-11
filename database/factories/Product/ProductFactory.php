@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Product;
 
 use App\Models\Product\Product;
-use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProductFactory extends Factory
@@ -25,11 +24,11 @@ class ProductFactory extends Factory
         return [
             'title' => $this->faker->text(),
             'slug' => $this->faker->text(),
-            'thumb_img' => $this->faker->text(),
+            'thumb_img' => 'https://picsum.photos/640/480?random=' . fake()->uuid(),
             'regular_price' => $this->faker->randomNumber(2),
             'price' => $this->faker->randomFloat(2, 0, 9999),
             'sale_price' => $this->faker->randomNumber(2),
-            'sku' => $this->faker->unique->text(),
+            'sku' => $this->faker->unique->text(60),
             'status' => $this->faker->numberBetween(0, 127),
             'herlan_product_id' => $this->faker->unique->randomNumber(),
             'herlan_product_uri' => $this->faker->text(),

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product\ProductCategory;
 use Illuminate\Http\Request;
 use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
@@ -26,6 +27,7 @@ class InfluencerViewController extends Controller
     {
         return CustomHelper::returnDataForWebOrApi([
             'loggedUser'    => CustomHelper::loggedUser()->load('userInfo'),
+            'productCategories' => ProductCategory::latest()->get(['id', 'name', 'slug']),
         ], 'front.influencer.albums');
         return view('front.influencer.albums');
     }

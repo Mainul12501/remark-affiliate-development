@@ -1,8 +1,7 @@
 <?php
 
-namespace Database\Factories;
+namespace Database\Factories\Product;
 
-use Illuminate\Support\Str;
 use App\Models\Product\ProductCategory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -25,10 +24,10 @@ class ProductCategoryFactory extends Factory
         return [
             'name' => $this->faker->name(),
             'slug' => $this->faker->slug(),
-            'thumb_img' => $this->faker->text(),
+            'thumb_img' => 'https://picsum.photos/640/480?random=' . fake()->uuid(),
             'status' => $this->faker->numberBetween(0, 127),
             'herlan_cat_id' => $this->faker->unique->randomNumber(),
-            'herlan_cat_slug' => $this->faker->text(255),
+            'herlan_cat_slug' => $this->faker->text(191),
             'herlan_cat_uri' => $this->faker->unique->text(),
             'herlan_cat_total_products' => $this->faker->randomNumber(0),
             'product_category_id' => function () {

@@ -32,6 +32,7 @@ Route::post('auth/register-partner', [AuthController::class,'registerPartner'])-
 Route::get('auth/{provider}/redirect', [SocialLoginController::class , 'redirect'])->name('auth.socialite.redirect');
 Route::get('auth/{provider}/callback', [SocialLoginController::class , 'callback'])->name('auth.socialite.callback');
 
+//Ajax routes
 Route::get('/get-product-lists', [ProductController::class,'getProductLists'])->name('get-product-lists');
 
 
