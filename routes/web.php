@@ -11,6 +11,7 @@ use App\Http\Controllers\Front\PartnerViewController;
 use App\Http\Controllers\Front\Influencer\InfluencerProfileController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\UserBankInfoController;
+use App\Http\Controllers\Front\Influencer\AffiliateCampaignController;
 
 Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
@@ -60,6 +61,7 @@ Route::middleware([
 
 
             Route::post('/update-profile', [InfluencerProfileController::class,'updateProfile'])->name('update-profile');
+            Route::post('/create-campaign', [AffiliateCampaignController::class,'createCampaign'])->name('create-campaign');
 
             Route::resources([
                 'user-bank-infos' => UserBankInfoController::class,

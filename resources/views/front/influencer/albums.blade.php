@@ -597,6 +597,7 @@
 <script>
     $(document).on('click', '.single-product-album', function () {
         let productId = $(this).data('product-id');
+        let productSku = $(this).data('product-sku');
         let productTitle = $(this).data('product-title');
         let type = 'single';
         Swal.fire({
@@ -609,7 +610,10 @@
             confirmButtonText: "Yes!"
         }).then((result) => {
             if (result.isConfirmed) {
-
+                let data = {type: type, productSku : productSku};
+                sendAjaxRequest("{{ route('influencer.create-campaign') }}", "GET").then(function (response) {
+                    console.log(response);
+                });
             }
         });
     })

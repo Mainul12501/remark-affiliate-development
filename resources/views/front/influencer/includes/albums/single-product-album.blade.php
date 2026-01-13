@@ -10,7 +10,7 @@
 {{--            </button>--}}
         </div>
         <div class="product-modal-info">
-            <span class="product-modal-brand product-brand-blaze">{{ $product->productBrand->name ?? 'brand name' }}</span>
+            <span class="product-modal-brand product-brand-blaze">{{ $product?->productBrand?->name ?? 'brand name' }}</span>
             <p class="product-modal-name">{{ $product->title ?? '' }}</p>
             <div class="product-modal-price">
                 @if($product->regular_price > 0) <span class="product-price-old">৳ {{ $product->regular_price ?? 0 }}</span> @endif

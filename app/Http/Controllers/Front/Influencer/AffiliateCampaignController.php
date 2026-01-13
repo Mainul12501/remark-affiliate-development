@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class AffiliateCampaignController extends Controller
 {
-    //
+    public function createCampaign(Request $request)
+    {
+        return $request;
+    }
 }
