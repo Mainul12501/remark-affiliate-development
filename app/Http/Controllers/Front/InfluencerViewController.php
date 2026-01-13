@@ -41,6 +41,7 @@ class InfluencerViewController extends Controller
     public function bankInfo()
     {
         $loggedUser = HelperClass::getUserWithUserInfo();
+        $loggedUser->userInfo();
         return CustomHelper::returnDataForWebOrApi([
             'loggedUser'    => $loggedUser,
             'banks'         => Bank::latest()->get(['id', 'name']),

@@ -37,10 +37,9 @@ class UserBankInfo extends Model
     public static function createOrUpdateBankInfo($request)
     {
         $loggedUser = CustomHelper::loggedUser();
-        $loggedUser->update([
-            'tin_number' => $request->tin_number,
-            'tin_cert_img' => CustomHelper::fileUpload($request->file('tin_cert_img'), 'tin-certificates', 'tin-', $loggedUser->tin_cert_img ?? null),
-        ]);
+//        $loggedUser->tin_number = $request->tin_number;
+//        $loggedUser->tin_cert_img = CustomHelper::fileUpload($request->file('tin_cert_img'), 'tin-certificates', 'tin-', $loggedUser->tin_cert_img ?? null);
+
         $userBankInfo = UserBankInfo::where('user_id', $loggedUser->id)->first();
         if (empty($userBankInfo)) {
             $userBankInfo = new UserBankInfo();

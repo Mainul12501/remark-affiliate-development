@@ -24,7 +24,7 @@
                                 <select class="form-select bank-form-input" name="bank_id" >
                                     <option selected disabled>Select Your Bank</option>
                                     @foreach($banks as $bank)
-                                        <option value="{{ $bank->id }}" >{{ $bank->name ?? 'Bank Name' }}</option>
+                                        <option value="{{ $bank->id }}" {{ $bankInfo->bank_id == $bank->id ? 'selected' : '' }}>{{ $bank->name ?? 'Bank Name' }}</option>
                                     @endforeach
                                     {{--                                <option value="2">Chase Bank</option>--}}
                                     {{--                                <option value="3">Wells Fargo</option>--}}
@@ -94,13 +94,13 @@
                             <!-- TIN Input -->
                             <div class="mb-3">
                                 <label class="form-label bank-form-label">Mobile Number</label>
-                                <input type="text" class="form-control bank-form-input" {{ old('mobile_number', $bankInfo->mobile_number ?? '') }} name="mobile_number" placeholder="01XXXXXXXXX">
+                                <input type="text" class="form-control bank-form-input" maxlength="11" value="{{ old('mobile_number', $bankInfo->mobile_number ?? '') }}" name="mobile_number" placeholder="01XXXXXXXXX">
                             </div>
 
                             <!-- TIN Input -->
                             <div class="mb-3">
                                 <label class="form-label bank-form-label">TIN</label>
-                                <input type="text" name="tin_number" {{ old('tin_number', $bankInfo->tin_number ?? '') }} class="form-control bank-form-input" placeholder="012345678998">
+                                <input type="text" name="tin_number" value="{{ old('tin_number', $loggedUser?->userInfo?->tin_number ?? '') }}" class="form-control bank-form-input" placeholder="012345678998">
                             </div>
 
                             <!-- Or Divider -->
@@ -110,9 +110,9 @@
                             <div class="mb-3">
                                 <label class="form-label bank-form-label">Upload TIN Certificate</label>
                                 <div class="bank-upload-area bank-upload-dropzone" data-upload-type="tin"
-                                     @if(isset($loggedUser) && $loggedUser->tin_cert_img) data-existing-image="{{ asset($loggedUser->tin_cert_img) }}" @endif>
+                                     @if(isset($loggedUser) && $loggedUser?->userInfo?->tin_cert_img) data-existing-image="{{ asset($loggedUser?->userInfo?->tin_cert_img) }}" @endif>
                                     <input type="file" name="tin_cert_img" class="bank-upload-input" id="tinUpload" accept="image/*,.pdf" hidden>
-                                    <div class="bank-upload-content" @if(isset($loggedUser) && $loggedUser->tin_cert_img) style="display: none;" @endif>
+                                    <div class="bank-upload-content" @if(isset($loggedUser) && $loggedUser?->userInfo?->tin_cert_img) style="display: none;" @endif>
                                         <div class="bank-upload-icon">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-arrow-up-circle-fill" viewBox="0 0 16 16">
                                                 <path d="M16 8A8 8 0 1 0 0 8a8 8 0 0 0 16 0m-7.5 3.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
@@ -121,8 +121,8 @@
                                         <p class="bank-upload-text mb-0">Image/PDF</p>
                                         <p class="bank-upload-subtext mb-0">JPEG, PNG or PDF</p>
                                     </div>
-                                    <div class="bank-upload-preview" @if(isset($loggedUser) && $loggedUser->tin_cert_img) style="display: flex;" @else style="display: none;" @endif>
-                                        <img src="{{ isset($loggedUser) && $loggedUser->tin_cert_img ? asset($loggedUser->tin_cert_img) : '' }}" alt="Preview" class="bank-preview-image">
+                                    <div class="bank-upload-preview" @if(isset($loggedUser) && $loggedUser?->userInfo?->tin_cert_img) style="display: flex;" @else style="display: none;" @endif>
+                                        <img src="{{ isset($loggedUser) && $loggedUser?->userInfo?->tin_cert_img ? asset($loggedUser?->userInfo?->tin_cert_img) : '' }}" alt="Preview" class="bank-preview-image">
                                         <button type="button" class="bank-remove-file">&times;</button>
                                     </div>
                                 </div>

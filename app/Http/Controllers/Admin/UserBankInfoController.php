@@ -32,12 +32,21 @@ class UserBankInfoController extends Controller
      */
     public function store(UserBankInfoRequest $request)
     {
+        try {
+            DB::transaction(function () use ($request) {
+                $loggedUser = CustomHelper::loggedUser();
+                $userInfo = $loggedUser->userInfo()->update([
+                    'tin_number'    => $request['tin_number'],
+                    'tin_cert_img'    => CustomHelper::fileUpload($request->file('tin_cert_img'), 'tin-certificates', 'tin-', $loggedUser->tin_cert_img ?? null),
+                ]);
+                UserBankInfo::createOrUpdateBankInfo($request);
+            });
 
-        DB::transaction(function () use ($request) {
-           UserBankInfo::createOrUpdateBankInfo($request);
-        });
+            return CustomHelper::returnSuccessMessage('Bank Info stored Successfully.');
+        } catch (\Exception $exception) {
+            return CustomHelper::returErrorMessage('Something went wrong. '.$exception->getMessage());
+        }
 
-        return CustomHelper::returnSuccessMessage('Bank Info stored Successfully.');
     }
 
     /**
