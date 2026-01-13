@@ -509,6 +509,10 @@
 @endsection
 
 @push('script')
+    <!-- sweetalert2 cdn -->
+{{--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
+    <link rel="stylesheet" href="{{ asset('/frontend/css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('/frontend/js/sweetalert2.all.min.js') }}">
 {{--    single product modal scripts--}}
     <script>
         let page = 1;
@@ -588,4 +592,26 @@
             $('#albumProductModal').modal('show');
         })
     </script>
+
+{{-- single product campain--}}
+<script>
+    $(document).on('click', '.single-product-album', function () {
+        let productId = $(this).data('product-id');
+        let productTitle = $(this).data('product-title');
+        let type = 'single';
+        Swal.fire({
+            title: "Create New Campaign?",
+            text: `You are about to create a new Campaign with ${productTitle}!`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+
+            }
+        });
+    })
+</script>
 @endpush

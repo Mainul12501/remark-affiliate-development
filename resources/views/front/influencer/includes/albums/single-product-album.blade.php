@@ -2,7 +2,7 @@
     <span class="no-more-data"></span>
 @endif
 @foreach($products as $product)
-    <div class="product-modal-card {{ $forAlbum ? 'album-product-selectable' : '' }}" @if($forAlbum) data-product-id="{{ $product->id }}" data-product-img="{{ $product->thumb_img }}" @endif>
+    <div class="product-modal-card {{ $forAlbum ? 'album-product-selectable' : 'single-product-album' }}" data-product-title="{{ $product->title }}" data-product-sku="{{ $product->sku }}" data-product-id="{{ $product->id }}" data-product-img="{{ $product->thumb_img }}" >
         <div class="product-modal-img-wrapper">
             <img src="{{ $product->thumb_img }}" alt="Blaze O' Skin" class="product-modal-img">
 {{--            <button class="product-modal-fav-btn">--}}
