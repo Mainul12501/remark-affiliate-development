@@ -119,7 +119,7 @@ class User extends Authenticatable
         'block_status' => $request->block_status ?? $user?->block_status,
         'created_by' => $request->created_by ?? $user?->created_by,
         'reffered_agent_url' => $request->reffered_agent_url ?? $user?->reffered_agent_url,
-        'reffer_code' => $request->reffer_code ?? $user?->reffer_code,
+//        'reffer_code' => $request->reffer_code ?? $user?->reffer_code,
         'ref_influencer_count' => $request->ref_influencer_count ?? $user?->ref_influencer_count,
         'affiliate_badge_id' => $request->affiliate_badge_id ?? $user?->affiliate_badge_id,
         'profile_title' => $request->profile_title ?? $user?->profile_title,

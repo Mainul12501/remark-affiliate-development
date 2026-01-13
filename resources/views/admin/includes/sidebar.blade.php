@@ -68,6 +68,23 @@
 
                     </ul>
                 </li>
+                <!-- Start::slide -->
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item">
+                        <i class="mdi mdi-currency-usd side-menu__icon"></i>
+                        <span class="side-menu__label">Benefits Management</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                            <li class="slide">
+                                <a href="{{ route('admin.benefit-categories.index') }}" class="side-menu__item">Category</a>
+                            </li>
+                        <li class="slide">
+                            <a href="{{ route('admin.benefit-lists.index') }}" class="side-menu__item">Benefits</a>
+                        </li>
+
+                    </ul>
+                </li>
 
 
                 <li class="slide">

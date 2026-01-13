@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Product\ProductCategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\Benefit\BenefitCategoryController;
+use App\Http\Controllers\Admin\Benefit\BenefitController;
 
 Route::get('login',[AdminController::class,'login'])->name('login');
 Route::get('admin',[AdminController::class,'login']);
@@ -45,10 +47,12 @@ Route::prefix('admin')->group(function () {
 
         Route::name('admin.')->group(function () {
             Route::resources([
-                'brands'        => BrandController::class,
-                'categories'    => ProductCategoryController::class,
-                'products'      => ProductController::class,
-                'banks'         => BankController::class,
+                'brands'                    => BrandController::class,
+                'categories'                => ProductCategoryController::class,
+                'products'                  => ProductController::class,
+                'banks'                     => BankController::class,
+                'benefit-categories'        => BenefitCategoryController::class,
+                'benefit-lists'             => BenefitController::class,
             ]);
         });
     });
