@@ -10,6 +10,7 @@ use App\Http\Controllers\Front\InfluencerViewController;
 use App\Http\Controllers\Front\PartnerViewController;
 use App\Http\Controllers\Front\Influencer\InfluencerProfileController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\UserBankInfoController;
 
 Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
@@ -44,6 +45,7 @@ Route::middleware([
 //    'resource.maker',
 ])->group(function () {
 
+
     Route::prefix('influencer')->name('influencer.')->group(function () {
         Route::get('/influencer-profile-verify', [InfluencerViewController::class,'profileVerify'])->name('profile-verify');
         Route::post('/profile-image-update', [InfluencerProfileController::class,'profileImageUpdate'])->name('profile.upload-image');
@@ -57,7 +59,11 @@ Route::middleware([
             Route::get('/influencer-profile', [InfluencerViewController::class,'profileView'])->name('profile-view');
 
 
-            Route::post('/update-profile', [InfluencerViewController::class,'updateProfile'])->name('update-profile');
+            Route::post('/update-profile', [InfluencerProfileController::class,'updateProfile'])->name('update-profile');
+
+            Route::resources([
+                'user-bank-infos' => UserBankInfoController::class,
+            ]);
 //        });
     });
     Route::prefix('partner')->name('partner.')->group(function () {

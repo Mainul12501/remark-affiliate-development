@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Product\ProductCategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\BankController;
 
 Route::get('login',[AdminController::class,'login'])->name('login');
 Route::get('admin',[AdminController::class,'login']);
@@ -47,6 +48,7 @@ Route::prefix('admin')->group(function () {
                 'brands'        => BrandController::class,
                 'categories'    => ProductCategoryController::class,
                 'products'      => ProductController::class,
+                'banks'         => BankController::class,
             ]);
         });
     });

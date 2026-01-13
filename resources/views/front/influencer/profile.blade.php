@@ -76,7 +76,7 @@
                                         </div>
                                         <div class="col-sm-4 mt-2">
                                             <div class="form-group">
-                                                <label class="form-label-profile">Phone</label>
+                                                <label class="form-label-profile">Mobile</label>
                                                 <input type="tel"
                                                        name="mobile"
                                                        value="{{ old('mobile', $loggedUser->mobile ?? '') }}"

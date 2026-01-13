@@ -22,7 +22,20 @@ class InfluencerProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required',
+            'email' => 'email',
+            'mobile' => [
+                'nullable', 'regex:/^(?:\+88|88)?(01[3-9]\d{8})$/',
+            ]
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Influencer Name is required.',
+            'email.email' => 'Provide a valid email address.',
+            'mobile.regex' => 'Provide a valid mobile number.',
         ];
     }
 }

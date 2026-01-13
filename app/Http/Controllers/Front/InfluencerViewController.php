@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Front;
 
 use App\Helper\HelperClass;
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
 use App\Models\Product\ProductCategory;
 use App\Models\User;
+use App\Models\UserBankInfo;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -38,8 +40,11 @@ class InfluencerViewController extends Controller
     }
     public function bankInfo()
     {
+        $loggedUser = HelperClass::getUserWithUserInfo();
         return CustomHelper::returnDataForWebOrApi([
-            'loggedUser'    => HelperClass::getUserWithUserInfo(),
+            'loggedUser'    => $loggedUser,
+            'banks'         => Bank::latest()->get(['id', 'name']),
+            'bankInfo'      => UserBankInfo::where(['user_id' => $loggedUser->id, 'active_status' => 1])->first(),
         ], 'front.influencer.bank-info');
         return view('front.influencer.bank-info');
     }
@@ -62,19 +67,5 @@ class InfluencerViewController extends Controller
         return view('front.influencer.profile.profile');
     }
 
-    public function updateProfile(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-        ]);
 
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-        $loggedUser = CustomHelper::loggedUser();
-        DB::transaction(function () use ($request, $loggedUser) {
-            User::createOrUpdateUser($request, $loggedUser);
-            UserInfo::createOrUpdateUserInfo($request, $loggedUser, $loggedUser->userInfo);
-        });
-    }
 }

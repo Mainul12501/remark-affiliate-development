@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front\Influencer;
 
 use App\Helper\HelperClass;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Front\Influencer\InfluencerProfileUpdateRequest;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -75,5 +76,16 @@ class InfluencerProfileController extends Controller
             return CustomHelper::returErrorMessage('Failed to update profile review. ' );
         }
 
+    }
+
+    public function updateProfile(InfluencerProfileUpdateRequest $request)
+    {
+        $loggedUser = CustomHelper::loggedUser();
+        DB::transaction(function () use ($request, $loggedUser) {
+            User::createOrUpdateUser($request, $loggedUser);
+            UserInfo::createOrUpdateUserInfo($request, $loggedUser, $loggedUser->userInfo);
+        });
+
+        return CustomHelper::returnSuccessMessage('Profile updated successfully. ');
     }
 }
