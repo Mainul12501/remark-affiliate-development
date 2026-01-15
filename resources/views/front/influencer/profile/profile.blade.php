@@ -1,0 +1,1446 @@
+@extends('front.master')
+
+@section('title', 'Influencer Profile')
+
+@section('body')
+
+    <!-- Main Content -->
+    <div class="influencer-profile-main">
+        <div class="container-fluid px-md-4 px-3 py-4 influencer-profile-shell">
+
+            <!-- Profile Header Section -->
+            <div class="influencer-profile-header mb-4">
+                <div class="row g-4 align-items-center">
+                    <div class="col-md-7">
+                        <div class="d-flex flex-column flex-md-row align-items-center align-items-md-start gap-3">
+                            <img src="{{ asset('/') }}frontend/images/home/sry.png" alt="Profile Picture" class="influencer-profile-img">
+                            <div class="text-center text-md-start">
+                                <h5 class="fw-bold mb-1">Sadiya A. Suchita</h5>
+                                <p class="text-muted small mb-2">MODEL & INFLUENCER</p>
+                                <div class="d-flex justify-content-center justify-content-md-start gap-2 mb-3">
+                                    <a href="#" class="influencer-social-icon"><i class="bi bi-tiktok"></i></a>
+                                    <a href="#" class="influencer-social-icon"><i class="bi bi-facebook"></i></a>
+                                    <a href="#" class="influencer-social-icon"><i class="bi bi-instagram"></i></a>
+                                    <a href="#" class="influencer-social-icon"><i class="bi bi-youtube"></i></a>
+                                </div>
+                                <div class="influencer-referral-link">
+                                    <p class="small fw-semibold mb-1">REFERRAL LINK:</p>
+                                    <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-center justify-content-md-start gap-2">
+                                        <span class="small text-muted">https://herlan.com/sadiy</span>
+                                        <button class="btn btn-dark btn-sm rounded-pill px-3 py-1">Copy Link</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div class="d-flex justify-content-center justify-content-lg-end">
+                            <div class="influencer-rank-card bg-white rounded-3 p-3">
+                                <div class="d-flex align-items-center gap-3">
+                                    <img src="{{ asset('/') }}frontend/images/home/gold-badge.png" alt="Silver Badge" class="influencer-badge-img">
+                                    <div>
+                                        <p class="small text-muted mb-0">RANK</p>
+                                        <h5 class="fw-bold mb-2">Silver</h5>
+                                        <div class="row g-3">
+                                            <div class="col-6">
+                                                <p class="small text-muted mb-0">AVAILABLE BALANCE</p>
+                                                <p class="fw-bold mb-0">&#x9F3;,15,000</p>
+                                            </div>
+                                            <div class="col-6">
+                                                <p class="small text-muted mb-0">THIS MONTH SOLD</p>
+                                                <p class="fw-bold mb-0">50 Products</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab Navigation -->
+            <ul class="nav nav-pills influencer-nav-tabs mb-4 d-flex flex-nowrap overflow-auto" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="influencer-albums-tab" data-bs-toggle="pill" data-bs-target="#influencer-albums" type="button" role="tab" aria-controls="influencer-albums" aria-selected="true">Albums</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="influencer-earnings-tab" data-bs-toggle="pill" data-bs-target="#influencer-earnings" type="button" role="tab" aria-controls="influencer-earnings" aria-selected="false">Your Earnings</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="influencer-edit-profile-tab" data-bs-toggle="pill" data-bs-target="#influencer-edit-profile" type="button" role="tab" aria-controls="influencer-edit-profile" aria-selected="false">Edit Profile</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="influencer-bank-details-tab" data-bs-toggle="pill" data-bs-target="#influencer-bank-details" type="button" role="tab" aria-controls="influencer-bank-details" aria-selected="false">Bank Details</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="influencer-sales-history-tab" data-bs-toggle="pill" data-bs-target="#influencer-sales-history" type="button" role="tab" aria-controls="influencer-sales-history" aria-selected="false">Sales History</button>
+                </li>
+            </ul>
+
+            <!-- Tab Contents -->
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="influencer-albums" role="tabpanel" aria-labelledby="influencer-albums-tab" tabindex="0">
+                    <div class="influencer-albums-content">
+                        <div class="influencer-albums-toolbar">
+                            <input type="text" class="form-control influencer-albums-search" placeholder="Search Product">
+                            <select class="form-select influencer-albums-select">
+                                <option selected>Select Category</option>
+                                <option>Skincare</option>
+                                <option>Makeup</option>
+                                <option>Hair Care</option>
+                            </select>
+                            <button class="btn btn-dark influencer-albums-filter">Filter</button>
+                        </div>
+
+                        <div class="row g-4 influencer-albums-grid">
+                            <div class="col-lg-4 col-md-6">
+                                <div class="influencer-album-card influencer-album-card-add">
+                                    <div class="influencer-album-add-wrapper dropdown">
+                                        <button class="influencer-album-add-icon" type="button" id="albumAddDropdown" data-bs-toggle="dropdown" data-bs-auto-close="true" aria-expanded="false">+</button>
+                                        <div class="dropdown-menu influencer-album-add-dropdown" aria-labelledby="albumAddDropdown">
+                                            <a class="dropdown-item influencer-add-option" href="#" data-bs-toggle="modal" data-bs-target="#addProductModal">Upload Product</a>
+                                            <a class="dropdown-item influencer-add-option influencer-add-option-link" href="#" data-bs-toggle="modal" data-bs-target="#createAlbumModal">Create Album</a>
+                                        </div>
+                                    </div>
+                                    <p class="mb-0">Use at Least 1 product</p>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div style="cursor:pointer;" class="influencer-album-card influencer-album-card-collage influencer-album-card-media dropdown">
+                                    <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu influencer-album-dropdown">
+                                        <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
+                                        <div class="influencer-album-link-row px-3 pb-2">
+                                            <span class="small">https://herlan.com/sadiya_a_suchita</span>
+                                            <button class="btn btn-light btn-sm">Copy</button>
+                                        </div>
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Remove</a>
+                                    </div>
+                                    <div class="influencer-album-collage">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="influencer-album-card influencer-album-card-media dropdown">
+                                    <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu influencer-album-dropdown">
+                                        <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
+                                        <div class="influencer-album-link-row px-3 pb-2">
+                                            <span class="small">https://herlan.com/sadiya_a_suchita</span>
+                                            <button class="btn btn-light btn-sm">Copy</button>
+                                        </div>
+                                        <a class="dropdown-item" href="#">Edit Album</a>
+                                        <a class="dropdown-item" href="#">Remove</a>
+                                    </div>
+                                    <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="influencer-album-card influencer-album-card-media dropdown">
+                                    <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu influencer-album-dropdown">
+                                        <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
+                                        <div class="influencer-album-link-row px-3 pb-2">
+                                            <span class="small">https://herlan.com/sadiya_a_suchita</span>
+                                            <button class="btn btn-light btn-sm">Copy</button>
+                                        </div>
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Remove</a>
+                                    </div>
+                                    <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="influencer-album-card influencer-album-card-media dropdown">
+                                    <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu influencer-album-dropdown">
+                                        <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
+                                        <div class="influencer-album-link-row px-3 pb-2">
+                                            <span class="small">https://herlan.com/sadiya_a_suchita</span>
+                                            <button class="btn btn-light btn-sm">Copy</button>
+                                        </div>
+                                        <a class="dropdown-item" href="#">Edit</a>
+                                        <a class="dropdown-item" href="#">Remove</a>
+                                    </div>
+                                    <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6">
+                                <div class="influencer-album-card influencer-album-card-collage influencer-album-card-media dropdown">
+                                    <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-three-dots-vertical"></i>
+                                    </button>
+                                    <div class="dropdown-menu influencer-album-dropdown">
+                                        <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
+                                        <div class="influencer-album-link-row px-3 pb-2">
+                                            <span class="small">https://herlan.com/sadiya_a_suchita</span>
+                                            <button class="btn btn-light btn-sm">Copy</button>
+                                        </div>
+                                        <a class="dropdown-item" href="#">Edit Album</a>
+                                        <a class="dropdown-item" href="#">Remove</a>
+                                    </div>
+                                    <div class="influencer-album-collage influencer-album-collage-two">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                        <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <nav class="influencer-albums-pagination" aria-label="Albums pagination">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item active"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                <li class="page-item"><a class="page-link" href="#">5</a></li>
+                                <li class="page-item"><a class="page-link" href="#">6</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="influencer-earnings" role="tabpanel" aria-labelledby="influencer-earnings-tab" tabindex="0">
+                    <div class="ye-wrapper">
+                        <!-- Tax Banner -->
+                        <div class="ye-tax-banner bg-white rounded-3 p-3 mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-receipt-cutoff"></i>
+                            <span>Applicable Tax: <span class="text-danger fw-semibold">7.5%</span>, <a href="#" class="text-dark fw-semibold">Submit TIN</a> and reduce <span class="text-success fw-semibold">2.5%</span></span>
+                        </div>
+
+                        <!-- Earning Summary Panel -->
+                        <div class="ye-summary-panel bg-white rounded-3 p-3 p-md-4 mb-3">
+
+
+
+
+                            <!-- Filters Row - Desktop -->
+                            <div class="row g-3 align-items-end">
+                                <div class=" col-lg-7">
+
+                                    <!-- Download Statement -->
+                                    <div class="ye-download mb-3">
+                                        <button class="btn btn-link text-dark text-decoration-none p-0 d-flex align-items-center gap-2">
+                                            <span>Download Your Earning Statement</span>
+                                            <i class="bi bi-download"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Earning Summary Title -->
+                                    <div class="d-flex align-items-center gap-2 mb-3">
+                                        <h6 class="ye-title fw-semibold mb-0">Earning Summery</h6>
+                                        <span class="ye-privacy-badge">
+                                        <i class="bi bi-lock-fill"></i>
+                                        Privacy Protected
+                                    </span>
+                                    </div>
+
+                                    <div class="d-flex flex-wrap align-items-center gap-2">
+                                        <div class="ye-date-field position-relative">
+                                            <input type="text" class="form-control ye-date-input" value="1 Jan, 2024" readonly>
+                                            <i class="bi bi-calendar3 ye-calendar-icon"></i>
+                                        </div>
+                                        <span class="ye-date-to d-none d-md-inline">To</span>
+                                        <div class="ye-date-field position-relative">
+                                            <input type="text" class="form-control ye-date-input" placeholder="Select date" readonly>
+                                            <i class="bi bi-calendar3 ye-calendar-icon"></i>
+                                        </div>
+                                        <button class="btn btn-dark ye-filter-btn">Filter</button>
+                                    </div>
+                                </div>
+                                <div class=" col-lg-5">
+                                    <!-- Available Balance Card -->
+                                    <div class="" style="border-radius: 15px; background-color: #00B469;">
+                                        <h3 class="text-white border-bottom f-s-16 mb-0 py-2 px-2" style="font-size: 16px;">Available Balance</h3>
+                                        <div class="row px-2">
+                                            <div class="col-4 border-end border-white">
+                                                <div class="py-2">
+                                                    <h3 class="earnings-balance-amount me-2 py-2 text-white" style="font-size: 26px;">৳50,000</h3>
+                                                </div>
+                                            </div>
+                                            <div class="col-4 border-end border-white">
+                                                <div class="">
+                                                    <span class="earnings-stat-label-inline text-white f-s-11">TOTAL CONVERSION</span>
+                                                    <br>
+                                                    <span class="earnings-stat-value-inline text-white f-s-16">৳10,00,000</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-4">
+                                                <div class="">
+                                                    <span class="earnings-stat-label-inline text-white f-s-11">TOTAL EARNING</span>
+                                                    <br>
+                                                    <span class="earnings-stat-value-inline text-white f-s-16">৳50,00,000</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Chart Section - Desktop Only -->
+                        <div class="ye-chart-panel bg-white rounded-3 p-3 mb-4 d-none d-md-block">
+                            <div id="earningsMainChart" class="ye-main-chart"></div>
+                        </div>
+
+                        <!-- Individual Product Earnings -->
+                        <div class="ye-products-section">
+                            <h6 class="ye-products-title fw-semibold mb-3">Individual Product Earnings:</h6>
+
+                            <!-- Product Card 1 -->
+                            <div class="ye-product-card bg-white rounded-3 p-3 mb-3">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-12 col-md-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ asset('/') }}frontend/images/influencer/botol.png" alt="Product" class="ye-product-img">
+                                            <div class="ye-product-info">
+                                                <p class="ye-product-price mb-1"><span class="text-decoration-line-through text-muted">৳500</span> <strong>৳450</strong></p>
+                                                <p class="ye-product-brand mb-1">BLAZE O' SKIN</p>
+                                                <h6 class="ye-product-name mb-1">Pimple Purifying Face Wash Cucumber Quench</h6>
+                                                <p class="ye-product-weight mb-0">Net Weight: 250ml</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 d-none d-md-block">
+                                        <div id="productChart1" class="ye-product-chart"></div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Quantity</p>
+                                                <p class="ye-metric-value mb-0">8</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Total Conversion</p>
+                                                <p class="ye-metric-value mb-0">৳3,600</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Revenue</p>
+                                                <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                                <p class="ye-metric-reward mb-0">(Reward 10%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 2 -->
+                            <div class="ye-product-card bg-white rounded-3 p-3 mb-3">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-12 col-md-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ asset('/') }}frontend/images/influencer/botol.png" alt="Product" class="ye-product-img">
+                                            <div class="ye-product-info">
+                                                <p class="ye-product-price mb-1"><span class="text-decoration-line-through text-muted">৳500</span> <strong>৳450</strong></p>
+                                                <p class="ye-product-brand mb-1">BLAZE O' SKIN</p>
+                                                <h6 class="ye-product-name mb-1">Pimple Purifying Face Wash Cucumber Quench</h6>
+                                                <p class="ye-product-weight mb-0">Net Weight: 250ml</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 d-none d-md-block">
+                                        <div id="productChart2" class="ye-product-chart"></div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Quantity</p>
+                                                <p class="ye-metric-value mb-0">8</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Total Conversion</p>
+                                                <p class="ye-metric-value mb-0">৳3,600</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Revenue</p>
+                                                <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                                <p class="ye-metric-reward mb-0">(Reward 10%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 3 -->
+                            <div class="ye-product-card bg-white rounded-3 p-3 mb-3">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-12 col-md-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ asset('/') }}frontend/images/influencer/botol.png" alt="Product" class="ye-product-img">
+                                            <div class="ye-product-info">
+                                                <p class="ye-product-price mb-1"><span class="text-decoration-line-through text-muted">৳500</span> <strong>৳450</strong></p>
+                                                <p class="ye-product-brand mb-1">BLAZE O' SKIN</p>
+                                                <h6 class="ye-product-name mb-1">Pimple Purifying Face Wash Cucumber Quench</h6>
+                                                <p class="ye-product-weight mb-0">Net Weight: 250ml</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 d-none d-md-block">
+                                        <div id="productChart3" class="ye-product-chart"></div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Quantity</p>
+                                                <p class="ye-metric-value mb-0">8</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Total Conversion</p>
+                                                <p class="ye-metric-value mb-0">৳3,600</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Revenue</p>
+                                                <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                                <p class="ye-metric-reward mb-0">(Reward 10%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 4 -->
+                            <div class="ye-product-card bg-white rounded-3 p-3 mb-3">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-12 col-md-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ asset('/') }}frontend/images/influencer/botol.png" alt="Product" class="ye-product-img">
+                                            <div class="ye-product-info">
+                                                <p class="ye-product-price mb-1"><span class="text-decoration-line-through text-muted">৳500</span> <strong>৳450</strong></p>
+                                                <p class="ye-product-brand mb-1">BLAZE O' SKIN</p>
+                                                <h6 class="ye-product-name mb-1">Pimple Purifying Face Wash Cucumber Quench</h6>
+                                                <p class="ye-product-weight mb-0">Net Weight: 250ml</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 d-none d-md-block">
+                                        <div id="productChart4" class="ye-product-chart"></div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Quantity</p>
+                                                <p class="ye-metric-value mb-0">8</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Total Conversion</p>
+                                                <p class="ye-metric-value mb-0">৳3,600</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Revenue</p>
+                                                <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                                <p class="ye-metric-reward mb-0">(Reward 10%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Product Card 5 -->
+                            <div class="ye-product-card bg-white rounded-3 p-3 mb-3">
+                                <div class="row g-3 align-items-center">
+                                    <div class="col-12 col-md-3">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <img src="{{ asset('/') }}frontend/images/influencer/botol.png" alt="Product" class="ye-product-img">
+                                            <div class="ye-product-info">
+                                                <p class="ye-product-price mb-1"><span class="text-decoration-line-through text-muted">৳500</span> <strong>৳450</strong></p>
+                                                <p class="ye-product-brand mb-1">BLAZE O' SKIN</p>
+                                                <h6 class="ye-product-name mb-1">Pimple Purifying Face Wash Cucumber Quench</h6>
+                                                <p class="ye-product-weight mb-0">Net Weight: 250ml</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 d-none d-md-block">
+                                        <div id="productChart5" class="ye-product-chart"></div>
+                                    </div>
+                                    <div class="col-md-4 d-none d-md-block">
+                                        <div class="row text-center">
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Quantity</p>
+                                                <p class="ye-metric-value mb-0">8</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Total Conversion</p>
+                                                <p class="ye-metric-value mb-0">৳3,600</p>
+                                            </div>
+                                            <div class="col-4">
+                                                <p class="ye-metric-label mb-1">Revenue</p>
+                                                <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                                <p class="ye-metric-reward mb-0">(Reward 10%)</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Pagination -->
+                            <nav class="ye-pagination mt-4" aria-label="Pagination">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item">
+                                        <a class="page-link ye-page-link" href="#"><i class="bi bi-chevron-left"></i></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">2</a></li>
+                                    <li class="page-item active"><a class="page-link ye-page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">6</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">7</a></li>
+                                    <li class="page-item"><a class="page-link ye-page-link" href="#">...</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link ye-page-link" href="#"><i class="bi bi-chevron-right"></i></a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="influencer-edit-profile" role="tabpanel" aria-labelledby="influencer-edit-profile-tab" tabindex="0">
+                    <div class="influencer-edit-content">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Upload Profile Picture Section -->
+                                <div class="mb-4">
+                                    <h6 class="fw-semibold mb-3">Upload Your Profile Picture</h6>
+                                    <div class="d-flex flex-column align-items-start influencer-upload-area">
+                                        <div class="influencer-upload-box bg-white rounded-4 d-flex align-items-center justify-content-center mb-3">
+                                            <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <circle cx="60" cy="40" r="20" fill="#A3C4F3"/>
+                                                <path d="M30 100C30 83.4315 43.4315 70 60 70C76.5685 70 90 83.4315 90 100H30Z" fill="#A3C4F3"/>
+                                            </svg>
+                                        </div>
+                                        <button class="btn btn-outline-dark rounded-pill influencer-upload-btn">Upload</button>
+                                    </div>
+                                </div>
+
+                                <!-- Form Fields -->
+                                <div class="influencer-form-stack">
+                                    <!-- Name Field -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold">Name</label>
+                                        <input type="text" class="form-control influencer-form-input" placeholder="Sadiya A. Suchita">
+                                    </div>
+
+                                    <!-- Bio Field -->
+                                    <div class="mb-4">
+                                        <label class="form-label fw-semibold">Bio</label>
+                                        <textarea class="form-control influencer-form-input" rows="4" placeholder="Write your bio"></textarea>
+                                    </div>
+
+                                    <!-- Referral Account Field -->
+                                    <div class="mb-5">
+                                        <label class="form-label fw-semibold">Referral Account</label>
+                                        <input type="text" class="form-control influencer-form-input" placeholder="Referral account">
+                                    </div>
+                                </div>
+
+                                <!-- Social Media Links Section -->
+                                <div class="mb-5">
+                                    <h6 class="fw-semibold mb-4">Social Media Links</h6>
+
+                                    <div class="row g-4">
+                                        <!-- Facebook Column -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Facebook</label>
+                                            <div class="position-relative mb-3">
+                                                <input type="text" class="form-control influencer-social-input" placeholder="facebook.com/johndoe" value="facebook.com/johndoe">
+                                                <span class="influencer-social-check">
+                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 4.5L6.75 12.75L3 9" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </span>
+                                            </div>
+                                            <button class="btn influencer-btn-facebook w-100 mb-4 influencer-social-action">
+                                                <i class="bi bi-facebook me-2"></i>
+                                                Log in with Facebook
+                                            </button>
+
+                                            <!-- Youtube -->
+                                            <label class="form-label fw-semibold">Youtube</label>
+                                            <div class="position-relative mb-3">
+                                                <input type="text" class="form-control influencer-social-input" placeholder="Youtube.com/@johndoe" value="Youtube.com/@johndoe">
+                                                <span class="influencer-social-check">
+                                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M15 4.5L6.75 12.75L3 9" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                                </svg>
+                                            </span>
+                                            </div>
+                                            <button class="btn influencer-btn-google w-100 influencer-social-action">
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M18.1713 8.36791H17.5001V8.33331H10.0001V11.6666H14.7096C14.0226 13.6071 12.1763 15 10.0001 15C7.23884 15 5.00009 12.7612 5.00009 9.99998C5.00009 7.23873 7.23884 4.99998 10.0001 4.99998C11.2746 4.99998 12.4342 5.48081 13.3171 6.26623L15.6742 3.90915C14.1859 2.52248 12.1951 1.66665 10.0001 1.66665C5.39801 1.66665 1.66675 5.39791 1.66675 9.99998C1.66675 14.602 5.39801 18.3333 10.0001 18.3333C14.6021 18.3333 18.3334 14.602 18.3334 9.99998C18.3334 9.44123 18.2759 8.89581 18.1713 8.36791Z" fill="#FFC107"/>
+                                                    <path d="M2.62756 6.12123L5.36548 8.12915C6.10631 6.29498 7.90048 4.99998 10.0005 4.99998C11.2751 4.99998 12.4346 5.48081 13.3176 6.26623L15.6746 3.90915C14.1863 2.52248 12.1955 1.66665 10.0005 1.66665C6.79923 1.66665 3.99923 3.47373 2.62756 6.12123Z" fill="#FF3D00"/>
+                                                    <path d="M10.0001 18.3333C12.1526 18.3333 14.1101 17.5096 15.5876 16.17L13.0084 13.9875C12.1432 14.6452 11.0865 15.0009 10.0001 15C7.83259 15 5.99176 13.6179 5.29842 11.6891L2.58176 13.7829C3.93426 16.4816 6.76092 18.3333 10.0001 18.3333Z" fill="#4CAF50"/>
+                                                    <path d="M18.1713 8.36796H17.5001V8.33337H10.0001V11.6667H14.7096C14.3809 12.5902 13.7889 13.3972 13.0071 13.9879L13.0084 13.9871L15.5876 16.1696C15.4051 16.3355 18.3334 14.1667 18.3334 10C18.3334 9.44129 18.2759 8.89587 18.1713 8.36796Z" fill="#1976D2"/>
+                                                </svg>
+                                                Login with Google
+                                            </button>
+                                            <p class="small text-muted mt-2 influencer-social-action">Use your Google account that is linked with your YouTube Channel</p>
+                                        </div>
+
+                                        <!-- Instagram & TikTok Column -->
+                                        <div class="col-md-6">
+                                            <label class="form-label fw-semibold">Instagram</label>
+                                            <div class="position-relative mb-3">
+                                                <span class="influencer-social-prefix">@</span>
+                                                <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="johndoe" value="johndoe">
+                                            </div>
+                                            <button class="btn influencer-btn-instagram w-100 mb-4 influencer-social-action">
+                                                <i class="bi bi-instagram me-2"></i>
+                                                Log in with Instagram
+                                            </button>
+
+                                            <!-- TikTok -->
+                                            <label class="form-label fw-semibold">Tiktok</label>
+                                            <div class="position-relative mb-3">
+                                                <span class="influencer-social-prefix">@</span>
+                                                <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="johndoe" value="johndoe">
+                                            </div>
+                                            <button class="btn influencer-btn-tiktok w-100 influencer-social-action">
+                                                <i class="bi bi-tiktok me-2"></i>
+                                                Log in with Tiktok
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Save Changes Button -->
+                                <div class="mb-5">
+                                    <button class="btn btn-dark rounded-pill px-5 py-3">Save changes</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="influencer-bank-details" role="tabpanel" aria-labelledby="influencer-bank-details-tab" tabindex="0">
+                    <div class="bg-white rounded-4 p-4 bank-details-content">
+                        <div class="row g-4 mb-5">
+                            <!-- Left Section: Bank Account Details -->
+                            <div class="col-lg-6">
+                                <h6 class="bank-section-title mb-4">Submit your Bank Account Details</h6>
+
+                                <!-- Your Bank Dropdown -->
+                                <div class="mb-3">
+                                    <label class="form-label bank-form-label">Your Bank:</label>
+                                    <select class="form-select bank-form-input">
+                                        <option selected>Select Your Bank</option>
+                                        <option value="1">Bank of America</option>
+                                        <option value="2">Chase Bank</option>
+                                        <option value="3">Wells Fargo</option>
+                                        <option value="4">Citibank</option>
+                                    </select>
+                                </div>
+
+                                <!-- Bank Account Number -->
+                                <div class="mb-3">
+                                    <label class="form-label bank-form-label">Bank ACC No.:</label>
+                                    <input type="text" class="form-control bank-form-input" placeholder="012345678998">
+                                </div>
+
+                                <!-- Branch Name -->
+                                <div class="mb-4">
+                                    <label class="form-label bank-form-label">Branch name:</label>
+                                    <input type="text" class="form-control bank-form-input" placeholder="EBL Gulshan Branch">
+                                </div>
+
+                                <!-- Upload Cheque Book -->
+                                <div class="mb-4">
+                                    <label class="form-label bank-form-label">Upload the Front Page of your Cheque Book</label>
+                                    <div class="bank-upload-area bank-upload-dropzone" data-upload-type="cheque">
+                                        <input type="file" class="bank-upload-input" id="chequeUpload" accept="image/*,.pdf" hidden>
+                                        <div class="bank-upload-content">
+                                            <div class="bank-upload-icon">
+{{--                                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
+{{--                                                    <circle cx="24" cy="24" r="24" fill="#4A4A4A"/>--}}
+{{--                                                    <path d="M24 18V30M18 24H30" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>--}}
+{{--                                                    <path d="M24 16L24 20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>--}}
+{{--                                                    <path d="M20 20L24 16L28 20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                                                </svg>--}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M20 6l12 12M20 6L8 18M20 6v28"/>
+                                                </svg>
+
+                                            </div>
+                                            <p class="bank-upload-text mb-0">Image/PDF</p>
+                                            <p class="bank-upload-subtext mb-0">JPEG, PNG or PDF</p>
+                                        </div>
+                                        <div class="bank-upload-preview" style="display: none;">
+                                            <img src="" alt="Preview" class="bank-preview-image">
+                                            <button type="button" class="bank-remove-file">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <button class="btn btn-dark bank-submit-btn">Submit</button>
+                            </div>
+
+                            <!-- Right Section: TIN Details -->
+                            <div class="col-lg-6">
+                                <h6 class="bank-section-title mb-4">Submit Your <span class="fw-bold">TIN</span> & get additional <span class="fw-bold">2.5%</span> Benefit*</h6>
+
+                                <!-- TIN Input -->
+                                <div class="mb-3">
+                                    <label class="form-label bank-form-label">TIN</label>
+                                    <input type="text" class="form-control bank-form-input" placeholder="012345678998">
+                                </div>
+
+                                <!-- Or Divider -->
+                                <div class="bank-or-divider mb-3">Or</div>
+
+                                <!-- Upload TIN Certificate -->
+                                <div class="mb-3">
+                                    <label class="form-label bank-form-label">Upload TIN Certificate</label>
+                                    <div class="bank-upload-area bank-upload-dropzone" data-upload-type="tin">
+                                        <input type="file" class="bank-upload-input" id="tinUpload" accept="image/*,.pdf" hidden>
+                                        <div class="bank-upload-content">
+                                            <div class="bank-upload-icon">
+{{--                                                <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">--}}
+{{--                                                    <circle cx="24" cy="24" r="24" fill="#4A4A4A"/>--}}
+{{--                                                    <path d="M24 18V30M18 24H30" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>--}}
+{{--                                                    <path d="M24 16L24 20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round"/>--}}
+{{--                                                    <path d="M20 20L24 16L28 20" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>--}}
+{{--                                                </svg>--}}
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                                    <path d="M20 6l12 12M20 6L8 18M20 6v28"/>
+                                                </svg>
+
+
+                                            </div>
+                                            <p class="bank-upload-text mb-0">Image/PDF</p>
+                                            <p class="bank-upload-subtext mb-0">JPEG, PNG or PDF</p>
+                                        </div>
+                                        <div class="bank-upload-preview" style="display: none;">
+                                            <img src="" alt="Preview" class="bank-preview-image">
+                                            <button type="button" class="bank-remove-file">&times;</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- TIN Help Text -->
+                                <div class="bank-tin-help mb-3">
+                                    <p class="mb-0">Don't Have Your TIN?</p>
+                                    <p class="mb-0">Click The Link and <a href="#" class="bank-tin-link">Get Your TIN</a></p>
+                                </div>
+
+                                <!-- Disclaimer -->
+                                <div class="bank-disclaimer">
+                                    <p class="mb-0">* If the creator provided TIN (Tax Identification Number) during sign up then 5% tax will be deducted and failure to do so will result in a 7.5% tax deduction as AIT.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Withdrawal History Section -->
+                        <div class="bank-withdrawal-history">
+                            <h6 class="bank-history-title mb-3">Withdrawal History:</h6>
+
+                            <!-- Table for Desktop -->
+                            <div class="table-responsive d-none d-lg-block">
+                                <table class="table bank-history-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Order Report</th>
+                                        <th>is connected</th>
+                                        <th>Affiliate</th>
+                                        <th>key</th>
+                                        <th>Invoice Number</th>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>25,000</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td>Affiliate</td>
+                                        <td>123457</td>
+                                        <td>123457</td>
+                                        <td>12 Apr 2025</td>
+                                        <td>54</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Cards for Mobile -->
+                            <div class="d-lg-none">
+                                <div class="bank-history-card mb-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Name:</span>
+                                        <span class="bank-history-value">Name Here</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Order Report:</span>
+                                        <span class="bank-history-value">Order Report</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Status:</span>
+                                        <span class="bank-history-value">connected</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Date:</span>
+                                        <span class="bank-history-value">12 Apr 2025</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="bank-history-label">Amount:</span>
+                                        <span class="bank-history-value fw-bold">25,000</span>
+                                    </div>
+                                </div>
+                                <div class="bank-history-card mb-3">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Name:</span>
+                                        <span class="bank-history-value">Name Here</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Order Report:</span>
+                                        <span class="bank-history-value">Order Report</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Status:</span>
+                                        <span class="bank-history-value">connected</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="bank-history-label">Date:</span>
+                                        <span class="bank-history-value">12 Apr 2025</span>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <span class="bank-history-label">Amount:</span>
+                                        <span class="bank-history-value fw-bold">54</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="influencer-sales-history" role="tabpanel" aria-labelledby="influencer-sales-history-tab" tabindex="0">
+                    <div class="sales-history-content">
+                        <!-- Tax Information Banner -->
+                        <div class="sales-tax-banner bg-white rounded-3 p-3 mb-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-receipt-cutoff"></i>
+                                <p class="mb-0 sales-tax-text">
+                                    Applicable Tax: <span class="sales-tax-red">7.5%</span>,
+                                    <a href="#" class="sales-tax-link">Submit TIN</a>
+                                    and reduce <span class="sales-tax-green">2.5%</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Filter Section -->
+                        <div class="sales-filter-section bg-white rounded-3 p-3 mb-4">
+                            <div class="row g-3 align-items-end">
+                                <div class="col-md-4 col-6">
+                                    <div class="sales-date-input-wrapper position-relative">
+                                        <input type="date" class="form-control sales-date-input" value="2024-01-01">
+                                        <i class="bi bi-calendar3 sales-calendar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-1 col-12 d-none d-md-block text-center">
+                                    <span class="sales-date-separator">To</span>
+                                </div>
+                                <div class="col-md-4 col-6">
+                                    <div class="sales-date-input-wrapper position-relative">
+                                        <input type="date" class="form-control sales-date-input" value="2024-01-01">
+                                        <i class="bi bi-calendar3 sales-calendar-icon"></i>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-12">
+                                    <button class="btn btn-dark sales-filter-btn w-100">Filter</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Sales Table -->
+                        <div class="sales-table-wrapper bg-white rounded-3">
+                            <div class="table-responsive">
+                                <table class="table sales-history-table mb-0">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Order Report</th>
+                                        <th>is connected</th>
+                                        <th class="d-none d-lg-table-cell">Affiliate</th>
+                                        <th class="d-none d-lg-table-cell">key</th>
+                                        <th class="d-none d-lg-table-cell">Invoice Number</th>
+                                        <th class="d-none d-lg-table-cell">Date</th>
+                                        <th class="d-none d-lg-table-cell">Commission</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Name Here</td>
+                                        <td>Order Report</td>
+                                        <td>connected</td>
+                                        <td class="d-none d-lg-table-cell">Affiliate</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">123457</td>
+                                        <td class="d-none d-lg-table-cell">12 Apr 2025</td>
+                                        <td class="d-none d-lg-table-cell">54</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <!-- Pagination -->
+                            <nav class="sales-pagination-wrapper" aria-label="Sales history pagination">
+                                <ul class="pagination justify-content-center mb-0">
+                                    <li class="page-item">
+                                        <a class="page-link sales-page-link" href="#" aria-label="Previous">
+                                            <i class="bi bi-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">2</a></li>
+                                    <li class="page-item active"><a class="page-link sales-page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">4</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">5</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">6</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">7</a></li>
+                                    <li class="page-item"><a class="page-link sales-page-link" href="#">...</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link sales-page-link" href="#" aria-label="Next">
+                                            <i class="bi bi-chevron-right"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable product-modal-dialog">
+            <div class="modal-content product-modal-content">
+                <div class="modal-header product-modal-header">
+                    <h5 class="modal-title product-modal-title" id="addProductModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body product-modal-body">
+                    <!-- Search & Filter Section -->
+                    <div class="product-modal-filters">
+                        <input type="text" class="form-control product-modal-search" placeholder="Search Product">
+                        <select class="form-select product-modal-select">
+                            <option selected>Select Category</option>
+                            <option value="skincare">Skincare</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="haircare">Hair Care</option>
+                            <option value="bodycare">Body Care</option>
+                        </select>
+                        <button class="btn product-modal-filter-btn">Filter</button>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="product-modal-grid">
+                        <!-- Product Card 1 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Blaze O' Skin" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-blaze">Blaze O' Skin</span>
+                                <p class="product-modal-name">Berry on Top Hydrating Moisturizing Cream</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-current">৳ 600</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 2 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Ultra Hydrating Moisturizer SPF 40 PA++++</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 1,000</span>
+                                    <span class="product-price-current">৳ 800</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 3 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Aloe Vera 99.99% Moisture Soothing Gel</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 590</span>
+                                    <span class="product-price-current">৳ 502</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 4 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Lily" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-lily">Lily</span>
+                                <p class="product-modal-name">Lily Buttery Soft Moisturizing Skin Cream 50g</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 180</span>
+                                    <span class="product-price-current">৳ 162</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 5 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Korean Rose Deep Cleansing Face Wash</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 450</span>
+                                    <span class="product-price-current">৳ 380</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Product Card 6 -->
+                        <div class="product-modal-card">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Organic Moringa Multi-Purpose Oil</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 650</span>
+                                    <span class="product-price-current">৳ 550</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Album Modal -->
+    <div class="modal fade" id="createAlbumModal" tabindex="-1" aria-labelledby="createAlbumModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg create-album-dialog">
+            <div class="modal-content create-album-content">
+                <div class="modal-header create-album-header">
+                    <h5 class="modal-title create-album-title" id="createAlbumModalLabel">Create An Album</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body create-album-body">
+                    <div class="create-album-layout">
+                        <!-- Left: Upload Image Section -->
+                        <div class="create-album-upload-section">
+                            <div class="create-album-dropzone" id="albumDropzone">
+                                <input type="file" id="albumImageInput" accept="image/jpeg,image/png" hidden>
+                                <div class="dropzone-content" id="dropzoneContent">
+                                    <div class="dropzone-icon">
+                                        <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <circle cx="24" cy="24" r="24" fill="#4A4A4A"/>
+                                            <path d="M24 32V16M24 16L18 22M24 16L30 22" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                                        </svg>
+                                    </div>
+                                    <p class="dropzone-title">Upload Image</p>
+                                    <p class="dropzone-subtitle">JPEG, PNG up to 1MB</p>
+                                </div>
+                                <div class="dropzone-preview" id="dropzonePreview" style="display: none;">
+                                    <img src="" alt="Preview" id="albumPreviewImg">
+                                    <button type="button" class="dropzone-remove-btn" id="removeAlbumImage">
+                                        <i class="bi bi-x-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Form Section -->
+                        <div class="create-album-form-section">
+                            <!-- Album Title -->
+                            <div class="create-album-field">
+                                <label class="create-album-label">Album title</label>
+                                <input type="text" class="form-control create-album-input" placeholder="Enter album title">
+                            </div>
+
+                            <!-- Add Products -->
+                            <div class="create-album-field">
+                                <label class="create-album-label">Add Products</label>
+                                <div class="create-album-products">
+                                    <button type="button" class="create-album-add-product-btn" id="openAlbumProductModal">
+                                        <span>+</span>
+                                    </button>
+                                    <div class="create-album-product-list" id="selectedProductsList">
+                                        <!-- Selected products will appear here -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Actions -->
+                            <div class="create-album-actions">
+                                <button type="button" class="btn create-album-submit-btn">Submit</button>
+                                <button type="button" class="btn create-album-cancel-btn" data-bs-dismiss="modal">Cancel</button>
+                            </div>
+
+                            <!-- Terms -->
+                            <p class="create-album-terms">
+                                By submitting your content you agree to our <a href="#">Terms & Condition</a>, <a href="#">Privacy</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Album Product Selection Modal -->
+    <div class="modal fade" id="albumProductModal" tabindex="-1" aria-labelledby="albumProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable product-modal-dialog">
+            <div class="modal-content product-modal-content">
+                <div class="modal-header product-modal-header">
+                    <h5 class="modal-title product-modal-title" id="albumProductModalLabel">Add Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body product-modal-body">
+                    <!-- Search & Filter Section -->
+                    <div class="product-modal-filters">
+                        <input type="text" class="form-control product-modal-search" placeholder="Search Product">
+                        <select class="form-select product-modal-select">
+                            <option selected>Select Category</option>
+                            <option value="skincare">Skincare</option>
+                            <option value="makeup">Makeup</option>
+                            <option value="haircare">Hair Care</option>
+                        </select>
+                        <button class="btn product-modal-filter-btn">Filter</button>
+                    </div>
+
+                    <!-- Products Grid -->
+                    <div class="product-modal-grid">
+                        <div class="product-modal-card album-product-selectable" data-product-id="1" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Blaze O' Skin" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-blaze">Blaze O' Skin</span>
+                                <p class="product-modal-name">Berry on Top Hydrating Moisturizing Cream</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-current">৳ 600</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-modal-card album-product-selectable" data-product-id="2" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Ultra Hydrating Moisturizer SPF 40 PA++++</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 1,000</span>
+                                    <span class="product-price-current">৳ 800</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-modal-card album-product-selectable" data-product-id="3" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Aloe Vera 99.99% Moisture Soothing Gel</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 590</span>
+                                    <span class="product-price-current">৳ 502</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-modal-card album-product-selectable" data-product-id="4" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Lily" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-lily">Lily</span>
+                                <p class="product-modal-name">Lily Buttery Soft Moisturizing Skin Cream 50g</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 180</span>
+                                    <span class="product-price-current">৳ 162</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-modal-card album-product-selectable" data-product-id="5" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Korean Rose Deep Cleansing Face Wash</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 450</span>
+                                    <span class="product-price-current">৳ 380</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="product-modal-card album-product-selectable" data-product-id="6" data-product-img="images/influencer/Rectangle-301.png">
+                            <div class="product-modal-img-wrapper">
+                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Nior" class="product-modal-img">
+                                <button class="product-modal-fav-btn album-select-btn">
+                                    <i class="bi bi-heart"></i>
+                                </button>
+                            </div>
+                            <div class="product-modal-info">
+                                <span class="product-modal-brand product-brand-nior">Nior</span>
+                                <p class="product-modal-name">Nior Organic Moringa Multi-Purpose Oil</p>
+                                <div class="product-modal-price">
+                                    <span class="product-price-old">৳ 650</span>
+                                    <span class="product-price-current">৳ 550</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@endsection
+
+@push('script')
+    <script>
+        $(document).on('click', '.influencer-album-collage', function () {
+            location.href = 'influencer-profile-product-afi-history.html';
+        })
+    </script>
+@endpush
