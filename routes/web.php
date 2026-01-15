@@ -94,6 +94,11 @@ Route::get('/run-db-seeder', function () {
     return Artisan::output();
 })->name('run-db-seeder');
 
+Route::get('/db-clear-seed', function () {
+    Artisan::call('migrate:fresh --seed');
+    return Artisan::output();
+})->name('run-db-seeder');
+
 Route::get('/phpinfo', function () {
     phpinfo();
 });

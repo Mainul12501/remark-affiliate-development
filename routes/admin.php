@@ -56,6 +56,9 @@ Route::prefix('admin')->group(function () {
                 'benefit-lists'             => BenefitController::class,
                 'product-commission-rates'  => ProductCommissionRateController::class,
             ]);
+
+            // AJAX route for product search
+            Route::get('search-products', [ProductCommissionRateController::class, 'searchProducts'])->name('search-products');
         });
     });
 });

@@ -35,7 +35,7 @@ class InfluencerViewController extends Controller
     {
         return CustomHelper::returnDataForWebOrApi([
             'loggedUser'    => HelperClass::getUserWithUserInfo(),
-            'productCategories' => CustomHelper::requestApi('wc-api/v1/categories', 'get', [], HelperClass::getRestApiHeaderKey())['data'],
+            'productCategories' => CustomHelper::requestApi('categories', 'get', [], HelperClass::getRestApiHeaderKey())['data'],
             'influencerCampaigns'   => InfluencerCampain::where([
                 'created_by' => CustomHelper::loggedUser()->id,
                 'status'     => 1,

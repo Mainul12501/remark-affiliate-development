@@ -17,10 +17,10 @@ use Exception;
 
 class HelperClass
 {
-    public static function getProductLists($request)
+    public static function getProductLists($perPage = '', $currentPage = '', $search = '')
     {
-        $response = CustomHelper::requestApi("wc-api/v1/products?perpage=20&page=1", 'GET', [], self::getRestApiHeaderKey());
-        if ($response->status == 200 && $response->success == true) {
+        $response = CustomHelper::requestApi("products?per_page=$perPage&page=$currentPage&search=$search", 'GET', [], self::getRestApiHeaderKey());
+        if ($response['status'] == 200 && $response['success'] == true) {
             $products = $response['data'];
         } else {
             $products = [];
@@ -31,7 +31,7 @@ class HelperClass
     public static function getRestApiHeaderKey()
     {
         return [
-            'x-api-key' => config('helper-functions.custom.rest_api_key') ?? 'wc_fa758f3e00bda880ae87aff6da6def2361ccdfef3a9d2e6779b4b880923520fb'
+            'X-AFFLUENCER-TOKEN' => config('helper-functions.custom.rest_api_key') ?? 'GTGi4K(e}j.3?0/6Kia<3Y7n@h#&H`^9pG#K0OZ=!J5`LP@#'
         ];
     }
 

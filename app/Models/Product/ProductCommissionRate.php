@@ -25,4 +25,9 @@ class ProductCommissionRate extends Model
     protected $searchableFields = ['*'];
 
     protected $table = 'product_commission_rates';
+
+    public static function createOrUpdateProductCommissionRate($request, $productCommissionRate = null)
+    {
+        return static::updateOrCreate(['id' => $productCommissionRate?->id], $request->except(['_token', '_method']));
+    }
 }

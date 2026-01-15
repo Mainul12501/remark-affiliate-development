@@ -25,7 +25,7 @@ class AffiliateCampaignController extends Controller
 //        }
         if ($request->type == 'single')
         {
-            $response = CustomHelper::requestApi('wc-api/v1/products/sku/'.$request->sku, 'get', [], HelperClass::getRestApiHeaderKey());
+            $response = CustomHelper::requestApi('products/sku/'.$request->sku, 'get', [], HelperClass::getRestApiHeaderKey());
             if ($response['success'] == true && $response['status'] == '200')
             {
                 $product = $response['data'];
@@ -66,7 +66,7 @@ class AffiliateCampaignController extends Controller
             $influencerCampaign = InfluencerCampain::createOrEditInfluencerCampain($request);
             $campaignProductsArray = [];
             foreach ($request->products_sku  as $key => $sku) {
-                $response = CustomHelper::requestApi('wc-api/v1/products/sku/'.$request->sku, 'get', [], HelperClass::getRestApiHeaderKey());
+                $response = CustomHelper::requestApi('products/sku/'.$request->sku, 'get', [], HelperClass::getRestApiHeaderKey());
                 if ($response['success'] == true && $response['status'] == '200')
                 {
                     $product = $response['data'];

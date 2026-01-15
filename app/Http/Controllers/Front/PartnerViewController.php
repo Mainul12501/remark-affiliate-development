@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bank;
+use App\Models\UserBankInfo;
 use Illuminate\Http\Request;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 
 class PartnerViewController extends Controller
 {
@@ -13,6 +16,11 @@ class PartnerViewController extends Controller
     }
     public function dashboard()
     {
-        return view('front.partner.profile.profile');
+        $loggedUser = CustomHelper::loggedUser();
+        return view('front.partner.profile.profile', [
+            'loggedUser'    => $loggedUser,
+            'banks'         => Bank::latest()->get(['id', 'name']),
+            'bankInfo'      => UserBankInfo::where(['user_id' => $loggedUser->id, 'active_status' => 1])->first(),
+        ]);
     }
 }

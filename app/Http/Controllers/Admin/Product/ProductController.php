@@ -79,7 +79,7 @@ class ProductController extends Controller
 
     public function getProductLists(Request $request)
     {
-        $getHerlanProducts = CustomHelper::requestApi("wc-api/v1/products?perpage=20&page=$request->page","get", [], HelperClass::getRestApiHeaderKey())['data'];
+        $getHerlanProducts = HelperClass::getProductLists();
 
         if ($request->render == 1)
         {
