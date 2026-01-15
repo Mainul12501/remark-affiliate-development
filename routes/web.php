@@ -12,6 +12,7 @@ use App\Http\Controllers\Front\Influencer\InfluencerProfileController;
 use App\Http\Controllers\Admin\Product\ProductController;
 use App\Http\Controllers\Admin\UserBankInfoController;
 use App\Http\Controllers\Front\Influencer\AffiliateCampaignController;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
@@ -77,4 +78,22 @@ Route::middleware([
 });
 
 
+/* create symbolic link */
+Route::get('/symlink', function () {
+    Artisan::call('storage:link');
+    echo Artisan::output();
+});
 
+Route::get('/clear-all-cache', function () {
+    Artisan::call('optimize:clear');
+    return Artisan::output();
+})->name('clear-all-cache');
+
+Route::get('/run-db-seeder', function () {
+    Artisan::call('db:seed');
+    return Artisan::output();
+})->name('run-db-seeder');
+
+Route::get('/phpinfo', function () {
+    phpinfo();
+});
