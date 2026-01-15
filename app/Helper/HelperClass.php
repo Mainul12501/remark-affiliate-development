@@ -17,6 +17,24 @@ use Exception;
 
 class HelperClass
 {
+    public static function getProductLists($request)
+    {
+        $response = CustomHelper::requestApi("wc-api/v1/products?perpage=20&page=1", 'GET', [], self::getRestApiHeaderKey());
+        if ($response->status == 200 && $response->success == true) {
+            $products = $response['data'];
+        } else {
+            $products = [];
+        }
+        return $products;
+    }
+
+    public static function getRestApiHeaderKey()
+    {
+        return [
+            'x-api-key' => config('helper-functions.custom.rest_api_key') ?? 'wc_fa758f3e00bda880ae87aff6da6def2361ccdfef3a9d2e6779b4b880923520fb'
+        ];
+    }
+
     public static function createAndLoginUser($request)
     {
         $user = DB::transaction(function () use ($request) {

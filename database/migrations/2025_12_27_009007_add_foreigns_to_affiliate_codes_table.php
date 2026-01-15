@@ -19,13 +19,6 @@ return new class extends Migration {
                 ->onDelete('CASCADE');
 
             $table
-                ->foreign('product_id')
-                ->references('id')
-                ->on('products')
-                ->onUpdate('CASCADE')
-                ->onDelete('CASCADE');
-
-            $table
                 ->foreign('influencer_campain_id')
                 ->references('id')
                 ->on('influencer_campains')

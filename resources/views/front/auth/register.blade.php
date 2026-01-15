@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="form-group {{ old('user_otp') ? '' : 'd-none' }} otp-input">
-                        <input type="number" min="0" maxlength="6" name="user_otp" value="{{ old('user_otp') }}" required class="form-control" placeholder="Input OTP">
+                        <input type="number" min="0" maxlength="4" name="user_otp" value="{{ old('user_otp') }}" required class="form-control" placeholder="Input OTP">
                         <small class="text-danger error-otp"></small>
                     </div>
 {{--                    resend timer--}}
@@ -509,8 +509,8 @@
             // OTP validation
             if (!userOtp) {
                 showError('.error-otp', 'OTP is required');
-            } else if (userOtp.length !== 6) {
-                showError('.error-otp', 'OTP must be 6 digits');
+            } else if (userOtp.length !== 4) {
+                showError('.error-otp', 'OTP must be 4 digits');
             }
 
             // Password validation

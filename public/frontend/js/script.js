@@ -596,7 +596,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Click to upload
         $albumDropzone.on('click', e => {
             if ($(e.target).closest('.dropzone-remove-btn').length) return;
-            $albumFileInput.trigger('click');
+            // $albumFileInput.trigger('click');
+            $albumFileInput[0].click();
         });
 
         // File input change
@@ -714,6 +715,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         selectedAlbumProducts.forEach((imgSrc, id) => {
             $albumProductList.append(`
+                <input type="hidden" name="products_id[]" value="${id}">
+                <input type="hidden" name="products_sku[]" value="${$('div[data-product-id="'+id+'"]').attr('data-product-sku')}" />
                 <div class="album-selected-product-thumb">
                     <img src="${imgSrc}" alt="Product">
                     <button type="button" class="album-remove-product-btn" data-id="${id}">

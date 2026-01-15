@@ -65,6 +65,9 @@
                         <li class="slide">
                             <a href="{{ route('admin.products.index') }}" class="side-menu__item">Products</a>
                         </li>
+                        <li class="slide">
+                            <a href="{{ route('admin.product-commission-rates.index') }}" class="side-menu__item">Commission Rate</a>
+                        </li>
 
                     </ul>
                 </li>

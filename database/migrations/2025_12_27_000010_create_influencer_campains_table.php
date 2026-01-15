@@ -16,11 +16,11 @@ return new class extends Migration {
             $table->unsignedBigInteger('created_by');
             $table->string('title');
             $table->string('parent_ref_code')->unique();
-            $table->text('thumb_img');
-            $table->text('note');
-            $table->integer('total_viewed');
-            $table->text('cam_full_url');
-            $table->text('cam_short_uri');
+            $table->text('thumb_img')->nullable();
+            $table->text('note')->nullable();
+            $table->integer('total_viewed')->default(0);
+            $table->text('cam_full_url')->nullable();
+            $table->text('cam_short_uri')->nullable();
             $table->tinyInteger('status')->default(1);
 
             $table->index('created_by');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Helper\HelperClass;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
+use App\Models\Campaigns\InfluencerCampain;
 use App\Models\Product\ProductCategory;
 use App\Models\User;
 use App\Models\UserBankInfo;
@@ -34,7 +35,11 @@ class InfluencerViewController extends Controller
     {
         return CustomHelper::returnDataForWebOrApi([
             'loggedUser'    => HelperClass::getUserWithUserInfo(),
-            'productCategories' => ProductCategory::latest()->get(['id', 'name', 'slug']),
+            'productCategories' => CustomHelper::requestApi('wc-api/v1/categories', 'get', [], HelperClass::getRestApiHeaderKey())['data'],
+            'influencerCampaigns'   => InfluencerCampain::where([
+                'created_by' => CustomHelper::loggedUser()->id,
+                'status'     => 1,
+            ])->with('affiliateCodes')/*->select('id', 'cam_short_uri', 'thumb_image')*/->paginate(14),
         ], 'front.influencer.albums');
         return view('front.influencer.albums');
     }
@@ -53,7 +58,7 @@ class InfluencerViewController extends Controller
     {
         return CustomHelper::returnDataForWebOrApi([
             'loggedUser'    => HelperClass::getUserWithUserInfo(),
-        ], 'front.influencer.bank-info');
+        ], 'front.influencer.sale-history');
         return view('front.influencer.sale-history');
     }
     public function profile()

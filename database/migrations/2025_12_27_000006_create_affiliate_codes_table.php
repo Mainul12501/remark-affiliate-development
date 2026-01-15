@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->tinyInteger('is_parent_code')->default(1);
             $table->string('code')->unique();
             $table->unsignedBigInteger('product_id')->nullable();
-            $table->text('product_ref_link');
+            $table->text('product_ref_link')->nullable();
             $table->integer('total_hit')->default(0);
             $table->integer('total_order')->default(0);
             $table->integer('total_sell')->default(0);

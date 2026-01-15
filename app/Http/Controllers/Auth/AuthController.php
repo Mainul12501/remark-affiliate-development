@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $data = [
             'email' => $request->email,
-            'otp' => CustomHelper::generateSessionCode(6, 'number', 'remark_auth'),
+            'otp' => CustomHelper::generateSessionCode(4, 'number', 'remark_auth'),
             'purpose' => $request->purpose,
         ];
         try {
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
     public function sendOtpSms(Request $request)
     {
-        $otp = CustomHelper::generateSessionCode(6, 'number', 'remark_auth');
+        $otp = CustomHelper::generateSessionCode(4, 'number', 'remark_auth');
         try {
             if ($request->for == 'registration') {
                 HelperClass::sendOtpSms($request->mobile, "Welcome to Herlan! Your verification code: $otp. Expires in 5 minutes.");
