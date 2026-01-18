@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\AdminController;
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Artisan;
 Route::get('/', [FrontViewController::class,'index'])->name('home');
 Route::get('/benefits', [FrontViewController::class,'benefits'])->name('front.benefits');
 Route::prefix('auth')->name('auth.')->group(function () {
-    Route::get('/login', [AuthController::class,'loginPage'])->name('login-page');
+    Route::get('/login', [AuthController::class,'loginPage'])->name('login-page')->middleware('noAuthCheck');
     Route::get('/partner-register', [AuthController::class,'partnerRegister'])->middleware('noAuthCheck')->name('partner-register');
     Route::get('/influencer-register', [AuthController::class,'influencerRegister'])->middleware('noAuthCheck')->name('influencer-register');
 
@@ -103,4 +104,23 @@ Route::get('/db-clear-seed', function () {
 
 Route::get('/phpinfo', function () {
     phpinfo();
+});
+
+Route::get('artisan-commands', function (Request $request) {
+    if ($request->command == 'migrate')
+        Artisan::call('migrate');
+    elseif ($request->command == 'seed')
+        Artisan::call('db:seed');
+    elseif ($request->command == 'optimize')
+        Artisan::call('optimize-clear');
+    elseif ($request->command == 'optimize:clear')
+        Artisan::call('optimize');
+    elseif ($request->command == 'db-dump')
+        Artisan::call('db:dump');
+    elseif ($request->command == 'migrate-fresh')
+        Artisan::call('migrate:fresh');
+    elseif ($request->command == 'migrate-fresh-seed')
+        Artisan::call('migrate:fresh --seed');
+
+    return Artisan::output();
 });
