@@ -170,7 +170,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>Name Here</td>
+                                <td>Rezaul Karim</td>
                                 <td>Order Report</td>
                                 <td>connected</td>
                                 <td>Affiliate</td>
@@ -180,7 +180,7 @@
                                 <td>25,000</td>
                             </tr>
                             <tr>
-                                <td>Name Here</td>
+                                <td>Minhazul Karim</td>
                                 <td>Order Report</td>
                                 <td>connected</td>
                                 <td>Affiliate</td>
@@ -190,7 +190,7 @@
                                 <td>54</td>
                             </tr>
                             <tr>
-                                <td>Name Here</td>
+                                <td>Rajib Hawladar</td>
                                 <td>Order Report</td>
                                 <td>connected</td>
                                 <td>Affiliate</td>

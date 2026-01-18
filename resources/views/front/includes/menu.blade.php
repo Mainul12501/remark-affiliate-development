@@ -13,7 +13,7 @@
                 <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Contact Us</a></li>
             </ul>
             @if(auth()->check())
-                <div class="ms-auto dropdown d-none d-md-block">
+                <div class="ms-auto dropdown <!--d-none d-md-block-->">
                     <a href="#" class="text-decoration-none text-secondary  fw-semibold influencer-user-dropdown show" data-bs-toggle="dropdown" aria-expanded="true">
                         {{ auth()->user()->name ?? 'User Name' }} <i class="bi bi-caret-down-fill ms-1"></i>
                     </a>
