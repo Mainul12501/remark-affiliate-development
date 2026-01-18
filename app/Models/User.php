@@ -112,7 +112,7 @@ class User extends Authenticatable
         'password' => $request->has('password') ? bcrypt($request->password) : $user?->password,
         'mobile' => $request->mobile ?? $user?->mobile,
         'user_type' => $request->user_type ?? $user?->user_type,
-        'profile_image' => CustomHelper::fileUpload($request->file('profile_image'), 'user-image', 'user', $user?->profile_image ?? null) ,
+        'profile_image' => CustomHelper::fileUpload($request->file('profile_image'), 'user-image', 'user',300, 500, $user?->profile_image ?? null) ,
         'username' => $request->username ?? $user?->username,
 //        'approved_by' => $request->approved_by ?? $user?->approved_by,
 //        'approve_status' => $request->approve_status ?? $user?->approve_status,

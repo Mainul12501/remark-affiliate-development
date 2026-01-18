@@ -37,7 +37,7 @@ class UserBankInfoController extends Controller
                 $loggedUser = CustomHelper::loggedUser();
                 $userInfo = $loggedUser->userInfo()->update([
                     'tin_number'    => $request['tin_number'],
-                    'tin_cert_img'    => CustomHelper::fileUpload($request->file('tin_cert_img'), 'tin-certificates', 'tin-', $loggedUser->tin_cert_img ?? null),
+                    'tin_cert_img'    => CustomHelper::fileUpload($request->file('tin_cert_img'), 'tin-certificates', 'tin-',600, 800, $loggedUser->tin_cert_img ?? null),
                 ]);
                 UserBankInfo::createOrUpdateBankInfo($request);
             });

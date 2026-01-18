@@ -23,7 +23,7 @@ class Bank extends Model
         return static::updateOrCreate(['id' => $existBank?->id], [
             'created_by'    => $existBank?->created_by ?? auth()->id() ,
             'name'          => $request->name,
-            'logo'          => CustomHelper::fileUpload($request->file('logo'), 'bank', 'bank', $existBank?->logo ?? null),
+            'logo'          => CustomHelper::fileUpload($request->file('logo'), 'bank', 'bank', 400, 250, $existBank?->logo ?? null),
             'slug'          => $request->slug,
             'status'        => $request->status ?? 1,
         ]);

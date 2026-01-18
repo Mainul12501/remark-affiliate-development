@@ -21,6 +21,8 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/partner-register', [AuthController::class,'partnerRegister'])->middleware('noAuthCheck')->name('partner-register');
     Route::get('/influencer-register', [AuthController::class,'influencerRegister'])->middleware('noAuthCheck')->name('influencer-register');
 
+
+//    post requests
     Route::post('/send-otp-mail', [AuthController::class,'sendOtpMail'])->name('send-otp-mail');
     Route::post('/send-otp-sms', [AuthController::class,'sendOtpSms'])->name('send-otp-sms');
     Route::post('/check-unique-email-or-phone', [AuthController::class,'checkUniqueEmailOrPhoneNumber'])->name('check-unique-email-or-phone');

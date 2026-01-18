@@ -20,7 +20,7 @@ class InfluencerProfileController extends Controller
             $request->validate([
                 'profile_image' => 'required|image|mimes:jpeg,png,jpg,gif|max:5120', // 5MB max
             ]);
-            $imagePath = CustomHelper::fileUpload($request->file('profile_image'), 'influencer/profile', 'influencer-profile', $loggedUser->profile_image ?? null);
+            $imagePath = CustomHelper::fileUpload($request->file('profile_image'), 'influencer/profile', 'influencer-profile', 400, 700, $loggedUser->profile_image ?? null);
             CustomHelper::loggedUser()->update(['profile_image' => $imagePath]);
 //            $loggedUser->profile_image = $imagePath;
 //            $loggedUser->save();

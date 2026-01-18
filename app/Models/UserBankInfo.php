@@ -50,7 +50,7 @@ class UserBankInfo extends Model
         $userBankInfo->account_number = $request->account_number;
         $userBankInfo->branch_name = $request->branch_name;
         $userBankInfo->routing_number = $request->routing_number;
-        $userBankInfo->cheque_img = CustomHelper::fileUpload($request->file('cheque_img'), 'user-bank-cheque-imgs', 'user-bank-cheque-img' , $userBankInfo->cheque_img ?? null);
+        $userBankInfo->cheque_img = CustomHelper::fileUpload($request->file('cheque_img'), 'user-bank-cheque-imgs', 'user-bank-cheque-img' , 600, 600,$userBankInfo->cheque_img ?? null);
         $userBankInfo->mobile_vendor = $request->mobile_vendor;
         $userBankInfo->mobile_number = $request->mobile_number;
 //        $userBankInfo->vendor_type = $request->vendor_type;

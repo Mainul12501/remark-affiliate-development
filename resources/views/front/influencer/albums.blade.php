@@ -69,99 +69,45 @@
                     @endforelse
 
 
-                    <div class="col-lg-4 col-md-6">
-                        <div style="cursor:pointer;" class="influencer-album-card influencer-album-card-collage influencer-album-card-media dropdown">
-                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu influencer-album-dropdown">
-                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
-                                <div class="influencer-album-link-row px-3 pb-2">
-                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>
-                                    <button class="btn btn-light btn-sm">Copy</button>
-                                </div>
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                            </div>
-                            <div class="influencer-album-collage">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="influencer-album-card influencer-album-card-media dropdown">
-                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu influencer-album-dropdown">
-                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
-                                <div class="influencer-album-link-row px-3 pb-2">
-                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>
-                                    <button class="btn btn-light btn-sm">Copy</button>
-                                </div>
-                                <a class="dropdown-item" href="#">Edit Album</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                            </div>
-                            <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="influencer-album-card influencer-album-card-media dropdown">
-                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu influencer-album-dropdown">
-                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
-                                <div class="influencer-album-link-row px-3 pb-2">
-                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>
-                                    <button class="btn btn-light btn-sm">Copy</button>
-                                </div>
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                            </div>
-                            <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="influencer-album-card influencer-album-card-media dropdown">
-                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu influencer-album-dropdown">
-                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
-                                <div class="influencer-album-link-row px-3 pb-2">
-                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>
-                                    <button class="btn btn-light btn-sm">Copy</button>
-                                </div>
-                                <a class="dropdown-item" href="#">Edit</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                            </div>
-                            <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6">
-                        <div class="influencer-album-card influencer-album-card-collage influencer-album-card-media dropdown">
-                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <div class="dropdown-menu influencer-album-dropdown">
-                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>
-                                <div class="influencer-album-link-row px-3 pb-2">
-                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>
-                                    <button class="btn btn-light btn-sm">Copy</button>
-                                </div>
-                                <a class="dropdown-item" href="#">Edit Album</a>
-                                <a class="dropdown-item" href="#">Remove</a>
-                            </div>
-                            <div class="influencer-album-collage influencer-album-collage-two">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">
-                            </div>
-                        </div>
-                    </div>
+{{--                    <div class="col-lg-4 col-md-6">--}}
+{{--                        <div style="cursor:pointer;" class="influencer-album-card influencer-album-card-collage influencer-album-card-media dropdown">--}}
+{{--                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                <i class="bi bi-three-dots-vertical"></i>--}}
+{{--                            </button>--}}
+{{--                            <div class="dropdown-menu influencer-album-dropdown">--}}
+{{--                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>--}}
+{{--                                <div class="influencer-album-link-row px-3 pb-2">--}}
+{{--                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>--}}
+{{--                                    <button class="btn btn-light btn-sm">Copy</button>--}}
+{{--                                </div>--}}
+{{--                                <a class="dropdown-item" href="#">Edit</a>--}}
+{{--                                <a class="dropdown-item" href="#">Remove</a>--}}
+{{--                            </div>--}}
+{{--                            <div class="influencer-album-collage">--}}
+{{--                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">--}}
+{{--                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">--}}
+{{--                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">--}}
+{{--                                <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product">--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                    <div class="col-lg-4 col-md-6">--}}
+{{--                        <div class="influencer-album-card influencer-album-card-media dropdown">--}}
+{{--                            <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">--}}
+{{--                                <i class="bi bi-three-dots-vertical"></i>--}}
+{{--                            </button>--}}
+{{--                            <div class="dropdown-menu influencer-album-dropdown">--}}
+{{--                                <div class="px-3 pt-2 text-muted small">REFERRAL LINK:</div>--}}
+{{--                                <div class="influencer-album-link-row px-3 pb-2">--}}
+{{--                                    <span class="small">https://herlan.com/sadiya_a_suchita</span>--}}
+{{--                                    <button class="btn btn-light btn-sm">Copy</button>--}}
+{{--                                </div>--}}
+{{--                                <a class="dropdown-item" href="#">Edit Album</a>--}}
+{{--                                <a class="dropdown-item" href="#">Remove</a>--}}
+{{--                            </div>--}}
+{{--                            <img src="{{ asset('/') }}frontend/images/influencer/Rectangle-301.png" alt="Product" class="influencer-album-img">--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
                 </div>
 
                 <nav class="influencer-albums-pagination" aria-label="Albums pagination">
@@ -657,10 +603,15 @@
                     },
                     success: function (response) {
                         // success UI
-                        alert('Album created successfully!');
+                        // alert('Album created successfully!');
+                        toastr.success('Album created successfully!');
+
                         form.reset();
+                        $('#selectedProductsList').empty();
                         $('#dropzonePreview').hide();
                         $('#dropzoneContent').show();
+                        $('#createAlbumModal').modal('hide');
+                        window.location.reload();
                     },
                     error: function (xhr) {
                         // Laravel validation errors
@@ -671,7 +622,8 @@
                                 input.after(`<small class="form-error text-danger">${messages[0]}</small>`);
                             });
                         } else {
-                            alert('Something went wrong. Please try again.');
+                            // alert('Something went wrong. Please try again.');
+                            toastr.error('Something went wrong. Please try again.');
                         }
                     },
                     complete: function () {
