@@ -6,7 +6,8 @@
     <!-- Profile Section -->
     <section class="partner-profile-section">
         <div class="partner-profile-container">
-            <form action="{{ route('partner.profile') }}">
+            <form action="{{ route('partner.dashboard') }}" method="get">
+                @csrf
                 <h2 class="partner-upload-heading">Upload Your Profile Picture</h2>
 
                 <!-- Profile Picture Upload -->
@@ -31,7 +32,7 @@
                 </div>
 
                 <!-- Submit Button -->
-                <button class="partner-btn-submit">Submit</button>
+                <button type="submit" class="partner-btn-submit">Submit</button>
             </form>
         </div>
     </section>

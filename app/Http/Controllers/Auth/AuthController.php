@@ -70,11 +70,11 @@ class AuthController extends Controller
                 ->withErrors(['confirm_password' => 'Password and Confirm Password do not match']);
         }
 
-        if ($request->user_otp != CustomHelper::getSessionCode('remark_auth'))
-        {
-            Toastr::error('OTP does not match. Please try again.', 'error');
-            return back()->withInput();
-        }
+//        if ($request->user_otp != CustomHelper::getSessionCode('remark_auth'))
+//        {
+//            Toastr::error('OTP does not match. Please try again.', 'error');
+//            return back()->withInput();
+//        }
         try {
             $user = HelperClass::createAndLoginUser($request);
             $user->

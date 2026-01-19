@@ -67,3 +67,40 @@ Route::middleware([
 
 
 
+Route::get('/clear-all-cache', function () {
+    Artisan::call('optimize:clear');
+    return Artisan::output();
+})->name('clear-all-cache');
+
+Route::get('/run-db-seeder', function () {
+    Artisan::call('db:seed');
+    return Artisan::output();
+})->name('run-db-seeder');
+
+Route::get('/db-clear-seed', function () {
+    Artisan::call('migrate:fresh --seed');
+    return Artisan::output();
+})->name('run-db-seeder');
+
+Route::get('/phpinfo', function () {
+    phpinfo();
+});
+
+Route::get('artisan-commands', function (Request $request) {
+    if ($request->command == 'migrate')
+        Artisan::call('migrate');
+    elseif ($request->command == 'seed')
+        Artisan::call('db:seed');
+    elseif ($request->command == 'optimize')
+        Artisan::call('optimize:clear');
+    elseif ($request->command == 'optimize:clear')
+        Artisan::call('optimize');
+    elseif ($request->command == 'db-dump')
+        Artisan::call('db:dump');
+    elseif ($request->command == 'migrate-fresh')
+        Artisan::call('migrate:fresh');
+    elseif ($request->command == 'migrate-fresh-seed')
+        Artisan::call('migrate:fresh --seed');
+
+    return Artisan::output();
+});
