@@ -93,6 +93,9 @@ class AuthController extends Controller
     {
         $request['mobile'] = "0".$request->mobile;
         $user = HelperClass::createAndLoginUser($request);
+        $user->update([
+            'reffer_code' => CustomHelper::generateCode(10, 'random'),
+        ]);
         Toastr::success('Registration Successful', 'Success');
         return redirect()->route('influencer.profile-verify');
     }

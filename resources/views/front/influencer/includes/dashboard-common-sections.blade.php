@@ -16,7 +16,7 @@
                     <div class="influencer-referral-link">
                         <p class="small fw-semibold mb-1">REFERRAL LINK:</p>
                         <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-center justify-content-md-start gap-2">
-                            <span class="small text-muted ref-link-url">https://herlan.com/sadiy</span>
+                            <span class="small text-muted ref-link-url">https://herlan.com/{{ $loggedUser->reffer_code ?? '' }}</span>
                             <button class="btn btn-dark btn-sm rounded-pill px-3 py-1">Copy Link</button>
                         </div>
                     </div>
