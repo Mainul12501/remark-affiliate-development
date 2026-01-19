@@ -12,7 +12,7 @@ return new class extends Migration {
     {
         Schema::create('influencer_campains', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->enum('type', ['single', 'campain'])->default('single');
+            $table->enum('type', ['single', 'album'])->default('single');
             $table->unsignedBigInteger('created_by');
             $table->string('title');
             $table->string('parent_ref_code')->unique();

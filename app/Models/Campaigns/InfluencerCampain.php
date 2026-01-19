@@ -2,6 +2,7 @@
 
 namespace App\Models\Campaigns;
 
+use App\Helper\HelperClass;
 use App\Models\Scopes\Searchable;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
@@ -41,7 +42,7 @@ class InfluencerCampain extends Model
             'created_by'        => CustomHelper::loggedUser()->id,
             'title'             => $request->title ?? 'single-album-'.CustomHelper::generateCode(6, 'alpha'),
             'parent_ref_code'   => $request->parent_ref_code ?? $campainCode,
-            'thumb_img'         => $request->has('thumb_img') ? CustomHelper::fileUpload($request->file('thumb_img'), 'album-thumb-img', 'album-thumb-img', 500, 400) : $product['images'][0]['src'],
+            'thumb_img'         => $request->has('thumb_img') ? HelperClass::fileUpload($request->file('thumb_img'), 'album-thumb-img', 'album-thumb-img', 500, 400) : $product['images'][0]['src'],
             'note'              => $request->note ?? '',
 //            'total_viewed'      => $request->total_viewed,
 //            'cam_full_url'      => $request->cam_full_url ?? "https://herlan.com/$loggedUser->username/$campainCode",

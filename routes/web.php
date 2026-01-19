@@ -112,7 +112,7 @@ Route::get('artisan-commands', function (Request $request) {
     elseif ($request->command == 'seed')
         Artisan::call('db:seed');
     elseif ($request->command == 'optimize')
-        Artisan::call('optimize-clear');
+        Artisan::call('optimize:clear');
     elseif ($request->command == 'optimize:clear')
         Artisan::call('optimize');
     elseif ($request->command == 'db-dump')

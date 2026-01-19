@@ -8,6 +8,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 use Xenon\LaravelBDSms\Facades\SMS;
@@ -33,6 +34,42 @@ class HelperClass
         return [
             'X-AFFLUENCER-TOKEN' => config('helper-functions.custom.rest_api_key') ?? 'GTGi4K(e}j.3?0/6Kia<3Y7n@h#&H`^9pG#K0OZ=!J5`LP@#'
         ];
+    }
+
+    public static function fileUpload ($fileObject, $directory, $nameString = null, $width = null, $height = null, $modelFileUrl = null)
+    {
+        if ($fileObject)
+        {
+            if (isset($modelFileUrl) && file_exists($modelFileUrl))
+            {
+                unlink($modelFileUrl);
+            }
+            $fileName       = $nameString.'-'.str_replace(' ', '-', pathinfo($fileObject->getClientOriginalName(), PATHINFO_FILENAME)).'_'.rand(100,100000).'.'.$fileObject->extension();
+            $fileDirectory  = 'backend/assets/uploaded-files/'.$directory.'/';
+            if (!File::isDirectory($fileDirectory))
+                File::makeDirectory($fileDirectory, 0777, true, true);
+//            if (self::isInterventionImageInstalled()  && self::isImageFile($fileObject))
+//            {
+//                $manager = new \Intervention\Image\ImageManager(new \Intervention\Image\Drivers\GD\Driver());
+//                $image = $manager->read($fileObject->getRealPath());
+//                if (!empty($width) || !empty($height))
+//                {
+//                    $image->resize($width, $height);
+//                }
+//                $image->save($fileDirectory.$fileName, 90, true);
+//            } else {
+//                $fileObject->move($fileDirectory, $fileName);
+//            }
+            $fileObject->move($fileDirectory, $fileName);
+            return $fileDirectory.$fileName;
+        } else {
+            if (isset($modelFileUrl))
+            {
+                return $modelFileUrl;
+            } else {
+                return null;
+            }
+        }
     }
 
     public static function createAndLoginUser($request)
