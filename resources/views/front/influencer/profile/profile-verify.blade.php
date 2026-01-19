@@ -136,7 +136,7 @@
                                 <input type="text"
                                        name="fb_profile_link"
                                        class="social-input"
-                                       placeholder="facebook.com/johndoe"
+                                       placeholder="Ex: facebook.com/username"
                                        value="{{ old('fb_profile_link', $loggedUser->userInfo->fb_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_fb_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_fb_verified == 1)
                                     <span class="social-input-check" aria-hidden="true">
@@ -164,7 +164,7 @@
                                 <input type="text"
                                        name="youtube_profile_link"
                                        class="social-input"
-                                       placeholder="Youtube.com/@johndoe"
+                                       placeholder="Ex: Youtube.com/@username"
                                        value="{{ old('youtube_profile_link', $loggedUser->userInfo->youtube_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_youtube_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_youtube_verified)
                                     <span class="social-input-check" aria-hidden="true">
@@ -203,7 +203,7 @@
                                 <input type="text"
                                        name="insta_profile_link"
                                        class="social-input social-input-with-prefix"
-                                       placeholder="johndoe"
+                                       placeholder="Ex: Insta username"
                                        value="{{ old('insta_profile_link', $loggedUser->userInfo->insta_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_insta_verified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_insta_verified == 1)
                                     <span class="social-input-check" aria-hidden="true">
@@ -231,7 +231,7 @@
                                 <input type="text"
                                        name="tiktalk_profile_link"
                                        class="social-input social-input-with-prefix"
-                                       placeholder="username or tiktok.com/@username"
+                                       placeholder="Ex: tiktok.com/@username"
                                        value="{{ old('tiktalk_profile_link', $loggedUser->userInfo->tiktalk_profile_link ?? '') }}" {{ $loggedUser?->userInfo?->is_tiktalk_varified == 1 ? 'disabled' : '' }}>
                                 @if($loggedUser?->userInfo?->is_tiktalk_varified == 1)
                                     <span class="social-input-check" aria-hidden="true">

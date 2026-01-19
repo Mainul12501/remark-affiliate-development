@@ -35,7 +35,7 @@
                             <p class="mb-0">Use at Least 1 product</p>
                         </div>
                     </div>
-                    @forelse($influencerCampaigns as $key => $influencerCampaign)
+                    @foreach($influencerCampaigns as $key => $influencerCampaign)
                         <div class="col-lg-4 col-md-6">
                             <div style="cursor:pointer;" class="influencer-album-card {{ $influencerCampaign->type == 'album' ? 'influencer-album-card-collage' : '' }} influencer-album-card-media dropdown">
                                 <button class="influencer-album-menu-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -60,13 +60,13 @@
                                 <img src="{{ $influencerCampaign->type == 'album' ? asset($influencerCampaign->thumb_img) : $influencerCampaign->thumb_img }}" alt="Product" class="influencer-album-img">
                             </div>
                         </div>
-                    @empty
-                        <div class="col-lg-4 col-md-6">
-                            <div class="influencer-album-card influencer-album-card-media dropdown">
-                                <p class="text-center">No Campaign created yet</p>
-                            </div>
-                        </div>
-                    @endforelse
+{{--                    @empty--}}
+{{--                        <div class="col-lg-4 col-md-6">--}}
+{{--                            <div class="influencer-album-card influencer-album-card-media dropdown">--}}
+{{--                                <p class="text-center">No Campaign created yet</p>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+                        @endforeach
 
 
 {{--                    <div class="col-lg-4 col-md-6">--}}
@@ -531,6 +531,7 @@
                     else
                         toastr.error(response.error);
                     $('#addProductModal').modal('hide');
+                    window.location.reload();
                 });
             }
         });

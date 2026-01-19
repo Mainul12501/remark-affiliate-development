@@ -18,7 +18,7 @@
                         {{ auth()->user()->name ?? 'User Name' }} <i class="bi bi-caret-down-fill ms-1"></i>
                     </a>
                     <ul class="dropdown-menu" data-bs-popper="static">
-                        <li><a class="dropdown-item" href="{{ route('influencer.profile') }}">Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ auth()->user()->user_type == 'influencer' ? route('influencer.profile') : route('partner.dashboard') }}">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Settings</a></li>
                         <li><a class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logoutForm').submit()">Logout</a></li>
                     </ul>
