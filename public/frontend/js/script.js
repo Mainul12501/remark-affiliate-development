@@ -645,6 +645,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 return;
             }
 
+            // Set the file to the input element (for drag & drop)
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            $albumFileInput[0].files = dataTransfer.files;
+
             // Preview
             const reader = new FileReader();
             reader.onload = e => {
