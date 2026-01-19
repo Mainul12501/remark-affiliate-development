@@ -385,200 +385,379 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // ===== CREATE ALBUM MODAL FUNCTIONALITY =====
-    const albumDropzone = document.getElementById('albumDropzone');
-    const albumFileInput = document.getElementById('albumImageInput');
-    const albumDropzoneContent = document.getElementById('dropzoneContent');
-    const albumDropzonePreview = document.getElementById('dropzonePreview');
-    const albumPreviewImg = document.getElementById('albumPreviewImg');
-    const albumRemoveBtn = document.getElementById('removeAlbumImage');
+    // // ===== CREATE ALBUM MODAL FUNCTIONALITY =====
+    // const albumDropzone = document.getElementById('albumDropzone');
+    // const albumFileInput = document.getElementById('albumImageInput');
+    // const albumDropzoneContent = document.getElementById('dropzoneContent');
+    // const albumDropzonePreview = document.getElementById('dropzonePreview');
+    // const albumPreviewImg = document.getElementById('albumPreviewImg');
+    // const albumRemoveBtn = document.getElementById('removeAlbumImage');
+    //
+    // if (albumDropzone && albumFileInput) {
+    //     // Click to upload
+    //     albumDropzone.addEventListener('click', function(e) {
+    //         if (e.target.closest('.dropzone-remove-btn')) return;
+    //         albumFileInput.click();
+    //     });
+    //
+    //     // File input change
+    //     albumFileInput.addEventListener('change', function(e) {
+    //         handleAlbumFiles(e.target.files);
+    //     });
+    //
+    //     // Drag events
+    //     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    //         albumDropzone.addEventListener(eventName, preventAlbumDefaults, false);
+    //     });
+    //
+    //     function preventAlbumDefaults(e) {
+    //         e.preventDefault();
+    //         e.stopPropagation();
+    //     }
+    //
+    //     ['dragenter', 'dragover'].forEach(eventName => {
+    //         albumDropzone.addEventListener(eventName, highlightAlbum, false);
+    //     });
+    //
+    //     ['dragleave', 'drop'].forEach(eventName => {
+    //         albumDropzone.addEventListener(eventName, unhighlightAlbum, false);
+    //     });
+    //
+    //     function highlightAlbum() {
+    //         albumDropzone.classList.add('dropzone-active');
+    //     }
+    //
+    //     function unhighlightAlbum() {
+    //         albumDropzone.classList.remove('dropzone-active');
+    //     }
+    //
+    //     // Handle drop
+    //     albumDropzone.addEventListener('drop', function(e) {
+    //         const dt = e.dataTransfer;
+    //         const files = dt.files;
+    //         handleAlbumFiles(files);
+    //     });
+    //
+    //     function handleAlbumFiles(files) {
+    //         if (files.length === 0) return;
+    //
+    //         const file = files[0];
+    //
+    //         // Validate file type
+    //         if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+    //             alert('Please upload only JPEG or PNG images.');
+    //             return;
+    //         }
+    //
+    //         // Validate file size (1MB max)
+    //         if (file.size > 1024 * 1024) {
+    //             alert('File size must be less than 1MB.');
+    //             return;
+    //         }
+    //
+    //         // Show preview
+    //         const reader = new FileReader();
+    //         reader.onload = function(e) {
+    //             albumPreviewImg.src = e.target.result;
+    //             albumDropzoneContent.style.display = 'none';
+    //             albumDropzonePreview.style.display = 'flex';
+    //         };
+    //         reader.readAsDataURL(file);
+    //     }
+    //
+    //     // Remove image
+    //     if (albumRemoveBtn) {
+    //         albumRemoveBtn.addEventListener('click', function(e) {
+    //             e.stopPropagation();
+    //             albumPreviewImg.src = '';
+    //             albumFileInput.value = '';
+    //             albumDropzonePreview.style.display = 'none';
+    //             albumDropzoneContent.style.display = 'flex';
+    //         });
+    //     }
+    // }
+    //
+    // // ===== MODAL STACKING - Keep Create Album open when Product Modal opens =====
+    // const createAlbumModal = document.getElementById('createAlbumModal');
+    // const albumProductModal = document.getElementById('albumProductModal');
+    // const openProductModalBtn = document.getElementById('openAlbumProductModal');
+    //
+    // if (openProductModalBtn && albumProductModal && createAlbumModal) {
+    //     // Open product modal without closing create album modal
+    //     openProductModalBtn.addEventListener('click', function() {
+    //         const productModal = new bootstrap.Modal(albumProductModal, {
+    //             backdrop: true
+    //         });
+    //         productModal.show();
+    //     });
+    //
+    //     // When product modal opens, ensure create album modal stays visible
+    //     albumProductModal.addEventListener('show.bs.modal', function() {
+    //         createAlbumModal.style.zIndex = '1055';
+    //         setTimeout(() => {
+    //             document.body.classList.add('modal-open');
+    //         }, 10);
+    //     });
+    //
+    //     // When product modal closes, restore create album modal z-index
+    //     albumProductModal.addEventListener('hidden.bs.modal', function() {
+    //         createAlbumModal.style.zIndex = '';
+    //         document.body.classList.add('modal-open');
+    //         document.body.style.overflow = 'hidden';
+    //         document.body.style.paddingRight = '';
+    //     });
+    // }
+    //
+    // // ===== PRODUCT SELECTION FOR ALBUM =====
+    // const selectedAlbumProducts = new Map();
+    // const albumProductList = document.getElementById('selectedProductsList');
+    //
+    // // Handle product selection in album modal
+    // document.querySelectorAll('.album-product-selectable').forEach(card => {
+    //     card.addEventListener('click', function() {
+    //         const productId = this.dataset.productId;
+    //         const productImg = this.dataset.productImg;
+    //
+    //         if (selectedAlbumProducts.has(productId)) {
+    //             // Deselect
+    //             selectedAlbumProducts.delete(productId);
+    //             this.classList.remove('product-selected');
+    //         } else {
+    //             // Select
+    //             selectedAlbumProducts.set(productId, productImg);
+    //             this.classList.add('product-selected');
+    //         }
+    //
+    //         updateAlbumSelectedProductsList();
+    //     });
+    // });
+    //
+    // function updateAlbumSelectedProductsList() {
+    //     if (!albumProductList) return;
+    //
+    //     albumProductList.innerHTML = '';
+    //     selectedAlbumProducts.forEach((imgSrc, id) => {
+    //         const thumb = document.createElement('div');
+    //         thumb.className = 'album-selected-product-thumb';
+    //         thumb.innerHTML = `
+    //             <img src="${imgSrc}" alt="Product">
+    //             <button type="button" class="album-remove-product-btn" data-id="${id}">
+    //                 <i class="bi bi-x"></i>
+    //             </button>
+    //         `;
+    //         albumProductList.appendChild(thumb);
+    //     });
+    //
+    //     // Add remove handlers
+    //     document.querySelectorAll('.album-remove-product-btn').forEach(btn => {
+    //         btn.addEventListener('click', function(e) {
+    //             e.stopPropagation();
+    //             const id = this.dataset.id;
+    //             selectedAlbumProducts.delete(id);
+    //             document.querySelector(`.album-product-selectable[data-product-id="${id}"]`)?.classList.remove('product-selected');
+    //             updateAlbumSelectedProductsList();
+    //         });
+    //     });
+    // }
+    //
+    // // Reset when modal closes
+    // if (createAlbumModal) {
+    //     createAlbumModal.addEventListener('hidden.bs.modal', function() {
+    //         // Reset dropzone
+    //         if (albumPreviewImg) albumPreviewImg.src = '';
+    //         if (albumFileInput) albumFileInput.value = '';
+    //         if (albumDropzonePreview) albumDropzonePreview.style.display = 'none';
+    //         if (albumDropzoneContent) albumDropzoneContent.style.display = 'flex';
+    //
+    //         // Reset products
+    //         selectedAlbumProducts.clear();
+    //         document.querySelectorAll('.album-product-selectable').forEach(card => {
+    //             card.classList.remove('product-selected');
+    //         });
+    //         updateAlbumSelectedProductsList();
+    //
+    //         // Reset form
+    //         const albumTitleInput = document.querySelector('.create-album-input');
+    //         if (albumTitleInput) albumTitleInput.value = '';
+    //     });
+    // }
 
-    if (albumDropzone && albumFileInput) {
+
+    // ===== CREATE ALBUM MODAL FUNCTIONALITY =====
+    const $albumDropzone        = $('#albumDropzone');
+    const $albumFileInput       = $('#albumImageInput');
+    const $albumDropzoneContent = $('#dropzoneContent');
+    const $albumDropzonePreview = $('#dropzonePreview');
+    const $albumPreviewImg      = $('#albumPreviewImg');
+    const $albumRemoveBtn       = $('#removeAlbumImage');
+
+    if ($albumDropzone.length && $albumFileInput.length) {
+
         // Click to upload
-        albumDropzone.addEventListener('click', function(e) {
-            if (e.target.closest('.dropzone-remove-btn')) return;
-            albumFileInput.click();
+        $albumDropzone.on('click', e => {
+            if ($(e.target).closest('.dropzone-remove-btn').length) return;
+            // $albumFileInput.trigger('click');
+            $albumFileInput[0].click();
         });
 
         // File input change
-        albumFileInput.addEventListener('change', function(e) {
+        $albumFileInput.on('change', e => {
             handleAlbumFiles(e.target.files);
         });
 
         // Drag events
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-            albumDropzone.addEventListener(eventName, preventAlbumDefaults, false);
-        });
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event =>
+            $albumDropzone.on(event, e => {
+                e.preventDefault();
+                e.stopPropagation();
+            })
+        );
 
-        function preventAlbumDefaults(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        // Highlight
+        ['dragenter', 'dragover'].forEach(event =>
+            $albumDropzone.on(event, () => $albumDropzone.addClass('dropzone-active'))
+        );
 
-        ['dragenter', 'dragover'].forEach(eventName => {
-            albumDropzone.addEventListener(eventName, highlightAlbum, false);
-        });
+        ['dragleave', 'drop'].forEach(event =>
+            $albumDropzone.on(event, () => $albumDropzone.removeClass('dropzone-active'))
+        );
 
-        ['dragleave', 'drop'].forEach(eventName => {
-            albumDropzone.addEventListener(eventName, unhighlightAlbum, false);
-        });
-
-        function highlightAlbum() {
-            albumDropzone.classList.add('dropzone-active');
-        }
-
-        function unhighlightAlbum() {
-            albumDropzone.classList.remove('dropzone-active');
-        }
-
-        // Handle drop
-        albumDropzone.addEventListener('drop', function(e) {
-            const dt = e.dataTransfer;
-            const files = dt.files;
+        // Drop
+        $albumDropzone.on('drop', e => {
+            const files = e.originalEvent.dataTransfer.files;
             handleAlbumFiles(files);
         });
 
-        function handleAlbumFiles(files) {
-            if (files.length === 0) return;
+        const handleAlbumFiles = files => {
+            if (!files.length) return;
 
             const file = files[0];
 
-            // Validate file type
-            if (!file.type.match('image/jpeg') && !file.type.match('image/png')) {
+            // Validate type
+            if (!['image/jpeg', 'image/png'].includes(file.type)) {
                 alert('Please upload only JPEG or PNG images.');
                 return;
             }
 
-            // Validate file size (1MB max)
+            // Validate size (1MB)
             if (file.size > 1024 * 1024) {
                 alert('File size must be less than 1MB.');
                 return;
             }
 
-            // Show preview
+            // Set the file to the input element (for drag & drop)
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            $albumFileInput[0].files = dataTransfer.files;
+
+            // Preview
             const reader = new FileReader();
-            reader.onload = function(e) {
-                albumPreviewImg.src = e.target.result;
-                albumDropzoneContent.style.display = 'none';
-                albumDropzonePreview.style.display = 'flex';
+            reader.onload = e => {
+                $albumPreviewImg.attr('src', e.target.result);
+                $albumDropzoneContent.hide();
+                $albumDropzonePreview.css('display', 'flex');
             };
             reader.readAsDataURL(file);
-        }
+        };
 
         // Remove image
-        if (albumRemoveBtn) {
-            albumRemoveBtn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                albumPreviewImg.src = '';
-                albumFileInput.value = '';
-                albumDropzonePreview.style.display = 'none';
-                albumDropzoneContent.style.display = 'flex';
-            });
-        }
-    }
-
-    // ===== MODAL STACKING - Keep Create Album open when Product Modal opens =====
-    const createAlbumModal = document.getElementById('createAlbumModal');
-    const albumProductModal = document.getElementById('albumProductModal');
-    const openProductModalBtn = document.getElementById('openAlbumProductModal');
-
-    if (openProductModalBtn && albumProductModal && createAlbumModal) {
-        // Open product modal without closing create album modal
-        openProductModalBtn.addEventListener('click', function() {
-            const productModal = new bootstrap.Modal(albumProductModal, {
-                backdrop: true
-            });
-            productModal.show();
-        });
-
-        // When product modal opens, ensure create album modal stays visible
-        albumProductModal.addEventListener('show.bs.modal', function() {
-            createAlbumModal.style.zIndex = '1055';
-            setTimeout(() => {
-                document.body.classList.add('modal-open');
-            }, 10);
-        });
-
-        // When product modal closes, restore create album modal z-index
-        albumProductModal.addEventListener('hidden.bs.modal', function() {
-            createAlbumModal.style.zIndex = '';
-            document.body.classList.add('modal-open');
-            document.body.style.overflow = 'hidden';
-            document.body.style.paddingRight = '';
+        $albumRemoveBtn.on('click', e => {
+            e.stopPropagation();
+            $albumPreviewImg.attr('src', '');
+            $albumFileInput.val('');
+            $albumDropzonePreview.hide();
+            $albumDropzoneContent.show();
         });
     }
 
-    // ===== PRODUCT SELECTION FOR ALBUM =====
+    // ===== MODAL STACKING =====
+    const $createAlbumModal  = $('#createAlbumModal');
+    const $albumProductModal = $('#albumProductModal');
+    const $openProductModal  = $('#openAlbumProductModal');
+
+    if ($openProductModal.length && $albumProductModal.length && $createAlbumModal.length) {
+
+        $openProductModal.on('click', () => {
+            new bootstrap.Modal($albumProductModal[0], { backdrop: true }).show();
+        });
+
+        $albumProductModal.on('show.bs.modal', () => {
+            $createAlbumModal.css('z-index', 1055);
+            setTimeout(() => $('body').addClass('modal-open'), 10);
+        });
+
+        $albumProductModal.on('hidden.bs.modal', () => {
+            $createAlbumModal.css('z-index', '');
+            $('body')
+                .addClass('modal-open')
+                .css({ overflow: 'hidden', paddingRight: '' });
+        });
+    }
+
+    // ===== PRODUCT SELECTION =====
     const selectedAlbumProducts = new Map();
-    const albumProductList = document.getElementById('selectedProductsList');
+    const $albumProductList = $('#selectedProductsList');
 
-    // Handle product selection in album modal
-    document.querySelectorAll('.album-product-selectable').forEach(card => {
-        card.addEventListener('click', function() {
-            const productId = this.dataset.productId;
-            const productImg = this.dataset.productImg;
+    $(document).on('click', '.album-product-selectable', function () {
+        const productId  = $(this).data('product-id');
+        const productImg = $(this).data('product-img');
 
-            if (selectedAlbumProducts.has(productId)) {
-                // Deselect
-                selectedAlbumProducts.delete(productId);
-                this.classList.remove('product-selected');
-            } else {
-                // Select
-                selectedAlbumProducts.set(productId, productImg);
-                this.classList.add('product-selected');
-            }
+        if (selectedAlbumProducts.has(productId)) {
+            selectedAlbumProducts.delete(productId);
+            $(this).removeClass('product-selected');
+        } else {
+            selectedAlbumProducts.set(productId, productImg);
+            $(this).addClass('product-selected');
+        }
 
-            updateAlbumSelectedProductsList();
-        });
+        updateAlbumSelectedProductsList();
     });
 
-    function updateAlbumSelectedProductsList() {
-        if (!albumProductList) return;
+    const updateAlbumSelectedProductsList = () => {
+        if (!$albumProductList.length) return;
 
-        albumProductList.innerHTML = '';
+        $albumProductList.empty();
+
         selectedAlbumProducts.forEach((imgSrc, id) => {
-            const thumb = document.createElement('div');
-            thumb.className = 'album-selected-product-thumb';
-            thumb.innerHTML = `
-                <img src="${imgSrc}" alt="Product">
-                <button type="button" class="album-remove-product-btn" data-id="${id}">
-                    <i class="bi bi-x"></i>
-                </button>
-            `;
-            albumProductList.appendChild(thumb);
+            $albumProductList.append(`
+                <input type="hidden" name="products_id[]" value="${id}">
+                <input type="hidden" name="products_sku[]" value="${$('div[data-product-id="'+id+'"]').attr('data-product-sku')}" />
+                <div class="album-selected-product-thumb">
+                    <img src="${imgSrc}" alt="Product">
+                    <button type="button" class="album-remove-product-btn" data-id="${id}">
+                        <i class="bi bi-x"></i>
+                    </button>
+                </div>
+            `);
         });
+    };
 
-        // Add remove handlers
-        document.querySelectorAll('.album-remove-product-btn').forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const id = this.dataset.id;
-                selectedAlbumProducts.delete(id);
-                document.querySelector(`.album-product-selectable[data-product-id="${id}"]`)?.classList.remove('product-selected');
-                updateAlbumSelectedProductsList();
-            });
-        });
-    }
+    $(document).on('click', '.album-remove-product-btn', function (e) {
+        e.stopPropagation();
 
-    // Reset when modal closes
-    if (createAlbumModal) {
-        createAlbumModal.addEventListener('hidden.bs.modal', function() {
-            // Reset dropzone
-            if (albumPreviewImg) albumPreviewImg.src = '';
-            if (albumFileInput) albumFileInput.value = '';
-            if (albumDropzonePreview) albumDropzonePreview.style.display = 'none';
-            if (albumDropzoneContent) albumDropzoneContent.style.display = 'flex';
+        const id = $(this).data('id');
+        selectedAlbumProducts.delete(id);
 
-            // Reset products
+        $(`.album-product-selectable[data-product-id="${id}"]`)
+            .removeClass('product-selected');
+
+        updateAlbumSelectedProductsList();
+    });
+
+    // ===== RESET ON MODAL CLOSE =====
+    if ($createAlbumModal.length) {
+        $createAlbumModal.on('hidden.bs.modal', () => {
+
+            $albumPreviewImg.attr('src', '');
+            $albumFileInput.val('');
+            $albumDropzonePreview.hide();
+            $albumDropzoneContent.show();
+
             selectedAlbumProducts.clear();
-            document.querySelectorAll('.album-product-selectable').forEach(card => {
-                card.classList.remove('product-selected');
-            });
+            $('.album-product-selectable').removeClass('product-selected');
             updateAlbumSelectedProductsList();
 
-            // Reset form
-            const albumTitleInput = document.querySelector('.create-album-input');
-            if (albumTitleInput) albumTitleInput.value = '';
+            $('.create-album-input').val('');
         });
     }
 });
