@@ -32,7 +32,7 @@ class AuthController extends Controller
     {
         $data = [
             'email' => $request->email,
-            'otp' => CustomHelper::generateSessionCode(6, 'number', 'remark_auth'),
+            'otp' => CustomHelper::generateSessionCode(4, 'number', 'remark_auth'),
             'purpose' => $request->purpose,
         ];
         try {
@@ -77,7 +77,9 @@ class AuthController extends Controller
         }
         try {
             $user = HelperClass::createAndLoginUser($request);
-            $user->
+            $user->update([
+                'reffer_code' => CustomHelper::generateCode(10, 'random'),
+            ]);
             Toastr::success('Registration Successful', 'Success');
             return redirect()->route('partner.profile-verify');
         } catch (\Exception $exception) {

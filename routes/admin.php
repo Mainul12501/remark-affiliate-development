@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\Product\ProductCategoryController;
 use App\Http\Controllers\Admin\Product\ProductController;
+use App\Http\Controllers\Admin\BankController;
+use App\Http\Controllers\Admin\Benefit\BenefitCategoryController;
+use App\Http\Controllers\Admin\Benefit\BenefitController;
+use App\Http\Controllers\Admin\Product\ProductCommissionRateController;
 
 Route::get('login',[AdminController::class,'login'])->name('login');
 Route::get('admin',[AdminController::class,'login']);
@@ -26,7 +30,7 @@ Route::prefix('admin')->group(function () {
         'verified',
         /*'password.expiry',*/
         'resource.maker',
-        'auth.acl'
+//        'auth.acl'
     ])->group(function (){
         Route::get('/dashboard',[AdminController::class,'dashboard'])->name('dashboard');
 
@@ -44,10 +48,17 @@ Route::prefix('admin')->group(function () {
 
         Route::name('admin.')->group(function () {
             Route::resources([
-                'brands'        => BrandController::class,
-                'categories'    => ProductCategoryController::class,
-                'products'      => ProductController::class,
+                'brands'                    => BrandController::class,
+                'categories'                => ProductCategoryController::class,
+                'products'                  => ProductController::class,
+                'banks'                     => BankController::class,
+                'benefit-categories'        => BenefitCategoryController::class,
+                'benefit-lists'             => BenefitController::class,
+                'product-commission-rates'  => ProductCommissionRateController::class,
             ]);
+
+            // AJAX route for product search
+            Route::get('search-products', [ProductCommissionRateController::class, 'searchProducts'])->name('search-products');
         });
     });
 });

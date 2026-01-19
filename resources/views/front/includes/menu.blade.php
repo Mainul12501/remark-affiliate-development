@@ -6,9 +6,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="nav">
-
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 m-r-25">
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Rewards</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Forum</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Why Affluencer?</a></li>
+                <li class="nav-item"><a class="nav-link" href="javascript:void(0)">Contact Us</a></li>
+            </ul>
             @if(auth()->check())
-                <div class="ms-auto dropdown d-none d-md-block">
+                <div class="ms-auto dropdown <!--d-none d-md-block-->">
                     <a href="#" class="text-decoration-none text-secondary  fw-semibold influencer-user-dropdown show" data-bs-toggle="dropdown" aria-expanded="true">
                         {{ auth()->user()->name ?? 'User Name' }} <i class="bi bi-caret-down-fill ms-1"></i>
                     </a>
@@ -20,12 +25,6 @@
                     <form action="{{ route('logout') }}" id="logoutForm" method="post">@csrf</form>
                 </div>
             @else
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 m-r-25">
-                    <li class="nav-item"><a class="nav-link" href="#">Rewards</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Forum</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Why Affluencer?</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact Us</a></li>
-                </ul>
                 <div class="d-flex gap-2">
                     <a href="{{ route('auth.login-page') }}" class="btn btn-outline-black border text-dark" style="border: 1px solid black!important;">Login</a>
                     <div class="dropdown">

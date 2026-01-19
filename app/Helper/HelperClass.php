@@ -9,6 +9,7 @@ use GuzzleHttp\Exception\RequestException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Mainul\CustomHelperFunctions\Helpers\CustomHelper;
 use Xenon\LaravelBDSms\Facades\SMS;
 use Xenon\LaravelBDSms\Provider\Ssl;
 use Xenon\LaravelBDSms\Sender;
@@ -16,6 +17,24 @@ use Exception;
 
 class HelperClass
 {
+    public static function getProductLists($perPage = '', $currentPage = '', $search = '')
+    {
+        $response = CustomHelper::requestApi("products?per_page=$perPage&page=$currentPage&search=$search", 'GET', [], self::getRestApiHeaderKey());
+        if ($response['status'] == 200 && $response['success'] == true) {
+            $products = $response['data'];
+        } else {
+            $products = [];
+        }
+        return $products;
+    }
+
+    public static function getRestApiHeaderKey()
+    {
+        return [
+            'X-AFFLUENCER-TOKEN' => config('helper-functions.custom.rest_api_key') ?? 'GTGi4K(e}j.3?0/6Kia<3Y7n@h#&H`^9pG#K0OZ=!J5`LP@#'
+        ];
+    }
+
     public static function createAndLoginUser($request)
     {
         $user = DB::transaction(function () use ($request) {
@@ -44,6 +63,11 @@ class HelperClass
         );
         $status = $sender->send();
         return $status;
+    }
+
+    public static function getUserWithUserInfo()
+    {
+        return CustomHelper::loggedUser()->load('userInfo');
     }
 
 //public $apiUrl = "https://smsplus.sslwireless.com/";

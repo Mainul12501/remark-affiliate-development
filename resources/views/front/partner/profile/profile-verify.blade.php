@@ -6,7 +6,8 @@
     <!-- Profile Section -->
     <section class="partner-profile-section">
         <div class="partner-profile-container">
-            <form action="{{ route('partner.profile') }}">
+            <form action="" method="post">
+                @csrf
                 <h2 class="partner-upload-heading">Upload Your Profile Picture</h2>
 
                 <!-- Profile Picture Upload -->

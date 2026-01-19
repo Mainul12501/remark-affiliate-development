@@ -37,7 +37,7 @@ class AdminController extends Controller
             $fileFields = ['favicon', 'menu_logo', 'logo', 'banner'];
             foreach ($fileFields as $field) {
                 if ($request->hasFile($field)) {
-                    $filePath = CustomHelper::fileUpload(request()->file($field), 'site-settings', $siteSetting->$field, $siteSetting[$field]);
+                    $filePath = CustomHelper::fileUpload(request()->file($field), 'site-settings',null, null, $siteSetting->$field, $siteSetting[$field]);
                     // Delete old file
 //                    if ($siteSetting->$field && File::exists(public_path($siteSetting->$field))) {
 //                        File::delete(public_path($siteSetting->$field));
