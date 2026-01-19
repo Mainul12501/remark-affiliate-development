@@ -233,9 +233,7 @@
                         </div>
                     </div>
                     <div class="text-center mt-4 d-md-none">
-                        @if(!auth()->check())
-                            <a class="btn btn-red btn-danger mt-2">Sign Up Today</a>
-                        @endif
+                        <a class="btn btn-red btn-danger mt-2">Sign Up Today</a>
                         <a class="btn btn-outline-black btn-outline-dark ms-2 mt-2">View Benefits & Earnings</a>
                     </div>
                 </div>

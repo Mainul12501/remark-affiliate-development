@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\SiteSetting;
-use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -29,8 +28,6 @@ class AppServiceProvider extends ServiceProvider
         View::composer('front.master', function ($view) {
             $view->with('siteSetting', SiteSetting::first());
         });
-
-        Paginator::useBootstrapFive();
 
 //        add tiktok
         Event::listen(function (\SocialiteProviders\Manager\SocialiteWasCalled $event) {

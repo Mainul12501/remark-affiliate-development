@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Product;
 
-use App\Helper\HelperClass;
 use App\Http\Controllers\Controller;
 use App\Models\Product\Product;
 use Illuminate\Http\Request;
@@ -79,15 +78,27 @@ class ProductController extends Controller
 
     public function getProductLists(Request $request)
     {
-        $getHerlanProducts = HelperClass::getProductLists();
+        $products = Product::query();
+        if ($request->filled('category') && $request->category != 'null') {
+            $products->whereHas('productCategories', function ($q) use ($request) {
+                $q->where('slug', $request->input('category'));
+            });
+        }
 
+        if ($request->filled('query') && $request->query != 'null') {
+            $products->where('title', 'like', '%' . $request->input('query') . '%');
+        }
+
+        $products = $products->latest()->select('id','thumb_img', 'title', 'slug', 'product_brand_id', 'price', 'regular_price')->with(['productBrand' => function ($brand) {
+            return $brand->select('id', 'name');
+        }])->paginate(10);
         if ($request->render == 1)
         {
-            return view('front.influencer.includes.albums.single-product-album', ['products' => $getHerlanProducts, 'forAlbum' => $request->for_album == 1 ])->render();
+            return view('front.influencer.includes.albums.single-product-album', ['products' => $products, 'forAlbum' => $request->for_album == 1 ])->render();
         }
         return response()->json([
             'status' => 200,
-            'products' => $getHerlanProducts
+            'products' => $products
         ]);
     }
 }

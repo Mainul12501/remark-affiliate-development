@@ -65,39 +65,10 @@
                         <li class="slide">
                             <a href="{{ route('admin.products.index') }}" class="side-menu__item">Products</a>
                         </li>
-                        <li class="slide">
-                            <a href="{{ route('admin.product-commission-rates.index') }}" class="side-menu__item">Commission Rate</a>
-                        </li>
-
-                    </ul>
-                </li>
-                <!-- Start::slide -->
-                <li class="slide has-sub">
-                    <a href="javascript:void(0);" class="side-menu__item">
-                        <i class="mdi mdi-currency-usd side-menu__icon"></i>
-                        <span class="side-menu__label">Benefits Management</span>
-                        <i class="fe fe-chevron-right side-menu__angle"></i>
-                    </a>
-                    <ul class="slide-menu child1">
-                            <li class="slide">
-                                <a href="{{ route('admin.benefit-categories.index') }}" class="side-menu__item">Category</a>
-                            </li>
-                        <li class="slide">
-                            <a href="{{ route('admin.benefit-lists.index') }}" class="side-menu__item">Benefits</a>
-                        </li>
 
                     </ul>
                 </li>
 
-
-                <li class="slide">
-                    <a href="{{ route('admin.banks.index') }}" class="side-menu__item">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bank" viewBox="0 0 16 16">
-                            <path d="m8 0 6.61 3h.89a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5H15v7a.5.5 0 0 1 .485.38l.5 2a.498.498 0 0 1-.485.62H.5a.498.498 0 0 1-.485-.62l.5-2A.5.5 0 0 1 1 13V6H.5a.5.5 0 0 1-.5-.5v-2A.5.5 0 0 1 .5 3h.89zM3.777 3h8.447L8 1zM2 6v7h1V6zm2 0v7h2.5V6zm3.5 0v7h1V6zm2 0v7H12V6zM13 6v7h1V6zm2-1V4H1v1zm-.39 9H1.39l-.25 1h13.72z"/>
-                        </svg>
-                        <span class="side-menu__label ms-3">Bank Lists</span>
-                    </a>
-                </li>
 
                 <li class="slide">
                     <a href="{{ route('site-settings') }}" class="side-menu__item">
