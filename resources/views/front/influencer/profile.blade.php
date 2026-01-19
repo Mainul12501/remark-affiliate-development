@@ -131,7 +131,7 @@
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Facebook</label>
                                         <div class="position-relative mb-3">
-                                            <input type="text" class="form-control influencer-social-input" placeholder="facebook.com/johndoe" name="fb_profile_link" value="{{ old('fb_profile_link', $loggedUser->fb_profile_link ?? '') }}">
+                                            <input type="text" class="form-control influencer-social-input" placeholder="Ex: facebook.com/username" name="fb_profile_link" value="{{ old('fb_profile_link', $loggedUser?->userInfo?->fb_profile_link ?? '') }}">
                                             <span class="influencer-social-check">
                                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M15 4.5L6.75 12.75L3 9" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -148,7 +148,7 @@
                                         <!-- Youtube -->
                                         <label class="form-label fw-semibold">Youtube</label>
                                         <div class="position-relative mb-3">
-                                            <input type="text" class="form-control influencer-social-input" name="youtube_profile_link" placeholder="Youtube.com/@johndoe" value="{{ old('youtube_profile_link', $loggedUser->youtube_profile_link ?? '') }}">
+                                            <input type="text" class="form-control influencer-social-input" name="youtube_profile_link" placeholder="Ex: Youtube.com/@username" value="{{ old('youtube_profile_link', $loggedUser?->userInfo?->youtube_profile_link ?? '') }}">
                                             <span class="influencer-social-check">
                                                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M15 4.5L6.75 12.75L3 9" stroke="#10B981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -173,7 +173,7 @@
                                         <label class="form-label fw-semibold">Instagram</label>
                                         <div class="position-relative mb-3">
                                             <span class="influencer-social-prefix">@</span>
-                                            <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="johndoe" name="insta_profile_link" value="{{ old('insta_profile_link', $loggedUser->insta_profile_link ?? '') }}">
+                                            <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="Ex: username" name="insta_profile_link" value="{{ old('insta_profile_link', $loggedUser?->userInfo?->insta_profile_link ?? '') }}">
                                         </div>
                                         <small class="text-danger error-insta_profile_link d-block mb-2"></small>
                                         <button class="btn influencer-btn-instagram w-100 mb-4 influencer-social-action">
@@ -186,7 +186,7 @@
                                         <label class="form-label fw-semibold">Tiktok</label>
                                         <div class="position-relative mb-3">
                                             <span class="influencer-social-prefix">@</span>
-                                            <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="username or tiktok.com/@username" name="tiktalk_profile_link" value="{{ old('tiktalk_profile_link', $loggedUser->tiktalk_profile_link ?? '') }}">
+                                            <input type="text" class="form-control influencer-social-input influencer-social-input-prefix" placeholder="Ex: tiktok.com/@username" name="tiktalk_profile_link" value="{{ old('tiktalk_profile_link', $loggedUser?->userInfo?->tiktalk_profile_link ?? '') }}">
                                         </div>
                                         <small class="text-danger error-tiktalk_profile_link d-block mb-2"></small>
                                         <button class="btn influencer-btn-tiktok w-100 influencer-social-action">
