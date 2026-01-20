@@ -62,7 +62,7 @@
                         <div class=" col-lg-5">
                             <!-- Available Balance Card -->
                             <div class="" style="border-radius: 15px; background-color: #00B469;">
-                                <h3 class="text-white border-bottom f-s-16 mb-0 py-2 px-2" style="font-size: 16px;">Available Balance</h3>
+                                <h3 class="text-white border-bottom f-s-16 mb-0 py-2 px-2" style="font-size: 16px;">Available Earnings</h3>
                                 <div class="row px-2">
                                     <div class="col-4 border-end border-white">
                                         <div class="py-2">
@@ -121,15 +121,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Quantity</p>
-                                        <p class="ye-metric-value mb-0">8</p>
+                                        <p class="ye-metric-value mb-0">12</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Total Conversion</p>
-                                        <p class="ye-metric-value mb-0">৳3,600</p>
+                                        <p class="ye-metric-value mb-0">৳5,400</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Revenue</p>
-                                        <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                        <p class="ye-metric-value mb-0 fw-bold">Tk 540</p>
                                         <p class="ye-metric-reward mb-0">(Reward 10%)</p>
                                     </div>
                                 </div>
@@ -158,15 +158,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Quantity</p>
-                                        <p class="ye-metric-value mb-0">8</p>
+                                        <p class="ye-metric-value mb-0">5</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Total Conversion</p>
-                                        <p class="ye-metric-value mb-0">৳3,600</p>
+                                        <p class="ye-metric-value mb-0">৳2,250</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Revenue</p>
-                                        <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                        <p class="ye-metric-value mb-0 fw-bold">Tk 225</p>
                                         <p class="ye-metric-reward mb-0">(Reward 10%)</p>
                                     </div>
                                 </div>
@@ -195,15 +195,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Quantity</p>
-                                        <p class="ye-metric-value mb-0">8</p>
+                                        <p class="ye-metric-value mb-0">15</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Total Conversion</p>
-                                        <p class="ye-metric-value mb-0">৳3,600</p>
+                                        <p class="ye-metric-value mb-0">৳6,750</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Revenue</p>
-                                        <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                        <p class="ye-metric-value mb-0 fw-bold">Tk 675</p>
                                         <p class="ye-metric-reward mb-0">(Reward 10%)</p>
                                     </div>
                                 </div>
@@ -232,15 +232,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Quantity</p>
-                                        <p class="ye-metric-value mb-0">8</p>
+                                        <p class="ye-metric-value mb-0">3</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Total Conversion</p>
-                                        <p class="ye-metric-value mb-0">৳3,600</p>
+                                        <p class="ye-metric-value mb-0">৳1,350</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Revenue</p>
-                                        <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                        <p class="ye-metric-value mb-0 fw-bold">Tk 135</p>
                                         <p class="ye-metric-reward mb-0">(Reward 10%)</p>
                                     </div>
                                 </div>
@@ -269,15 +269,15 @@
                                 <div class="row text-center">
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Quantity</p>
-                                        <p class="ye-metric-value mb-0">8</p>
+                                        <p class="ye-metric-value mb-0">9</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Total Conversion</p>
-                                        <p class="ye-metric-value mb-0">৳3,600</p>
+                                        <p class="ye-metric-value mb-0">৳4,050</p>
                                     </div>
                                     <div class="col-4">
                                         <p class="ye-metric-label mb-1">Revenue</p>
-                                        <p class="ye-metric-value mb-0 fw-bold">Tk 400</p>
+                                        <p class="ye-metric-value mb-0 fw-bold">Tk 405</p>
                                         <p class="ye-metric-reward mb-0">(Reward 10%)</p>
                                     </div>
                                 </div>

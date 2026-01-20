@@ -326,11 +326,24 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         };
 
-        // Initialize product charts
+        // Initialize product charts with different dummy data for each
+        const productChartData = {
+            productChart1: [120, 350, 280, 520, 410, 680, 550, 820, 630, 750, 890, 950],
+            productChart2: [800, 650, 720, 480, 550, 320, 410, 280, 350, 220, 180, 150],
+            productChart3: [50, 180, 420, 280, 650, 380, 820, 540, 950, 680, 1100, 780],
+            productChart4: [300, 320, 380, 450, 520, 610, 720, 850, 980, 1150, 1320, 1500],
+            productChart5: [450, 280, 620, 350, 780, 420, 550, 850, 480, 720, 380, 920]
+        };
+
         ['productChart1', 'productChart2', 'productChart3', 'productChart4', 'productChart5'].forEach(function(chartId) {
             const chartElement = document.getElementById(chartId);
             if (chartElement) {
-                Highcharts.chart(chartId, productChartOptions);
+                const chartOptions = JSON.parse(JSON.stringify(productChartOptions));
+                chartOptions.series = [{
+                    type: 'area',
+                    data: productChartData[chartId]
+                }];
+                Highcharts.chart(chartId, chartOptions);
             }
         });
 
