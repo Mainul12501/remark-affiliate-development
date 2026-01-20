@@ -81,7 +81,7 @@
                             <!-- Balance Card -->
                             <div class="dashboard-balance-card card bg-white border-0">
                                 <div class="dashboard-balance-header">
-                                    <h5 class="dashboard-balance-title">Available Balance</h5>
+                                    <h5 class="dashboard-balance-title">Available Earnings</h5>
                                     <div class="row align-items-center">
                                         <div class="col-md-4">
                                             <h1 class="dashboard-main-balance">৳50,000</h1>
@@ -119,9 +119,9 @@
                                             <div id="chart-1" style="height:50px; width:100%;"></div>
                                         </div>
                                         <div class="dashboard-product-stats">
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">8</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳3,600</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳400</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">12</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳4,800</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳480</span></p>
                                             <p class="dashboard-reward-text">[Reward 10%]</p>
                                         </div>
                                     </div>
@@ -142,9 +142,9 @@
                                             <div id="chart-2" style="height:50px; width:100%;"></div>
                                         </div>
                                         <div class="dashboard-product-stats">
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">8</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳3,600</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳400</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">5</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳2,000</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳200</span></p>
                                             <p class="dashboard-reward-text">[Reward 10%]</p>
                                         </div>
                                     </div>
@@ -165,9 +165,9 @@
                                             <div id="chart-3" style="height:50px; width:100%;"></div>
                                         </div>
                                         <div class="dashboard-product-stats">
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">8</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳3,600</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳400</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">14</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳5,600</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳560</span></p>
                                             <p class="dashboard-reward-text">[Reward 10%]</p>
                                         </div>
                                     </div>
@@ -188,9 +188,9 @@
                                             <div id="chart-4" style="height:50px; width:100%;"></div>
                                         </div>
                                         <div class="dashboard-product-stats">
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">8</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳3,600</span></p>
-                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳400</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Quantity:</span> <span class="dashboard-stat-val">7</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Total Sales:</span> <span class="dashboard-stat-val">৳2,800</span></p>
+                                            <p class="dashboard-stat-line"><span class="dashboard-stat-key">Earning:</span> <span class="dashboard-stat-val">৳280</span></p>
                                             <p class="dashboard-reward-text">[Reward 10%]</p>
                                         </div>
                                     </div>
@@ -346,9 +346,10 @@
         }
 
         // Render charts
-        renderMiniChart('chart-1', [5, 7, 6, 8, 9, 10, 8, 9, 11, 12]);
-        renderMiniChart('chart-2', [3, 4, 5, 6, 7, 6, 8, 9, 8, 10]);
-        renderMiniChart('chart-3', [4, 6, 5, 7, 8, 9, 7, 8, 9, 11]);
-        renderMiniChart('chart-4', [6, 5, 6, 7, 8, 7, 9, 10, 9, 11]);
+        renderMiniChart('chart-1', [7, 14, 3, 18, 9, 12, 5, 20, 11, 16]);
+        renderMiniChart('chart-2', [4, 9, 15, 6, 13, 8, 19, 2, 10, 17]);
+        renderMiniChart('chart-3', [12, 5, 18, 9, 7, 14, 3, 16, 11, 20]);
+        renderMiniChart('chart-4', [6, 11, 4, 19, 8, 15, 10, 2, 17, 13]);
+
     </script>
 @endpush
