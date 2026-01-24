@@ -259,11 +259,11 @@
                                 <tr><th>Categories</th><th class="text-end">Benefits (%)</th></tr>
                                 </thead>
                                 <tbody>
-                                <tr><td>Color Cosmetics</td><td class="text-end">10% – 12%</td></tr>
-                                <tr><td>Skin Care</td><td class="text-end">8% – 12%</td></tr>
-                                <tr><td>Hair Care</td><td class="text-end">8% – 10%</td></tr>
-                                <tr><td>Personal Care</td><td class="text-end">8% – 12%</td></tr>
-                                <tr><td>Accessories</td><td class="text-end">10%</td></tr>
+                                    <tr><td>Hair Care</td><td class="text-end">8% – 10%</td></tr>
+                                    <tr><td>Color Cosmetics</td><td class="text-end">12% – 15%</td></tr>
+                                    <tr><td>Personal Care</td><td class="text-end">8% – 12%</td></tr>
+                                    <tr><td>Skin Care</td><td class="text-end">4% – 18%</td></tr>
+                                    <tr><td>Accessories</td><td class="text-end">6% - 10%</td></tr>
                                 </tbody>
                             </table>
                             <div class="text-center"><a href="{{ route('front.benefits', ['type' => 'influencer']) }}" class="btn btn-outline-black btn-outline-dark">View Details</a></div>
