@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.10.1",
         "livewire/livewire": "^3.6.4",
         "mainul/custom-helpers": "^1.1",
+        "nativephp/mobile": "^3.0",
         "rappasoft/laravel-livewire-tables": "^3.7",
         "socialiteproviders/instagram": "^5.1",
         "socialiteproviders/tiktok": "^5.2",
