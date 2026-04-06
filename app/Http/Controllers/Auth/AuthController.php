@@ -49,6 +49,13 @@ class AuthController extends Controller
         $otp = CustomHelper::generateSessionCode(4, 'number', 'remark_auth');
         try {
             if ($request->for == 'registration') {
+                $existUser = User::where('mobile', $request->mobile)->first();
+                if ($existUser) {
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => 'User with this mobile number already exist',
+                    ]);
+                }
                 HelperClass::sendOtpSms($request->mobile, "Welcome to Herlan! Your verification code: $otp. Expires in 5 minutes.");
             }
             return response()->json([

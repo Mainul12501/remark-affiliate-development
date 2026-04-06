@@ -378,10 +378,7 @@
             let emailActive = $('input[name="email"]').attr('data-active-status') === 'active';
             let mobileActive = $('input[name="mobile"]').attr('data-active-status') === 'active';
 
-            $('.otp-input').removeClass('d-none');
-            $('.show-hide-block').removeClass('d-none');
-            $('#submitBtn').removeClass('d-none');
-            $('#nextBtn').addClass('d-none');
+
             // comment out these two if needed content editing
             // $('input[name="mobile"]').attr('readonly', true );
             // $('input[name="email"]').attr('readonly', true);
@@ -407,8 +404,16 @@
                     $('#nextBtn').addClass('d-none');
 
                     $('input[name="email"], input[name="mobile"]').prop('readonly', true);
+
+
+                    $('.otp-input').removeClass('d-none');
+                    $('.show-hide-block').removeClass('d-none');
+                    $('#submitBtn').removeClass('d-none');
+                    $('#nextBtn').addClass('d-none');
+
+                    $('#nextBtn').attr('disabled', false);
                 }
-                $('#nextBtn').attr('disabled', false);
+
             }).catch(function(error) {
                 toastr.error(error.message || 'Failed to send OTP');
                 $('#nextBtn').attr('disabled', false);
