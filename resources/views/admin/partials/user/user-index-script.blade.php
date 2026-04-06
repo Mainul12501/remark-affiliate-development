@@ -48,7 +48,7 @@
                 },
                 { data: 'name',  title: 'Name', searchable:true },
                 { data: 'email', title: 'Email', searchable:true },
-                { data: 'mobile_no', title: 'Mobile', searchable:true },
+                { data: 'mobile', title: 'Mobile', searchable:true },
                 {
                     data: 'created_at',
                     title: 'Joined At',

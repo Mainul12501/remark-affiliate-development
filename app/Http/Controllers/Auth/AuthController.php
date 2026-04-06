@@ -92,6 +92,10 @@ class AuthController extends Controller
     public function registerInfluencer(Request $request)
     {
         $request['mobile'] = "0".$request->mobile;
+        $existUser = User::where('mobile', $request->mobile)->first();
+        if ($existUser) {
+            return back()->with('error', 'Mobile number already exists');
+        }
         $user = HelperClass::createAndLoginUser($request);
         $user->update([
             'reffer_code' => CustomHelper::generateCode(10, 'random'),

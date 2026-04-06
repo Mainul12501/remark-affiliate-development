@@ -544,5 +544,9 @@
                 checkUniqueField($(this));
             }
         });
+
+        @if(session()->has('error'))
+            toastr.error("{{ session('error') }}");
+        @endif
     </script>
 @endpush
